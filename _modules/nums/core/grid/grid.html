@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nums.core.grid.grid &mdash; NumS  documentation</title><link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> NumS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">nums.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../numpy.html">nums.numpy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">NumS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>nums.core.grid.grid</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nums.core.grid.grid</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Iterator</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">nums.core.array</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">array_utils</span>
+<span class="kn">from</span> <span class="nn">nums.core.storage.utils</span> <span class="kn">import</span> <span class="n">Batch</span>
+
+
+<div class="viewcode-block" id="ArrayGrid"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.ArrayGrid">[docs]</a><span class="k">class</span> <span class="nc">ArrayGrid</span><span class="p">:</span>
+<div class="viewcode-block" id="ArrayGrid.from_meta"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.ArrayGrid.from_meta">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_meta</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="nb">dict</span> <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;dict&quot;</span> <span class="k">else</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_slices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)):</span>
+            <span class="n">dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">block_dim</span> <span class="o">=</span> <span class="n">block_shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># Special case of empty array.</span>
+                <span class="n">axis_slices</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">axis_slices</span> <span class="o">=</span> <span class="n">Batch</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">block_dim</span><span class="p">)</span><span class="o">.</span><span class="n">batches</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid_slices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">axis_slices</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">axis_slices</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ArrayGrid.to_meta"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.ArrayGrid.to_meta">[docs]</a>    <span class="k">def</span> <span class="nf">to_meta</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="s2">&quot;block_shape&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span><span class="p">,</span>
+            <span class="s2">&quot;dtype&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+<div class="viewcode-block" id="ArrayGrid.copy"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.ArrayGrid.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">from_meta</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_meta</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="ArrayGrid.get_entry_iterator"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.ArrayGrid.get_entry_iterator">[docs]</a>    <span class="k">def</span> <span class="nf">get_entry_iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ArrayGrid.get_slice"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.ArrayGrid.get_slice">[docs]</a>    <span class="k">def</span> <span class="nf">get_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">):</span>
+        <span class="n">slices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">slice_index</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">):</span>
+            <span class="n">slices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_slices</span><span class="p">[</span><span class="n">axis</span><span class="p">][</span><span class="n">slice_index</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">slices</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ArrayGrid.get_slice_tuples"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.ArrayGrid.get_slice_tuples">[docs]</a>    <span class="k">def</span> <span class="nf">get_slice_tuples</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">]]:</span>
+        <span class="n">slice_tuples</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">slice_index</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">):</span>
+            <span class="n">slice_tuples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_slices</span><span class="p">[</span><span class="n">axis</span><span class="p">][</span><span class="n">slice_index</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">slice_tuples</span></div>
+
+<div class="viewcode-block" id="ArrayGrid.get_entry_coordinates"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.ArrayGrid.get_entry_coordinates">[docs]</a>    <span class="k">def</span> <span class="nf">get_entry_coordinates</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="n">coordinates</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">axis</span><span class="p">,</span> <span class="n">slice_index</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">):</span>
+            <span class="n">coordinates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_slices</span><span class="p">[</span><span class="n">axis</span><span class="p">][</span><span class="n">slice_index</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ArrayGrid.get_block_shape"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.ArrayGrid.get_block_shape">[docs]</a>    <span class="k">def</span> <span class="nf">get_block_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">):</span>
+        <span class="n">slice_tuples</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_slice_tuples</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">)</span>
+        <span class="n">block_shape</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">slice_tuple</span> <span class="ow">in</span> <span class="n">slice_tuples</span><span class="p">:</span>
+            <span class="n">block_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slice_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">slice_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">block_shape</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ArrayGrid.nbytes"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.ArrayGrid.nbytes">[docs]</a>    <span class="k">def</span> <span class="nf">nbytes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">type_test</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="k">elif</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">type_test</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="ow">or</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_uint</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">type_test</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">):</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="k">elif</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_complex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">type_test</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">):</span>
+            <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;dtype </span><span class="si">%s</span><span class="s2"> not supported&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>
+
+        <span class="n">dtype_nbytes</span> <span class="o">=</span> <span class="n">dtype</span><span class="o">.</span><span class="n">alignment</span>
+        <span class="n">nbytes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">dtype_nbytes</span>
+        <span class="k">return</span> <span class="n">nbytes</span></div></div>
+
+
+<div class="viewcode-block" id="DeviceID"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.DeviceID">[docs]</a><span class="k">class</span> <span class="nc">DeviceID</span><span class="p">:</span>
+<div class="viewcode-block" id="DeviceID.from_str"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.DeviceID.from_str">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_str</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="n">node_id</span><span class="p">,</span> <span class="n">node_addr</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+        <span class="n">device_type</span><span class="p">,</span> <span class="n">device_id</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">DeviceID</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">node_id</span><span class="p">),</span> <span class="n">node_addr</span><span class="p">,</span> <span class="n">device_type</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">device_id</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">node_addr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">device_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">node_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_addr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">node_addr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">device_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">device_id</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">=</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_id</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_addr</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">(</span><span class="n">other</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DeviceGrid"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.DeviceGrid">[docs]</a><span class="k">class</span> <span class="nc">DeviceGrid</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid_shape</span><span class="p">,</span> <span class="n">device_type</span><span class="p">,</span> <span class="n">device_ids</span><span class="p">):</span>
+        <span class="c1"># TODO (hme): Work out what this becomes in the multi-node multi-device setting.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span> <span class="o">=</span> <span class="n">grid_shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_type</span> <span class="o">=</span> <span class="n">device_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DeviceID</span><span class="p">]</span> <span class="o">=</span> <span class="n">device_ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_grid</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">cluster_entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_cluster_entry_iterator</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">device_grid</span><span class="p">[</span><span class="n">cluster_entry</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;device_grid </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cluster_entry</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device_ids</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="p">)</span>
+
+<div class="viewcode-block" id="DeviceGrid.get_cluster_entry_iterator"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.DeviceGrid.get_cluster_entry_iterator">[docs]</a>    <span class="k">def</span> <span class="nf">get_cluster_entry_iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="DeviceGrid.get_device_id"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.DeviceGrid.get_device_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_device_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agrid_entry</span><span class="p">,</span> <span class="n">agrid_shape</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="DeviceGrid.get_entry_iterator"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.DeviceGrid.get_entry_iterator">[docs]</a>    <span class="k">def</span> <span class="nf">get_entry_iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="CyclicDeviceGrid"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.CyclicDeviceGrid">[docs]</a><span class="k">class</span> <span class="nc">CyclicDeviceGrid</span><span class="p">(</span><span class="n">DeviceGrid</span><span class="p">):</span>
+<div class="viewcode-block" id="CyclicDeviceGrid.get_device_id"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.CyclicDeviceGrid.get_device_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_device_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agrid_entry</span><span class="p">,</span> <span class="n">agrid_shape</span><span class="p">):</span>
+        <span class="n">cluster_entry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cluster_entry</span><span class="p">(</span><span class="n">agrid_entry</span><span class="p">,</span> <span class="n">agrid_shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_grid</span><span class="p">[</span><span class="n">cluster_entry</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="CyclicDeviceGrid.get_cluster_entry"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.CyclicDeviceGrid.get_cluster_entry">[docs]</a>    <span class="k">def</span> <span class="nf">get_cluster_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agrid_entry</span><span class="p">,</span> <span class="n">agrid_shape</span><span class="p">):</span>
+        <span class="c1"># pylint: disable = unused-argument</span>
+        <span class="n">cluster_entry</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">num_grid_entry_axes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">agrid_entry</span><span class="p">)</span>
+        <span class="n">num_cluster_axes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">cluster_axis</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_cluster_axes</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">cluster_axis</span> <span class="o">&lt;</span> <span class="n">num_grid_entry_axes</span><span class="p">:</span>
+                <span class="n">cluster_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">[</span><span class="n">cluster_axis</span><span class="p">]</span>
+                <span class="n">grid_entry_dim</span> <span class="o">=</span> <span class="n">agrid_entry</span><span class="p">[</span><span class="n">cluster_axis</span><span class="p">]</span>
+                <span class="n">cluster_entry</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grid_entry_dim</span> <span class="o">%</span> <span class="n">cluster_dim</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># When array has fewer axes than cluster.</span>
+                <span class="n">cluster_entry</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="c1"># Ignore trailing array axes, as these are &quot;cycled&quot; to 0 by assuming</span>
+            <span class="c1"># the dimension of those cluster axes is 1.</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">cluster_entry</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="PackedDeviceGrid"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.PackedDeviceGrid">[docs]</a><span class="k">class</span> <span class="nc">PackedDeviceGrid</span><span class="p">(</span><span class="n">DeviceGrid</span><span class="p">):</span>
+<div class="viewcode-block" id="PackedDeviceGrid.get_device_id"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.PackedDeviceGrid.get_device_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_device_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agrid_entry</span><span class="p">,</span> <span class="n">agrid_shape</span><span class="p">):</span>
+        <span class="n">cluster_entry</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cluster_entry</span><span class="p">(</span><span class="n">agrid_entry</span><span class="p">,</span> <span class="n">agrid_shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_grid</span><span class="p">[</span><span class="n">cluster_entry</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="PackedDeviceGrid.get_cluster_entry"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.PackedDeviceGrid.get_cluster_entry">[docs]</a>    <span class="k">def</span> <span class="nf">get_cluster_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agrid_entry</span><span class="p">,</span> <span class="n">agrid_shape</span><span class="p">):</span>
+        <span class="n">cluster_entry</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">num_grid_entry_axes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">agrid_entry</span><span class="p">)</span>
+        <span class="n">num_cluster_axes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">cluster_axis</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_cluster_axes</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">cluster_axis</span> <span class="o">&lt;</span> <span class="n">num_grid_entry_axes</span><span class="p">:</span>
+                <span class="n">cluster_entry</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">compute_cluster_entry_axis</span><span class="p">(</span>
+                        <span class="n">axis</span><span class="o">=</span><span class="n">cluster_axis</span><span class="p">,</span>
+                        <span class="n">ge_axis_val</span><span class="o">=</span><span class="n">agrid_entry</span><span class="p">[</span><span class="n">cluster_axis</span><span class="p">],</span>
+                        <span class="n">gs_axis_val</span><span class="o">=</span><span class="n">agrid_shape</span><span class="p">[</span><span class="n">cluster_axis</span><span class="p">],</span>
+                        <span class="n">cs_axis_val</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">[</span><span class="n">cluster_axis</span><span class="p">],</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cluster_entry</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">cluster_entry</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PackedDeviceGrid.compute_cluster_entry_axis"><a class="viewcode-back" href="../../../../generated/nums.core.grid.grid.html#nums.core.grid.grid.PackedDeviceGrid.compute_cluster_entry_axis">[docs]</a>    <span class="k">def</span> <span class="nf">compute_cluster_entry_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">ge_axis_val</span><span class="p">,</span> <span class="n">gs_axis_val</span><span class="p">,</span> <span class="n">cs_axis_val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ge_axis_val</span> <span class="o">&gt;=</span> <span class="n">gs_axis_val</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Array grid_entry is not &lt; grid_shape along axis </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">axis</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">ge_axis_val</span> <span class="o">/</span> <span class="n">gs_axis_val</span> <span class="o">*</span> <span class="n">cs_axis_val</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The NumS Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

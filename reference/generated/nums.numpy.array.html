@@ -1,0 +1,1121 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.numpy.array &#8212; NumS  documentation</title>
+    
+    <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="nums.numpy.empty" href="nums.numpy.empty.html" />
+    <link rel="prev" title="nums.numpy.loadtxt" href="nums.numpy.loadtxt.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../../index.html">
+  <img src="../../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 current active nav-item">
+ <a class="reference internal nav-link" href="../index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../api.html">
+   nums.api
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../numpy.html">
+   nums.numpy
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.loadtxt.html">
+     nums.numpy.loadtxt
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     nums.numpy.array
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.empty.html">
+     nums.numpy.empty
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.zeros_like.html">
+     nums.numpy.zeros_like
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.ones_like.html">
+     nums.numpy.ones_like
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.concatenate.html">
+     nums.numpy.concatenate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.split.html">
+     nums.numpy.split
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.identity.html">
+     nums.numpy.identity
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.eye.html">
+     nums.numpy.eye
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.diag.html">
+     nums.numpy.diag
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.trace.html">
+     nums.numpy.trace
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.atleast_1d.html">
+     nums.numpy.atleast_1d
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.atleast_2d.html">
+     nums.numpy.atleast_2d
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.atleast_3d.html">
+     nums.numpy.atleast_3d
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.hstack.html">
+     nums.numpy.hstack
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.vstack.html">
+     nums.numpy.vstack
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.dstack.html">
+     nums.numpy.dstack
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.row_stack.html">
+     nums.numpy.row_stack
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.column_stack.html">
+     nums.numpy.column_stack
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.arange.html">
+     nums.numpy.arange
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.linspace.html">
+     nums.numpy.linspace
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.logspace.html">
+     nums.numpy.logspace
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.tensordot.html">
+     nums.numpy.tensordot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.matmul.html">
+     nums.numpy.matmul
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.inner.html">
+     nums.numpy.inner
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.outer.html">
+     nums.numpy.outer
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.dot.html">
+     nums.numpy.dot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.shape.html">
+     nums.numpy.shape
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.size.html">
+     nums.numpy.size
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.ndim.html">
+     nums.numpy.ndim
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.reshape.html">
+     nums.numpy.reshape
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.expand_dims.html">
+     nums.numpy.expand_dims
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.squeeze.html">
+     nums.numpy.squeeze
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.swapaxes.html">
+     nums.numpy.swapaxes
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.transpose.html">
+     nums.numpy.transpose
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.copy.html">
+     nums.numpy.copy
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.min.html">
+     nums.numpy.min
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.max.html">
+     nums.numpy.max
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.argmin.html">
+     nums.numpy.argmin
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.argmax.html">
+     nums.numpy.argmax
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.sum.html">
+     nums.numpy.sum
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.mean.html">
+     nums.numpy.mean
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.var.html">
+     nums.numpy.var
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.std.html">
+     nums.numpy.std
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.where.html">
+     nums.numpy.where
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.all.html">
+     nums.numpy.all
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.alltrue.html">
+     nums.numpy.alltrue
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.any.html">
+     nums.numpy.any
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.average.html">
+     nums.numpy.average
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.median.html">
+     nums.numpy.median
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.nanmax.html">
+     nums.numpy.nanmax
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.nanmin.html">
+     nums.numpy.nanmin
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.nansum.html">
+     nums.numpy.nansum
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.nanmean.html">
+     nums.numpy.nanmean
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.nanvar.html">
+     nums.numpy.nanvar
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.nanstd.html">
+     nums.numpy.nanstd
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.array_equal.html">
+     nums.numpy.array_equal
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.array_equiv.html">
+     nums.numpy.array_equiv
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.allclose.html">
+     nums.numpy.allclose
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.abs.html">
+     nums.numpy.abs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.absolute.html">
+     nums.numpy.absolute
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.arccos.html">
+     nums.numpy.arccos
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.arccosh.html">
+     nums.numpy.arccosh
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.arcsin.html">
+     nums.numpy.arcsin
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.arcsinh.html">
+     nums.numpy.arcsinh
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.arctan.html">
+     nums.numpy.arctan
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.arctanh.html">
+     nums.numpy.arctanh
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.bitwise_not.html">
+     nums.numpy.bitwise_not
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.cbrt.html">
+     nums.numpy.cbrt
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.ceil.html">
+     nums.numpy.ceil
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.conj.html">
+     nums.numpy.conj
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.conjugate.html">
+     nums.numpy.conjugate
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.cos.html">
+     nums.numpy.cos
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.cosh.html">
+     nums.numpy.cosh
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.deg2rad.html">
+     nums.numpy.deg2rad
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.degrees.html">
+     nums.numpy.degrees
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.exp.html">
+     nums.numpy.exp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.exp2.html">
+     nums.numpy.exp2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.expm1.html">
+     nums.numpy.expm1
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.fabs.html">
+     nums.numpy.fabs
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.floor.html">
+     nums.numpy.floor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.invert.html">
+     nums.numpy.invert
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.isfinite.html">
+     nums.numpy.isfinite
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.isinf.html">
+     nums.numpy.isinf
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.isnan.html">
+     nums.numpy.isnan
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.log.html">
+     nums.numpy.log
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.log10.html">
+     nums.numpy.log10
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.log1p.html">
+     nums.numpy.log1p
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.log2.html">
+     nums.numpy.log2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.logical_not.html">
+     nums.numpy.logical_not
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.negative.html">
+     nums.numpy.negative
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.positive.html">
+     nums.numpy.positive
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.radians.html">
+     nums.numpy.radians
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.reciprocal.html">
+     nums.numpy.reciprocal
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.rint.html">
+     nums.numpy.rint
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.sign.html">
+     nums.numpy.sign
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.signbit.html">
+     nums.numpy.signbit
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.sin.html">
+     nums.numpy.sin
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.sinh.html">
+     nums.numpy.sinh
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.spacing.html">
+     nums.numpy.spacing
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.sqrt.html">
+     nums.numpy.sqrt
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.square.html">
+     nums.numpy.square
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.tan.html">
+     nums.numpy.tan
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.tanh.html">
+     nums.numpy.tanh
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.trunc.html">
+     nums.numpy.trunc
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.add.html">
+     nums.numpy.add
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.arctan2.html">
+     nums.numpy.arctan2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.bitwise_and.html">
+     nums.numpy.bitwise_and
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.bitwise_or.html">
+     nums.numpy.bitwise_or
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.bitwise_xor.html">
+     nums.numpy.bitwise_xor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.copysign.html">
+     nums.numpy.copysign
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.divide.html">
+     nums.numpy.divide
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.equal.html">
+     nums.numpy.equal
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.float_power.html">
+     nums.numpy.float_power
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.floor_divide.html">
+     nums.numpy.floor_divide
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.fmax.html">
+     nums.numpy.fmax
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.fmin.html">
+     nums.numpy.fmin
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.fmod.html">
+     nums.numpy.fmod
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.greater.html">
+     nums.numpy.greater
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.greater_equal.html">
+     nums.numpy.greater_equal
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.heaviside.html">
+     nums.numpy.heaviside
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.hypot.html">
+     nums.numpy.hypot
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.lcm.html">
+     nums.numpy.lcm
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.ldexp.html">
+     nums.numpy.ldexp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.left_shift.html">
+     nums.numpy.left_shift
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.less.html">
+     nums.numpy.less
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.less_equal.html">
+     nums.numpy.less_equal
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.logaddexp.html">
+     nums.numpy.logaddexp
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.logaddexp2.html">
+     nums.numpy.logaddexp2
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.logical_and.html">
+     nums.numpy.logical_and
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.logical_or.html">
+     nums.numpy.logical_or
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.logical_xor.html">
+     nums.numpy.logical_xor
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.maximum.html">
+     nums.numpy.maximum
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.minimum.html">
+     nums.numpy.minimum
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.mod.html">
+     nums.numpy.mod
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.multiply.html">
+     nums.numpy.multiply
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.nextafter.html">
+     nums.numpy.nextafter
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.not_equal.html">
+     nums.numpy.not_equal
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.power.html">
+     nums.numpy.power
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.remainder.html">
+     nums.numpy.remainder
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.right_shift.html">
+     nums.numpy.right_shift
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.subtract.html">
+     nums.numpy.subtract
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.true_divide.html">
+     nums.numpy.true_divide
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.diag.html">
+     nums.numpy.diag
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.ones.html">
+     nums.numpy.ones
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.empty_like.html">
+     nums.numpy.empty_like
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.trace.html">
+     nums.numpy.trace
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.top_k.html">
+     nums.numpy.top_k
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="nums-numpy-array">
+<h1>nums.numpy.array<a class="headerlink" href="#nums-numpy-array" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt id="nums.numpy.array">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.</span></code><code class="sig-name descname"><span class="pre">array</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'K'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subok</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nums/numpy/api/creation.html#array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.array" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a BlockArray.</p>
+<p>This docstring was copied from numpy.array.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>object</strong> (<em>array_like</em>) – An array, any object exposing the array interface, an object whose
+__array__ method returns an array, or any (nested) sequence.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – The desired data-type for the array.  If not given, then the type will
+be determined as the minimum type required to hold the objects in the
+sequence.</p></li>
+<li><p><strong>copy</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true (default), then the object is copied.  Otherwise, a copy will
+only be made if __array__ returns a copy, if obj is a nested sequence,
+or if a copy is needed to satisfy any of the other requirements
+(<cite>dtype</cite>, <cite>order</cite>, etc.).</p></li>
+<li><p><strong>order</strong> (<em>{'K'}</em><em>, </em><em>optional</em>) – <p>Specify the memory layout of the array. If object is not an array, the
+newly created array will be in C order (row major) unless ‘F’ is
+specified, in which case it will be in Fortran order (column major).
+If object is an array the following holds.</p>
+<table class="table">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 14%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>order</p></th>
+<th class="head"><p>no copy</p></th>
+<th class="head"><p>copy=True</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>’K’</p></td>
+<td><p>unchanged</p></td>
+<td><p>F &amp; C order preserved, otherwise most similar order</p></td>
+</tr>
+<tr class="row-odd"><td><p>’A’</p></td>
+<td><p>unchanged</p></td>
+<td><p>F order if input is F and not C, otherwise C order</p></td>
+</tr>
+<tr class="row-even"><td><p>’C’</p></td>
+<td><p>C order</p></td>
+<td><p>C order</p></td>
+</tr>
+<tr class="row-odd"><td><p>’F’</p></td>
+<td><p>F order</p></td>
+<td><p>F order</p></td>
+</tr>
+</tbody>
+</table>
+<p>When <code class="docutils literal notranslate"><span class="pre">copy=False</span></code> and a copy is made for other reasons, the result is
+the same as if <code class="docutils literal notranslate"><span class="pre">copy=True</span></code>, with some exceptions for <cite>A</cite>, see the
+Notes section. The default order is ‘K’.</p>
+</p></li>
+<li><p><strong>subok</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, then sub-classes will be passed-through, otherwise
+the returned array will be forced to be a base-class array (default).</p></li>
+<li><p><strong>ndmin</strong> (<em>int</em><em>, </em><em>optional</em>) – Specifies the minimum number of dimensions that the resulting
+array should have.  Ones will be pre-pended to the shape as
+needed to meet this requirement.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – An array object satisfying the specified requirements.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../generated/nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="nums.numpy.empty_like.html#nums.numpy.empty_like" title="nums.numpy.empty_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_like</span></code></a></dt><dd><p>Return an empty array with shape and type of input.</p>
+</dd>
+<dt><a class="reference internal" href="nums.numpy.ones_like.html#nums.numpy.ones_like" title="nums.numpy.ones_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ones_like</span></code></a></dt><dd><p>Return an array of ones with shape and type of input.</p>
+</dd>
+<dt><a class="reference internal" href="nums.numpy.zeros_like.html#nums.numpy.zeros_like" title="nums.numpy.zeros_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros_like</span></code></a></dt><dd><p>Return an array of zeros with shape and type of input.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">full_like</span></code></dt><dd><p>Return a new array with shape of input filled with value.</p>
+</dd>
+<dt><a class="reference internal" href="nums.numpy.empty.html#nums.numpy.empty" title="nums.numpy.empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty</span></code></a></dt><dd><p>Return a new uninitialized array.</p>
+</dd>
+<dt><a class="reference internal" href="nums.numpy.ones.html#nums.numpy.ones" title="nums.numpy.ones"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ones</span></code></a></dt><dd><p>Return a new array setting values to one.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros</span></code></dt><dd><p>Return a new array setting values to zero.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">full</span></code></dt><dd><p>Return a new array of given shape filled with value.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Only order=’K’ is supported.</p>
+<p>Only ndmin=0 is currently supported.</p>
+<p>subok must be False</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([1, 2, 3])</span>
+</pre></div>
+</div>
+<p>Upcasting:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([ 1.,  2.,  3.])</span>
+</pre></div>
+</div>
+<p>More than one dimension:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1, 2],</span>
+<span class="go">       [3, 4]])</span>
+</pre></div>
+</div>
+<p>Type provided:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([ 1.+0.j,  2.+0.j,  3.+0.j])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="nums.numpy.loadtxt.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">nums.numpy.loadtxt</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="nums.numpy.empty.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">nums.numpy.empty</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nums.core.array.selection &mdash; NumS  documentation</title><link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> NumS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">nums.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../numpy.html">nums.numpy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">NumS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>nums.core.array.selection</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nums.core.array.selection</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">nums.core.array.utils</span> <span class="k">as</span> <span class="nn">array_utils</span>
+
+
+<div class="viewcode-block" id="get_array_order"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.get_array_order">[docs]</a><span class="k">def</span> <span class="nf">get_array_order</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="c1"># An axis is ordered if all diffs have same sign, and no diffs of 0 (no repetitions).</span>
+    <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">array</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">diffs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">diffs</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">diffs</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Order is undefined.</span>
+        <span class="k">return</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="is_advanced_selection"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.is_advanced_selection">[docs]</a><span class="k">def</span> <span class="nf">is_advanced_selection</span><span class="p">(</span><span class="n">subscript</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subscript</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span>
+    <span class="n">num_ordered_arrays</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">num_indexes</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">subscript</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_array_like</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="n">array</span> <span class="o">=</span> <span class="n">obj</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># TODO (hme): This is inefficient.</span>
+                <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">get_array_order</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="n">num_ordered_arrays</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_index_subscript</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="n">num_indexes</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">num_ordered_arrays</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">num_ordered_arrays</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># In this case, indexes is considered an advanced index.</span>
+        <span class="k">return</span> <span class="n">num_indexes</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    <span class="c1"># We can compute ordered arrays fast, so don&#39;t consider ordered arrays as advanced.</span>
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="pos_step_slice_to_range"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.pos_step_slice_to_range">[docs]</a><span class="k">def</span> <span class="nf">pos_step_slice_to_range</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">start_bound</span><span class="p">,</span> <span class="n">stop_bound</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">+=</span> <span class="n">stop_bound</span> <span class="o">-</span> <span class="n">start_bound</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">start_bound</span><span class="p">,</span> <span class="n">stop_bound</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">n</span></div>
+
+
+<div class="viewcode-block" id="neg_step_slice_to_range"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.neg_step_slice_to_range">[docs]</a><span class="k">def</span> <span class="nf">neg_step_slice_to_range</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">start_bound</span><span class="p">,</span> <span class="n">stop_bound</span><span class="p">):</span>
+    <span class="c1"># Any start, stop above (start_bound - stop_bound)</span>
+    <span class="c1"># is outside the bounds of the slice parameters</span>
+    <span class="c1"># for backward steps.</span>
+    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">-=</span> <span class="n">start_bound</span> <span class="o">-</span> <span class="n">stop_bound</span>
+    <span class="c1"># Similar to positive steps,</span>
+    <span class="c1"># any start, stop below the stop bounds is clipped for negative steps.</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">stop_bound</span><span class="p">,</span> <span class="n">start_bound</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">n</span></div>
+
+
+<div class="viewcode-block" id="trim_slice_bounds"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.trim_slice_bounds">[docs]</a><span class="k">def</span> <span class="nf">trim_slice_bounds</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">step</span>
+    <span class="k">if</span> <span class="n">step</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">start_bound</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">stop_bound</span> <span class="o">=</span> <span class="n">size</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">start_bound</span>
+        <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="n">stop_bound</span>
+        <span class="c1"># For positive steps, clip between -size and size, and compute size + n if n is &lt; 0.</span>
+        <span class="c1"># For positive slice parameters, Python slice semantics always clip stop by size,</span>
+        <span class="c1"># so it makes sense to do the same in the negative direction.</span>
+        <span class="c1"># We end up with start, stop &gt;= 0 after adding size to n after clipping.</span>
+        <span class="c1"># This matches NumPy&#39;s slice semantics for positive steps because</span>
+        <span class="c1"># we simply select a sequence of elements in the forward direction.</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">pos_step_slice_to_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">start_bound</span><span class="p">,</span> <span class="n">stop_bound</span><span class="p">)</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="n">pos_step_slice_to_range</span><span class="p">(</span><span class="n">stop</span><span class="p">,</span> <span class="n">start_bound</span><span class="p">,</span> <span class="n">stop_bound</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">step</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># For negative steps, the start bound is -1,</span>
+        <span class="c1"># and the stop bound is -size-1. The stop bound is offset by -1</span>
+        <span class="c1"># to match a start bound of -1, so that the maximum number of items</span>
+        <span class="c1"># touched is at most size == start_bound - stop_bound == -1 - (-size - 1).</span>
+        <span class="n">start_bound</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">stop_bound</span> <span class="o">=</span> <span class="o">-</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">start_bound</span>
+        <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="n">stop_bound</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">neg_step_slice_to_range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">start_bound</span><span class="p">,</span> <span class="n">stop_bound</span><span class="p">)</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="n">neg_step_slice_to_range</span><span class="p">(</span><span class="n">stop</span><span class="p">,</span> <span class="n">start_bound</span><span class="p">,</span> <span class="n">stop_bound</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;A step of 0 is invalid.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="slice_to_range"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.slice_to_range">[docs]</a><span class="k">def</span> <span class="nf">slice_to_range</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">slice</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">trim_slice_bounds</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">step</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AxisSelection"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisSelection">[docs]</a><span class="k">class</span> <span class="nc">AxisSelection</span><span class="p">:</span>
+<div class="viewcode-block" id="AxisSelection.is_empty"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisSelection.is_empty">[docs]</a>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AxisSelection.selector"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisSelection.selector">[docs]</a>    <span class="k">def</span> <span class="nf">selector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AxisSelection.shape"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisSelection.shape">[docs]</a>    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AxisSelection.order"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisSelection.order">[docs]</a>    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="AxisSlice"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisSlice">[docs]</a><span class="k">class</span> <span class="nc">AxisSlice</span><span class="p">(</span><span class="n">AxisSelection</span><span class="p">):</span>
+<div class="viewcode-block" id="AxisSlice.from_size"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisSlice.from_size">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_size</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">slice</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">st</span> <span class="o">=</span> <span class="n">trim_slice_bounds</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">st</span><span class="o">.</span><span class="n">step</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">stop</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">step</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="n">stop</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="n">step</span>
+
+<div class="viewcode-block" id="AxisSlice.is_empty"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisSlice.is_empty">[docs]</a>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span></div>
+
+<div class="viewcode-block" id="AxisSlice.selector"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisSlice.selector">[docs]</a>    <span class="k">def</span> <span class="nf">selector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_slice</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AxisSlice.to_slice"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisSlice.to_slice">[docs]</a>    <span class="k">def</span> <span class="nf">to_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AxisSlice.shape"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisSlice.shape">[docs]</a>    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">step_mag</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+            <span class="n">interval</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">step_mag</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+            <span class="n">interval</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">interval</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span>
+        <span class="k">if</span> <span class="n">step_mag</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">interval</span><span class="p">,)</span>
+        <span class="k">if</span> <span class="n">step_mag</span> <span class="o">&gt;</span> <span class="n">interval</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+        <span class="c1"># TODO (hme): Make this faster by not instantiating a range.</span>
+        <span class="k">return</span> <span class="n">slice_to_range</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">interval</span><span class="p">,</span> <span class="n">step_mag</span><span class="p">),</span> <span class="n">interval</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span></div>
+
+<div class="viewcode-block" id="AxisSlice.order"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisSlice.order">[docs]</a>    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="AxisIndex"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisIndex">[docs]</a><span class="k">class</span> <span class="nc">AxisIndex</span><span class="p">(</span><span class="n">AxisSelection</span><span class="p">):</span>
+<div class="viewcode-block" id="AxisIndex.from_index"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisIndex.from_index">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_index</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="o">-</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">pos_step_slice_to_range</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s2">&quot;Index </span><span class="si">%d</span><span class="s2"> is out of bounds for size </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">size</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+
+<div class="viewcode-block" id="AxisIndex.to_index"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisIndex.to_index">[docs]</a>    <span class="k">def</span> <span class="nf">to_index</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span></div>
+
+<div class="viewcode-block" id="AxisIndex.selector"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisIndex.selector">[docs]</a>    <span class="k">def</span> <span class="nf">selector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_index</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="AxisIndex.is_empty"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisIndex.is_empty">[docs]</a>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Index can never be empty.</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="AxisIndex.shape"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisIndex.shape">[docs]</a>    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">()</span></div>
+
+<div class="viewcode-block" id="AxisIndex.order"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisIndex.order">[docs]</a>    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="AxisArray"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisArray">[docs]</a><span class="k">class</span> <span class="nc">AxisArray</span><span class="p">(</span><span class="n">AxisSelection</span><span class="p">):</span>
+    <span class="c1"># See https://numpy.org/doc/stable/reference/arrays.indexing.html#integer-array-indexing</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">array_like</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">array_like</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">array_like</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;i&quot;</span> <span class="ow">or</span> <span class="n">array_like</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;b&quot;</span>
+            <span class="n">arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">array_like</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Must infer type.</span>
+            <span class="n">is_bool</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">array_like</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+                    <span class="n">array_utils</span><span class="o">.</span><span class="n">is_index_subscript</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="ow">or</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_bool</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+                <span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Only integer or boolean arrays are valid indices.&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_index_subscript</span><span class="p">(</span><span class="n">entry</span><span class="p">):</span>
+                    <span class="n">is_bool</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">array_like</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">(</span><span class="nb">bool</span> <span class="k">if</span> <span class="n">is_bool</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">array</span> <span class="o">=</span> <span class="n">arr</span>
+
+<div class="viewcode-block" id="AxisArray.is_empty"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisArray.is_empty">[docs]</a>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="AxisArray.selector"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisArray.selector">[docs]</a>    <span class="k">def</span> <span class="nf">selector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">array</span></div>
+
+<div class="viewcode-block" id="AxisArray.shape"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisArray.shape">[docs]</a>    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span></div>
+
+<div class="viewcode-block" id="AxisArray.order"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisArray.order">[docs]</a>    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">get_array_order</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">array</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="AxisEmpty"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisEmpty">[docs]</a><span class="k">class</span> <span class="nc">AxisEmpty</span><span class="p">(</span><span class="n">AxisSelection</span><span class="p">):</span>
+<div class="viewcode-block" id="AxisEmpty.selector"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisEmpty.selector">[docs]</a>    <span class="k">def</span> <span class="nf">selector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="AxisEmpty.is_empty"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisEmpty.is_empty">[docs]</a>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="AxisEmpty.shape"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisEmpty.shape">[docs]</a>    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span></div>
+
+<div class="viewcode-block" id="AxisEmpty.order"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AxisEmpty.order">[docs]</a>    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">0</span></div></div>
+
+
+<div class="viewcode-block" id="BasicSelection"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection">[docs]</a><span class="k">class</span> <span class="nc">BasicSelection</span><span class="p">:</span>
+<div class="viewcode-block" id="BasicSelection.from_shape"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection.from_shape">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_shape</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_subscript</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="p">(</span><span class="o">...</span><span class="p">,))</span></div>
+
+<div class="viewcode-block" id="BasicSelection.block_selection"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection.block_selection">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">block_selection</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">block_order</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">))</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">OrderedGrid</span><span class="p">(</span>
+            <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">block_order</span><span class="o">=</span><span class="n">block_order</span>
+        <span class="p">)</span>
+        <span class="n">selection_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">index_iterator</span><span class="p">():</span>
+            <span class="n">slices</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">slice</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">slices</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="c1"># This must be shape, since slices are bounded by shape.</span>
+            <span class="n">selection_grid</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_subscript</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">slices</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">selection_grid</span></div>
+
+<div class="viewcode-block" id="BasicSelection.from_subscript"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection.from_subscript">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_subscript</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">subscript</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">):</span>
+        <span class="n">axis_sels</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">AxisSelection</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">contains_ellipsis</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">contains_array</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">axis_ss</span> <span class="ow">in</span> <span class="n">subscript</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">axis_ss</span> <span class="ow">is</span> <span class="bp">Ellipsis</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">contains_ellipsis</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Subscripts may contain at most 1 ellipsis.&quot;</span><span class="p">)</span>
+                <span class="n">contains_ellipsis</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">ellipsis_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">subscript</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">ellipsis_length</span><span class="p">)):</span>
+                    <span class="c1"># We instantiate a list, so okay to modify i.</span>
+                    <span class="n">axis_sels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AxisSlice</span><span class="o">.</span><span class="n">from_size</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
+                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_index_subscript</span><span class="p">(</span><span class="n">axis_ss</span><span class="p">):</span>
+                <span class="n">axis_sels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AxisIndex</span><span class="o">.</span><span class="n">from_index</span><span class="p">(</span><span class="n">axis_ss</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axis_ss</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+                <span class="n">axis_sels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AxisSlice</span><span class="o">.</span><span class="n">from_size</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">axis_ss</span><span class="p">))</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axis_ss</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">contains_array</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> may contain at most 1 array.&quot;</span> <span class="o">%</span> <span class="n">BasicSelection</span><span class="o">.</span><span class="vm">__name__</span>
+                    <span class="p">)</span>
+                <span class="n">contains_array</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">axis_array</span> <span class="o">=</span> <span class="n">AxisArray</span><span class="p">(</span><span class="n">axis_ss</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_array</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> does not support multi-axis&quot;</span>
+                        <span class="s2">&quot; arrays.&quot;</span> <span class="o">%</span> <span class="n">BasicSelection</span><span class="o">.</span><span class="vm">__name__</span>
+                    <span class="p">)</span>
+                <span class="k">if</span> <span class="n">axis_array</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;i&quot;</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span>
+                    <span class="n">axis_array</span><span class="o">.</span><span class="n">array</span> <span class="o">&gt;=</span> <span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Some indices exceed dimension of axis.&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">get_array_order</span><span class="p">(</span><span class="n">axis_array</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># The sequence must be monotonic with strict order.</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;Input array cannot be interpreted as ordered set.&quot;</span>
+                    <span class="p">)</span>
+                <span class="n">axis_sels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">axis_array</span><span class="p">)</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                    <span class="s2">&quot;Unknown subscript type </span><span class="si">%s</span><span class="s2"> for axis </span><span class="si">%d</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">axis_ss</span><span class="p">),</span> <span class="n">i</span><span class="p">)</span>
+                <span class="p">)</span>
+
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_sels</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">axis_sels</span><span class="p">)]</span>
+            <span class="c1"># Select rest of axes.</span>
+            <span class="n">axis_sels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AxisSlice</span><span class="o">.</span><span class="n">from_size</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_sels</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="n">shape</span>
+        <span class="p">),</span> <span class="s2">&quot;More objects in selection tuple than axes in array.&quot;</span>
+        <span class="k">return</span> <span class="n">BasicSelection</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">axis_sels</span><span class="p">),</span> <span class="n">shape</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">AxisSelection</span><span class="p">],</span> <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span>
+        <span class="c1"># Compute this lazily.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_shape</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="BasicSelection.get_broadcastable_shape"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection.get_broadcastable_shape">[docs]</a>    <span class="k">def</span> <span class="nf">get_broadcastable_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">oshape</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span>
+            <span class="n">axis_shape</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">shape</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">oshape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">oshape</span> <span class="o">=</span> <span class="n">oshape</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">axis_shape</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid axis shape </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">axis_shape</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">oshape</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BasicSelection.get_broadcastable_block_shape"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection.get_broadcastable_block_shape">[docs]</a>    <span class="k">def</span> <span class="nf">get_broadcastable_block_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">partial_block_shape</span><span class="p">):</span>
+        <span class="c1"># Construct a block shape equal in length to this selection&#39;s shape.</span>
+        <span class="c1"># In what follows, a dimension is &quot;empty&quot; if the axis selector is an integer.</span>
+        <span class="c1"># Starting from the last axis,</span>
+        <span class="c1"># the resulting block shape is constructed as follows:</span>
+        <span class="c1"># - If this dim is non-empty and partial is non-empty, emit partial&#39;s dimension.</span>
+        <span class="c1"># - If this dim is non-empty and partial is empty, emit 1.</span>
+        <span class="c1"># - If this dim is empty and partial is non-empty, then emit 1 if partial is 1.</span>
+        <span class="c1"># - If this dim is empty and partial is empty, then emit 1.</span>
+        <span class="c1"># All else raises an exception.</span>
+        <span class="c1"># Partial may be longer than this shape, so long as the starting axis dims are 1.</span>
+        <span class="n">obs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">partial_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">partial_block_shape</span><span class="p">)</span>
+        <span class="n">sel_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+        <span class="c1"># Maintain separate indices. We don&#39;t decrement partial if we encounter an empty dim.</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">sel_len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">axis_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">obs</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">partial_len</span><span class="p">:</span>
+                    <span class="c1"># The rest of the axes have to be empty or of dimension 1.</span>
+                    <span class="k">assert</span> <span class="n">axis_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+                    <span class="n">obs</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">obs</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">partial_block_shape</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+                    <span class="n">j</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid axis shape </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">axis_shape</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="n">partial_len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="n">partial_block_shape</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">obs</span></div>
+
+<div class="viewcode-block" id="BasicSelection.get_output_shape"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection.get_output_shape">[docs]</a>    <span class="k">def</span> <span class="nf">get_output_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_indexes</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_shape</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">include_indexes</span><span class="p">:</span>
+            <span class="n">oshape</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span>
+                <span class="n">axis_shape</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">shape</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">include_indexes</span><span class="p">:</span>
+                        <span class="n">oshape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">axis_shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">oshape</span> <span class="o">=</span> <span class="n">oshape</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">axis_shape</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid axis shape </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">axis_shape</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">include_indexes</span><span class="p">:</span>
+                <span class="c1"># Never store output shape that includes indexes.</span>
+                <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">oshape</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_output_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">oshape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_output_shape</span></div>
+
+<div class="viewcode-block" id="BasicSelection.order"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection.order">[docs]</a>    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">axis</span><span class="o">.</span><span class="n">order</span><span class="p">()</span> <span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BasicSelection.is_empty"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection.is_empty">[docs]</a>    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)):</span>
+            <span class="n">axis</span><span class="p">:</span> <span class="n">AxisSelection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">axis</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="BasicSelection.selector"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection.selector">[docs]</a>    <span class="k">def</span> <span class="nf">selector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sel</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">AxisEmpty</span><span class="p">):</span>
+                <span class="n">sel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sel</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">selector</span><span class="p">())</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sel</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BasicSelection.position"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection.position">[docs]</a>    <span class="k">def</span> <span class="nf">position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compute_stop</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Position</span><span class="o">.</span><span class="n">from_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compute_stop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BasicSelection.basic_steps"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection.basic_steps">[docs]</a>    <span class="k">def</span> <span class="nf">basic_steps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">AxisSlice</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">item</span><span class="o">.</span><span class="n">step</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="BasicSelection.is_aligned"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.BasicSelection.is_aligned">[docs]</a>    <span class="k">def</span> <span class="nf">is_aligned</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">):</span>
+        <span class="n">start_pos</span><span class="p">:</span> <span class="n">Position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">()</span>
+        <span class="n">stop_pos</span><span class="p">:</span> <span class="n">Position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">compute_stop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">start_pos</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">block_shape</span><span class="p">)</span>
+        <span class="n">aligned</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">output_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_output_shape</span><span class="p">(</span><span class="n">include_indexes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">start_pos</span><span class="o">.</span><span class="n">value</span><span class="p">)):</span>
+            <span class="n">start_aligned</span> <span class="o">=</span> <span class="p">(</span><span class="n">start_pos</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%</span> <span class="n">block_shape</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="n">shape_aligned</span> <span class="o">=</span> <span class="p">(</span><span class="n">output_shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">%</span> <span class="n">block_shape</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span>
+            <span class="n">stop_aligned</span> <span class="o">=</span> <span class="n">stop_pos</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="c1"># Check that (self - pos).get_output_shape() % block_shape == 0</span>
+            <span class="c1"># OR self.end() == self.shape, which means the last block</span>
+            <span class="c1"># may not be the same shape as block_shape.</span>
+            <span class="c1"># In the latter case, when using this method to do a reference</span>
+            <span class="c1"># copy it&#39;s enough for the block shapes to be equal,</span>
+            <span class="c1"># because the source/destination shapes are broadcasted</span>
+            <span class="c1"># at the block-level.</span>
+            <span class="c1"># If all conditions are met for each axis, then the selection is block-aligned</span>
+            <span class="c1"># with the provided block shape. This assumes the provided block shape</span>
+            <span class="c1"># is associated with the shape originally provided to this selection.</span>
+            <span class="n">aligned</span> <span class="o">=</span> <span class="n">aligned</span> <span class="ow">and</span> <span class="n">start_aligned</span> <span class="ow">and</span> <span class="p">(</span><span class="n">shape_aligned</span> <span class="ow">or</span> <span class="n">stop_aligned</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">aligned</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_index_subscript</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="c1"># Union.</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__xor__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="c1"># Union - intersection.</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="c1"># We think of each axis of a selection as a partially ordered set.</span>
+        <span class="c1"># The intersection of axis selectors preserve partial order.</span>
+        <span class="c1"># The notion of intersection over selection operations</span>
+        <span class="c1"># preserves</span>
+        <span class="n">result_axes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">AxisSelection</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">result_shape</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)):</span>
+            <span class="n">self_axis</span><span class="p">,</span> <span class="n">other_axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">other</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">self_size</span><span class="p">,</span> <span class="n">other_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">other</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">result_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">self_size</span><span class="p">,</span> <span class="n">other_size</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_axis</span><span class="p">,</span> <span class="n">AxisSlice</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other_axis</span><span class="p">,</span> <span class="n">AxisSlice</span><span class="p">):</span>
+                <span class="n">result_axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_slice_and_slice</span><span class="p">(</span><span class="n">self_axis</span><span class="p">,</span> <span class="n">other_axis</span><span class="p">,</span> <span class="n">self_size</span><span class="p">,</span> <span class="n">other_size</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_axis</span><span class="p">,</span> <span class="n">AxisIndex</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other_axis</span><span class="p">,</span> <span class="n">AxisIndex</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">self_axis</span><span class="o">.</span><span class="n">index</span> <span class="o">==</span> <span class="n">other_axis</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                    <span class="n">result_axis</span><span class="p">:</span> <span class="n">AxisIndex</span> <span class="o">=</span> <span class="n">AxisIndex</span><span class="p">(</span><span class="n">self_axis</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">result_axis</span><span class="p">:</span> <span class="n">AxisEmpty</span> <span class="o">=</span> <span class="n">AxisEmpty</span><span class="p">()</span>
+                <span class="n">result_axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_axis</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_axis</span><span class="p">,</span> <span class="n">AxisArray</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other_axis</span><span class="p">,</span> <span class="n">AxisArray</span><span class="p">):</span>
+                <span class="n">result_axis</span><span class="p">:</span> <span class="n">AxisArray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_array_and_array</span><span class="p">(</span><span class="n">self_axis</span><span class="p">,</span> <span class="n">other_axis</span><span class="p">)</span>
+                <span class="n">result_axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_axis</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result_axis</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                        <span class="s2">&quot;Unexpected output shape length &quot;</span>
+                        <span class="s2">&quot;of </span><span class="si">%d</span><span class="s2"> for array intersection.&quot;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">result_axis</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                    <span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_axis</span><span class="p">,</span> <span class="n">AxisEmpty</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other_axis</span><span class="p">,</span> <span class="n">AxisEmpty</span><span class="p">):</span>
+                <span class="n">result_axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AxisEmpty</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_axis</span><span class="p">,</span> <span class="n">AxisIndex</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other_axis</span><span class="p">,</span> <span class="n">AxisIndex</span><span class="p">):</span>
+                <span class="c1"># If one of the operands is an index, then the intersection is simple.</span>
+                <span class="c1"># The result must be an index.</span>
+                <span class="n">res</span><span class="p">:</span> <span class="n">AxisArray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_array_and_array</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_to_array_axis</span><span class="p">(</span><span class="n">self_axis</span><span class="p">,</span> <span class="n">self_size</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_to_array_axis</span><span class="p">(</span><span class="n">other_axis</span><span class="p">,</span> <span class="n">other_size</span><span class="p">),</span>
+                <span class="p">)</span>
+                <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">result_axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AxisIndex</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">result_axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AxisEmpty</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">self_axis</span><span class="p">,</span> <span class="n">AxisArray</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other_axis</span><span class="p">,</span> <span class="n">AxisArray</span><span class="p">):</span>
+                <span class="c1"># If one of the operands is an array,</span>
+                <span class="c1"># then the resulting intersection must be an array.</span>
+                <span class="n">result_axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_array_and_array</span><span class="p">(</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_to_array_axis</span><span class="p">(</span><span class="n">self_axis</span><span class="p">,</span> <span class="n">self_size</span><span class="p">),</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_to_array_axis</span><span class="p">(</span><span class="n">other_axis</span><span class="p">,</span> <span class="n">other_size</span><span class="p">),</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># This should be impossible, since we&#39;ve dealt with all potential mixed types.</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Operation not supported.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">BasicSelection</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">result_axes</span><span class="p">),</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">result_shape</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_to_array_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">anything</span><span class="p">:</span> <span class="n">AxisSelection</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">anything</span><span class="p">,</span> <span class="n">AxisSlice</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">AxisArray</span><span class="p">(</span><span class="n">slice_to_range</span><span class="p">(</span><span class="n">anything</span><span class="o">.</span><span class="n">to_slice</span><span class="p">(),</span> <span class="n">size</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">anything</span><span class="p">,</span> <span class="n">AxisIndex</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">AxisArray</span><span class="p">([</span><span class="n">anything</span><span class="o">.</span><span class="n">index</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">anything</span><span class="p">,</span> <span class="n">AxisEmpty</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">AxisArray</span><span class="p">([])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">anything</span><span class="p">,</span> <span class="n">AxisArray</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">anything</span>
+
+    <span class="k">def</span> <span class="nf">_slice_and_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">AxisSlice</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">AxisSlice</span><span class="p">,</span> <span class="n">a_size</span><span class="p">,</span> <span class="n">b_size</span><span class="p">):</span>
+        <span class="n">a_step</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">step</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">a</span><span class="o">.</span><span class="n">step</span>
+        <span class="n">b_step</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">step</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">b</span><span class="o">.</span><span class="n">step</span>
+        <span class="k">if</span> <span class="n">a_step</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">b_step</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">start</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">start</span> <span class="k">else</span> <span class="n">a</span><span class="o">.</span><span class="n">start</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">stop</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">stop</span> <span class="o">&lt;</span> <span class="n">b</span><span class="o">.</span><span class="n">stop</span> <span class="k">else</span> <span class="n">b</span><span class="o">.</span><span class="n">stop</span>
+            <span class="n">step</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">step</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">b</span><span class="o">.</span><span class="n">step</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">a_step</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">b_step</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">b_step</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">a_step</span><span class="p">):</span>
+            <span class="c1"># Steps running in opposite directions.</span>
+            <span class="c1"># Based on intersection of partial orders, the order is undefined.</span>
+            <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">a_step</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">b_step</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">start</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">b</span><span class="o">.</span><span class="n">start</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">a</span><span class="o">.</span><span class="n">stop</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">b</span><span class="o">.</span><span class="n">stop</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+            <span class="c1"># TODO(hme): Optimize this by avoiding array instantiation.</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_array_and_array</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_to_array_axis</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a_size</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_array_axis</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b_size</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">steps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">steps</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># Occurs only if one item is selected.</span>
+                    <span class="c1"># This could be from same start value,</span>
+                    <span class="c1"># or slice(0, 4, 3)</span>
+                    <span class="c1">#    slice(1, 4, 2),</span>
+                    <span class="c1"># or slice(0, 10, 3)</span>
+                    <span class="c1">#    slice(2, 10, 2).</span>
+                    <span class="c1"># The safe thing to do is set step large enough</span>
+                    <span class="c1"># so that the resulting slice only selects</span>
+                    <span class="c1"># the first value.</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">stop</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+                    <span class="n">step</span> <span class="o">=</span> <span class="n">stop</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Steps should be all eq.</span>
+                    <span class="k">assert</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">steps</span><span class="p">))</span>
+                    <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">steps</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">stop</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">a_step</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">b_step</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">b</span><span class="o">.</span><span class="n">start</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">a</span><span class="o">.</span><span class="n">stop</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">b</span><span class="o">.</span><span class="n">stop</span> <span class="o">&lt;</span> <span class="mi">0</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_array_and_array</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_to_array_axis</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a_size</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_array_axis</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b_size</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">steps</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">steps</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># Same logic as with positive steps.</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">stop</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+                    <span class="n">step</span> <span class="o">=</span> <span class="n">stop</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Steps should be all eq.</span>
+                    <span class="k">assert</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">steps</span><span class="p">))</span>
+                    <span class="n">start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">array</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">stop</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+                    <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">steps</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Impossible.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">AxisSlice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_array_and_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">AxisArray</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">AxisArray</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">AxisArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_np_array_and_array</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">array</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_get_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="n">get_array_order</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">order</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Includes diffs containing 0,</span>
+            <span class="c1"># which imply repetitions.</span>
+            <span class="c1"># This is not allowed for basic selection.</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input array cannot be interpreted as ordered set.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">order</span>
+
+    <span class="k">def</span> <span class="nf">_np_array_and_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="c1"># We can only support intersection of single-axis arrays,</span>
+        <span class="c1"># which we interpret as ordered sets.</span>
+        <span class="c1"># Consider intersection of a matrix. We may have rows of</span>
+        <span class="c1"># different shape.</span>
+        <span class="n">a_order</span><span class="p">,</span> <span class="n">b_order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_order</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_order</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">a_order</span> <span class="o">!=</span> <span class="n">b_order</span><span class="p">:</span>
+            <span class="c1"># Such an order exists, but the order</span>
+            <span class="c1"># is undefined for elements x,y \in S,</span>
+            <span class="c1"># where x \neq y.</span>
+            <span class="c1"># For our purposes, this is undefined.</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">b</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">))[</span>
+                <span class="p">::</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">a_order</span><span class="p">)</span>
+            <span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="AdvancedSelection"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.AdvancedSelection">[docs]</a><span class="k">class</span> <span class="nc">AdvancedSelection</span><span class="p">:</span>
+    <span class="c1"># Allow mixture of slices and advanced indexing.</span>
+    <span class="c1"># Will require some basic intersection operations,</span>
+    <span class="c1"># but not as general as BasicSelection.</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Position"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.Position">[docs]</a><span class="k">class</span> <span class="nc">Position</span><span class="p">:</span>
+<div class="viewcode-block" id="Position.from_selection"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.Position.from_selection">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_selection</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">sel</span><span class="p">:</span> <span class="n">BasicSelection</span><span class="p">,</span> <span class="n">compute_stop</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">shape_dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sel</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape_dim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">shape_dim</span><span class="p">):</span>
+            <span class="n">axsel</span><span class="p">:</span> <span class="n">AxisSelection</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">AxisSlice</span><span class="p">):</span>
+                <span class="n">axsel</span><span class="p">:</span> <span class="n">AxisSlice</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">axsel</span><span class="o">.</span><span class="n">stop</span> <span class="k">if</span> <span class="n">compute_stop</span> <span class="k">else</span> <span class="n">axsel</span><span class="o">.</span><span class="n">start</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">AxisIndex</span><span class="p">):</span>
+                <span class="n">axsel</span><span class="p">:</span> <span class="n">AxisIndex</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">axsel</span><span class="o">.</span><span class="n">index</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">AxisArray</span><span class="p">):</span>
+                <span class="n">axsel</span><span class="p">:</span> <span class="n">AxisArray</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">compute_stop</span><span class="p">:</span>
+                    <span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="nb">max</span><span class="p">(</span><span class="n">axsel</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="k">if</span> <span class="n">axsel</span><span class="o">.</span><span class="n">order</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">min</span><span class="p">(</span><span class="n">axsel</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="nb">min</span><span class="p">(</span><span class="n">axsel</span><span class="o">.</span><span class="n">array</span><span class="p">)</span> <span class="k">if</span> <span class="n">axsel</span><span class="o">.</span><span class="n">order</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">max</span><span class="p">(</span><span class="n">axsel</span><span class="o">.</span><span class="n">array</span><span class="p">)</span>
+                    <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unexpected axis type </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="n">axsel</span><span class="o">.</span><span class="n">order</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Position.from_dim"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.Position.from_dim">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_dim</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="n">value</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">intp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;add&quot;</span><span class="p">)</span>
+
+    <span class="fm">__radd__</span> <span class="o">=</span> <span class="fm">__add__</span>
+
+    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;sub&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__rsub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="s2">&quot;rsub&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Position.bop"><a class="viewcode-back" href="../../../../generated/nums.core.array.selection.html#nums.core.array.selection.Position.bop">[docs]</a>    <span class="k">def</span> <span class="nf">bop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">bop</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Position</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">dim</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Position</span><span class="o">.</span><span class="n">from_dim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">bop</span> <span class="o">==</span> <span class="s2">&quot;add&quot;</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">elif</span> <span class="n">bop</span> <span class="o">==</span> <span class="s2">&quot;sub&quot;</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">elif</span> <span class="n">bop</span> <span class="o">==</span> <span class="s2">&quot;rsub&quot;</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">BasicSelection</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">bop</span> <span class="o">==</span> <span class="s2">&quot;sub&quot;</span><span class="p">:</span>
+                <span class="c1"># This is not allowed for selections.</span>
+                <span class="c1"># The new subscript bounds are unclear in this case.</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot subtract BasicSelection from Position.&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">bop</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="s2">&quot;rsub&quot;</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unsupported op encountered </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">bop</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="c1"># TODO (hme): Test shape addition / subtraction under various circumstances.</span>
+            <span class="c1">#  This should work okay, but does it work because of prior assumptions</span>
+            <span class="c1">#  on AxisSelection types? This is okay, but we should answer this</span>
+            <span class="c1">#  question.</span>
+            <span class="n">shape</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">sel</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">selector</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="nb">slice</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">bop</span> <span class="o">==</span> <span class="s2">&quot;add&quot;</span><span class="p">:</span>
+                        <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span>
+                            <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                            <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stop</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                            <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
+                        <span class="p">)</span>
+                        <span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">bop</span> <span class="o">==</span> <span class="s2">&quot;rsub&quot;</span><span class="p">:</span>
+                        <span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                        <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span>
+                            <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">start</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                            <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                            <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
+                        <span class="p">)</span>
+                <span class="k">elif</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_index_subscript</span><span class="p">(</span><span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]):</span>
+                    <span class="k">if</span> <span class="n">bop</span> <span class="o">==</span> <span class="s2">&quot;add&quot;</span><span class="p">:</span>
+                        <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">bop</span> <span class="o">==</span> <span class="s2">&quot;rsub&quot;</span><span class="p">:</span>
+                        <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">bop</span> <span class="o">==</span> <span class="s2">&quot;add&quot;</span><span class="p">:</span>
+                        <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="k">elif</span> <span class="n">bop</span> <span class="o">==</span> <span class="s2">&quot;rsub&quot;</span><span class="p">:</span>
+                        <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">&quot;Unsupported instance encountered </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">sel</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="p">)</span>
+            <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">sel</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">sel</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">BasicSelection</span><span class="o">.</span><span class="n">from_subscript</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">sel</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The NumS Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

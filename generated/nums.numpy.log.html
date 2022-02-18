@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.numpy.log &#8212; NumS  documentation</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="nums-numpy-log">
+<h1>nums.numpy.log<a class="headerlink" href="#nums-numpy-log" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt id="nums.numpy.log">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.</span></code><code class="sig-name descname"><span class="pre">log</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/generated.html#log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.log" title="Permalink to this definition"></a></dt>
+<dd><p>Natural logarithm, element-wise.</p>
+<p>This docstring was copied from numpy.log.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>The natural logarithm <cite>log</cite> is the inverse of the exponential function,
+so that <cite>log(exp(x)) = x</cite>. The natural logarithm is logarithm in base
+<cite>e</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Input value.</p></li>
+<li><p><strong>out</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>None</em><em>, or </em><em>optional</em>) – A location into which the result is stored. If provided, it must have
+a shape that the inputs broadcast to. If not provided or None,
+a freshly-allocated array is returned. A tuple (possible only as a
+keyword argument) must have length equal to the number of outputs.</p></li>
+<li><p><strong>where</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>optional</em>) – This condition is broadcast over the input. At locations where the
+condition is True, the <cite>out</cite> array will be set to the ufunc result.
+Elsewhere, the <cite>out</cite> array will retain its original value.
+Note that if an uninitialized <cite>out</cite> array is created via the default
+<code class="docutils literal notranslate"><span class="pre">out=None</span></code>, locations within it where the condition is False will
+remain uninitialized.</p></li>
+<li><p><strong>**kwargs</strong> – For other keyword-only arguments, see the
+<span class="xref std std-ref">ufunc docs</span>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>y</strong> – The natural logarithm of <cite>x</cite>, element-wise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../reference/generated/nums.numpy.log10.html#nums.numpy.log10" title="nums.numpy.log10"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log10</span></code></a>, <a class="reference internal" href="../reference/generated/nums.numpy.log2.html#nums.numpy.log2" title="nums.numpy.log2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log2</span></code></a>, <a class="reference internal" href="../reference/generated/nums.numpy.log1p.html#nums.numpy.log1p" title="nums.numpy.log1p"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log1p</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>Logarithm is a multivalued function: for each <cite>x</cite> there is an infinite
+number of <cite>z</cite> such that <cite>exp(z) = x</cite>. The convention is to return the
+<cite>z</cite> whose imaginary part lies in <cite>[-pi, pi]</cite>.</p>
+<p>For real-valued input data types, <cite>log</cite> always returns real output. For
+each value that cannot be expressed as a real number or infinity, it
+yields <code class="docutils literal notranslate"><span class="pre">nan</span></code> and sets the <cite>invalid</cite> floating point error flag.</p>
+<p>For complex-valued input, <cite>log</cite> is a complex analytical function that
+has a branch cut <cite>[-inf, 0]</cite> and is continuous from above on it. <cite>log</cite>
+handles the floating-point negative zero as an infinitesimal negative
+number, conforming to the C99 standard.</p>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id1"><span class="brackets">1</span></dt>
+<dd><p>M. Abramowitz and I.A. Stegun, “Handbook of Mathematical Functions”,
+10th printing, 1964, pp. 67. <a class="reference external" href="http://www.math.sfu.ca/~cbm/aands/">http://www.math.sfu.ca/~cbm/aands/</a></p>
+</dd>
+<dt class="label" id="id2"><span class="brackets">2</span></dt>
+<dd><p>Wikipedia, “Logarithm”. <a class="reference external" href="https://en.wikipedia.org/wiki/Logarithm">https://en.wikipedia.org/wiki/Logarithm</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">nps</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="n">nps</span><span class="o">.</span><span class="n">e</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([  0.,   1.,   2., -Inf])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

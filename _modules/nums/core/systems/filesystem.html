@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nums.core.systems.filesystem &mdash; NumS  documentation</title><link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> NumS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">nums.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../numpy.html">nums.numpy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">NumS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>nums.core.systems.filesystem</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nums.core.systems.filesystem</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.compat</span> <span class="kn">import</span> <span class="n">asbytes</span><span class="p">,</span> <span class="n">asstr</span><span class="p">,</span> <span class="n">asunicode</span>
+
+<span class="kn">from</span> <span class="nn">nums.core</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">nums.core.array.blockarray</span> <span class="kn">import</span> <span class="n">BlockArray</span>
+<span class="kn">from</span> <span class="nn">nums.core.compute.compute_manager</span> <span class="kn">import</span> <span class="n">ComputeManager</span>
+<span class="kn">from</span> <span class="nn">nums.core.grid.grid</span> <span class="kn">import</span> <span class="n">ArrayGrid</span>
+<span class="kn">from</span> <span class="nn">nums.core.grid.grid</span> <span class="kn">import</span> <span class="n">DeviceID</span>
+<span class="kn">from</span> <span class="nn">nums.core.storage</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">storage_utils</span>
+<span class="kn">from</span> <span class="nn">nums.core.storage.storage</span> <span class="kn">import</span> <span class="n">StoredArrayS3</span>
+
+
+<span class="c1">################</span>
+<span class="c1"># S3</span>
+<span class="c1">################</span>
+<div class="viewcode-block" id="write_meta_s3"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.write_meta_s3">[docs]</a><span class="k">def</span> <span class="nf">write_meta_s3</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+    <span class="n">sa</span><span class="p">:</span> <span class="n">StoredArrayS3</span> <span class="o">=</span> <span class="n">StoredArrayS3</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ArrayGrid</span><span class="o">.</span><span class="n">from_meta</span><span class="p">(</span><span class="n">grid_meta</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">put_grid</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">grid</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="delete_meta_s3"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.delete_meta_s3">[docs]</a><span class="k">def</span> <span class="nf">delete_meta_s3</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">):</span>
+    <span class="n">sa</span><span class="p">:</span> <span class="n">StoredArrayS3</span> <span class="o">=</span> <span class="n">StoredArrayS3</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">sa</span><span class="o">.</span><span class="n">init_grid</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">delete_grid</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="write_block_s3"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.write_block_s3">[docs]</a><span class="k">def</span> <span class="nf">write_block_s3</span><span class="p">(</span><span class="n">block</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="n">StoredArrayS3</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ArrayGrid</span><span class="o">.</span><span class="n">from_meta</span><span class="p">(</span><span class="n">grid_meta</span><span class="p">))</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">,</span> <span class="n">block</span><span class="p">),</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="read_block_s3"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.read_block_s3">[docs]</a><span class="k">def</span> <span class="nf">read_block_s3</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">StoredArrayS3</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ArrayGrid</span><span class="o">.</span><span class="n">from_meta</span><span class="p">(</span><span class="n">grid_meta</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="delete_block_s3"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.delete_block_s3">[docs]</a><span class="k">def</span> <span class="nf">delete_block_s3</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="n">StoredArrayS3</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">ArrayGrid</span><span class="o">.</span><span class="n">from_meta</span><span class="p">(</span><span class="n">grid_meta</span><span class="p">))</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">),</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="nb">dict</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<span class="c1">###################</span>
+<span class="c1"># DFS</span>
+<span class="c1">###################</span>
+
+<span class="n">ARRAY_FILETYPE</span> <span class="o">=</span> <span class="s2">&quot;pkl&quot;</span>
+
+
+<div class="viewcode-block" id="write_meta_fs"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.write_meta_fs">[docs]</a><span class="k">def</span> <span class="nf">write_meta_fs</span><span class="p">(</span><span class="n">meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write meta data to disk.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">settings</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">pj</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;meta.pkl&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">fh</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="read_meta_fs"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.read_meta_fs">[docs]</a><span class="k">def</span> <span class="nf">read_meta_fs</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read meta data from disk.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">pj</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;meta.pkl&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">_</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="save"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.save">[docs]</a><span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">filepath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;npy&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">block</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">filepath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;pkl&quot;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">fh</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">filepath</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">filepath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;npy&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">filepath</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;pkl&quot;</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_parts_fs"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.get_parts_fs">[docs]</a><span class="k">def</span> <span class="nf">get_parts_fs</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+    <span class="n">base</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">base</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">grid</span><span class="p">:</span> <span class="n">ArrayGrid</span> <span class="o">=</span> <span class="n">ArrayGrid</span><span class="o">.</span><span class="n">from_meta</span><span class="p">(</span><span class="n">grid_meta</span><span class="p">)</span>
+    <span class="c1"># This is a multi-dimensional array of blocks, so entries should be relatively small.</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">block_shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="o">**</span> <span class="mi">32</span><span class="p">)</span>
+    <span class="n">contains_all</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">for</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">():</span>
+        <span class="n">entry_name</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">)))</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">ARRAY_FILETYPE</span>
+        <span class="n">entry_filename</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">pj</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">entry_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">entry_filename</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">contains_all</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">contains_all</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;all&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="write_block_fs"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.write_block_fs">[docs]</a><span class="k">def</span> <span class="nf">write_block_fs</span><span class="p">(</span><span class="n">block</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Write block to disk.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">settings</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">entry_name</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">)))</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">ARRAY_FILETYPE</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">pj</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">entry_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">save</span><span class="p">(</span><span class="n">block</span><span class="p">,</span> <span class="n">filepath</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="read_block_fs"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.read_block_fs">[docs]</a><span class="k">def</span> <span class="nf">read_block_fs</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read block from disk.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">entry_name</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">)))</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">ARRAY_FILETYPE</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">pj</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">entry_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">load</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="delete_file_fs"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.delete_file_fs">[docs]</a><span class="k">def</span> <span class="nf">delete_file_fs</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Delete dir corresponding to file from disk.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">pj</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;meta.pkl&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="c1"># If the meta data file exists, the dir is a NumS file.</span>
+    <span class="c1"># Delete it.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<span class="c1">##############</span>
+<span class="c1"># NumPy API</span>
+<span class="c1">##############</span>
+<div class="viewcode-block" id="loadtxt_block"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.loadtxt_block">[docs]</a><span class="k">def</span> <span class="nf">loadtxt_block</span><span class="p">(</span>
+    <span class="n">fname</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="p">,</span>
+    <span class="n">comments</span><span class="p">,</span>
+    <span class="n">delimiter</span><span class="p">,</span>
+    <span class="n">converters</span><span class="p">,</span>
+    <span class="n">skiprows</span><span class="p">,</span>
+    <span class="n">usecols</span><span class="p">,</span>
+    <span class="n">unpack</span><span class="p">,</span>
+    <span class="n">ndmin</span><span class="p">,</span>
+    <span class="n">encoding</span><span class="p">,</span>
+    <span class="n">max_rows</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span>
+        <span class="n">fname</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+        <span class="n">comments</span><span class="o">=</span><span class="n">comments</span><span class="p">,</span>
+        <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">,</span>
+        <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span>
+        <span class="n">skiprows</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span>
+        <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span>
+        <span class="n">unpack</span><span class="o">=</span><span class="n">unpack</span><span class="p">,</span>
+        <span class="n">ndmin</span><span class="o">=</span><span class="n">ndmin</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
+        <span class="n">max_rows</span><span class="o">=</span><span class="n">max_rows</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<span class="c1">##############</span>
+<span class="c1"># CSV API</span>
+<span class="c1">##############</span>
+<div class="viewcode-block" id="read_csv_block"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.read_csv_block">[docs]</a><span class="k">def</span> <span class="nf">read_csv_block</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">file_start</span><span class="p">,</span> <span class="n">file_end</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">,</span> <span class="n">has_header</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_getconv</span><span class="p">(</span><span class="n">_dtype</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adapted from numpy/lib/npyio.py&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">floatconv</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s2">&quot;0x&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+                <span class="k">return</span> <span class="nb">float</span><span class="o">.</span><span class="n">fromhex</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">_dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">):</span>
+            <span class="k">return</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">_dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">uint64</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">_dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span>
+        <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">_dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">)</span> <span class="ow">or</span> <span class="n">_dtype</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+            <span class="k">return</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">_dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">longdouble</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">longdouble</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">_dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">)</span> <span class="ow">or</span> <span class="n">_dtype</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">floatconv</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">_dtype</span><span class="p">,</span> <span class="nb">complex</span><span class="p">):</span>
+            <span class="k">return</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">complex</span><span class="p">(</span><span class="n">asstr</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;+-&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">_dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">bytes_</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">asbytes</span>
+        <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">_dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">unicode_</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">asunicode</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">asstr</span>
+
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">converter</span> <span class="o">=</span> <span class="n">_getconv</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">fh</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">file_start</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">file_start</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">char</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="k">while</span> <span class="n">char</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">:</span>
+                    <span class="n">char</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">header_skipped</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">while</span> <span class="n">fh</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">file_end</span><span class="p">:</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">file_start</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">has_header</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">header_skipped</span><span class="p">:</span>
+                    <span class="n">header_skipped</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">continue</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">delimiter</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">converter</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lines</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">array</span><span class="p">,</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span></div>
+
+
+<div class="viewcode-block" id="FileSystem"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem">[docs]</a><span class="k">class</span> <span class="nc">FileSystem</span><span class="p">:</span>
+    <span class="c1"># pylint: disable=unused-argument</span>
+    <span class="c1"># TODO (hme):</span>
+    <span class="c1">#  - Idempotency for write/delete.</span>
+    <span class="c1">#  - Write-constraints based on cluster disk capacity.</span>
+    <span class="c1">#  - Replication of data.</span>
+    <span class="c1">#  - Less stringent replication of meta-data.</span>
+    <span class="c1">#  - Journaling?</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cm</span><span class="p">:</span> <span class="n">ComputeManager</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="p">:</span> <span class="n">ComputeManager</span> <span class="o">=</span> <span class="n">cm</span>
+        <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="n">write_meta_s3</span><span class="p">,</span>
+            <span class="n">delete_meta_s3</span><span class="p">,</span>
+            <span class="n">write_block_s3</span><span class="p">,</span>
+            <span class="n">read_block_s3</span><span class="p">,</span>
+            <span class="n">delete_block_s3</span><span class="p">,</span>
+            <span class="n">get_parts_fs</span><span class="p">,</span>
+            <span class="n">write_meta_fs</span><span class="p">,</span>
+            <span class="n">read_meta_fs</span><span class="p">,</span>
+            <span class="n">write_block_fs</span><span class="p">,</span>
+            <span class="n">read_block_fs</span><span class="p">,</span>
+            <span class="n">delete_file_fs</span><span class="p">,</span>
+            <span class="n">loadtxt_block</span><span class="p">,</span>
+            <span class="n">read_csv_block</span><span class="p">,</span>
+        <span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="p">{})</span>
+
+    <span class="c1">##################################################</span>
+    <span class="c1"># Block-level (remote) operations</span>
+    <span class="c1">##################################################</span>
+
+<div class="viewcode-block" id="FileSystem.write_meta_s3"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.write_meta_s3">[docs]</a>    <span class="k">def</span> <span class="nf">write_meta_s3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;write_meta_s3&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FileSystem.delete_meta_s3"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.delete_meta_s3">[docs]</a>    <span class="k">def</span> <span class="nf">delete_meta_s3</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;delete_meta_s3&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FileSystem.write_block_s3"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.write_block_s3">[docs]</a>    <span class="k">def</span> <span class="nf">write_block_s3</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">block</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span>
+        <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span>
+        <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+            <span class="s2">&quot;write_block_s3&quot;</span><span class="p">,</span>
+            <span class="n">block</span><span class="p">,</span>
+            <span class="n">filename</span><span class="p">,</span>
+            <span class="n">grid_entry</span><span class="p">,</span>
+            <span class="n">grid_meta</span><span class="p">,</span>
+            <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FileSystem.read_block_s3"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.read_block_s3">[docs]</a>    <span class="k">def</span> <span class="nf">read_block_s3</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+            <span class="s2">&quot;read_block_s3&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FileSystem.delete_block_s3"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.delete_block_s3">[docs]</a>    <span class="k">def</span> <span class="nf">delete_block_s3</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+            <span class="s2">&quot;delete_block_s3&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FileSystem.loadtxt_block"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.loadtxt_block">[docs]</a>    <span class="k">def</span> <span class="nf">loadtxt_block</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fname</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">,</span>
+        <span class="n">comments</span><span class="p">,</span>
+        <span class="n">delimiter</span><span class="p">,</span>
+        <span class="n">converters</span><span class="p">,</span>
+        <span class="n">skiprows</span><span class="p">,</span>
+        <span class="n">usecols</span><span class="p">,</span>
+        <span class="n">unpack</span><span class="p">,</span>
+        <span class="n">ndmin</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="p">,</span>
+        <span class="n">max_rows</span><span class="p">,</span>
+        <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="c1"># TODO (hme): Invoke file_exists with options to determine which nodes to pull from.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+            <span class="s2">&quot;loadtxt_block&quot;</span><span class="p">,</span>
+            <span class="n">fname</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="p">,</span>
+            <span class="n">comments</span><span class="p">,</span>
+            <span class="n">delimiter</span><span class="p">,</span>
+            <span class="n">converters</span><span class="p">,</span>
+            <span class="n">skiprows</span><span class="p">,</span>
+            <span class="n">usecols</span><span class="p">,</span>
+            <span class="n">unpack</span><span class="p">,</span>
+            <span class="n">ndmin</span><span class="p">,</span>
+            <span class="n">encoding</span><span class="p">,</span>
+            <span class="n">max_rows</span><span class="p">,</span>
+            <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FileSystem.write_block_fs"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.write_block_fs">[docs]</a>    <span class="k">def</span> <span class="nf">write_block_fs</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">block</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span>
+        <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span>
+        <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+        <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+            <span class="s2">&quot;write_block_fs&quot;</span><span class="p">,</span> <span class="n">block</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FileSystem.read_block_fs"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.read_block_fs">[docs]</a>    <span class="k">def</span> <span class="nf">read_block_fs</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;read_block_fs&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FileSystem.delete_file_fs"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.delete_file_fs">[docs]</a>    <span class="k">def</span> <span class="nf">delete_file_fs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;delete_file_fs&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span><span class="p">)</span></div>
+
+    <span class="c1">##################################################</span>
+    <span class="c1"># Array-level operations</span>
+    <span class="c1">##################################################</span>
+
+<div class="viewcode-block" id="FileSystem.write_meta_fs"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.write_meta_fs">[docs]</a>    <span class="k">def</span> <span class="nf">write_meta_fs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ba</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="c1"># Currently, no need for anything more than the array grid.</span>
+        <span class="n">meta</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;grid&quot;</span><span class="p">:</span> <span class="n">ba</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">to_meta</span><span class="p">()}</span>
+        <span class="n">nodes_written_to</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">device_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">devices</span><span class="p">():</span>
+            <span class="n">device_id</span><span class="p">:</span> <span class="n">DeviceID</span> <span class="o">=</span> <span class="n">device_id</span>
+            <span class="k">if</span> <span class="n">device_id</span><span class="o">.</span><span class="n">node_id</span> <span class="ow">in</span> <span class="n">nodes_written_to</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">nodes_written_to</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">device_id</span><span class="o">.</span><span class="n">node_id</span><span class="p">)</span>
+            <span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+                <span class="s2">&quot;write_meta_fs&quot;</span><span class="p">,</span> <span class="n">meta</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="n">device_id</span><span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">oid</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="FileSystem.read_meta_fs"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.read_meta_fs">[docs]</a>    <span class="k">def</span> <span class="nf">read_meta_fs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">device_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">devices</span><span class="p">():</span>
+            <span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+                <span class="s2">&quot;read_meta_fs&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="n">device_id</span><span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">oid</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">result</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;Unable to load meta data for file </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FileSystem.repartition"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.repartition">[docs]</a>    <span class="k">def</span> <span class="nf">repartition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Repartition a loaded array according to provided grid meta data.</span>
+<span class="sd">        Implement as simple write then delete sequence.</span>
+<span class="sd">        In order to delete, need old &quot;grid_meta,&quot; which we can read from dfs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="FileSystem.read_array_fs"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.read_array_fs">[docs]</a>    <span class="k">def</span> <span class="nf">read_array_fs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">AnyStr</span><span class="p">):</span>
+        <span class="n">file_meta</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_meta_fs</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="c1"># Currently, file_meta contains only ArrayGrid.</span>
+        <span class="n">grid</span><span class="p">:</span> <span class="n">ArrayGrid</span> <span class="o">=</span> <span class="n">ArrayGrid</span><span class="o">.</span><span class="n">from_meta</span><span class="p">(</span><span class="n">file_meta</span><span class="p">[</span><span class="s2">&quot;grid&quot;</span><span class="p">])</span>
+        <span class="c1"># First, let&#39;s identify which nodes actually contain the data we need.</span>
+        <span class="n">result_oids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">device_id</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">devices</span><span class="p">():</span>
+            <span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+                <span class="s2">&quot;get_parts_fs&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="p">,</span>
+                <span class="n">file_meta</span><span class="p">[</span><span class="s2">&quot;grid&quot;</span><span class="p">],</span>
+                <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="n">device_id</span><span class="p">},</span>
+            <span class="p">)</span>
+            <span class="n">result_oids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">oid</span><span class="p">)</span>
+        <span class="n">file_results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">result_oids</span><span class="p">)</span>
+
+        <span class="c1"># Check if all the nodes have all the data.</span>
+        <span class="n">all_has_all</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">file_results</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="n">result</span> <span class="o">!=</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+                <span class="n">all_has_all</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">all_has_all</span><span class="p">:</span>
+            <span class="c1"># This is likely a single machine or virtual FS.</span>
+            <span class="c1"># Load via device grid ordering.</span>
+            <span class="n">ba</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="n">BlockArray</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">():</span>
+                <span class="n">device_id</span><span class="p">:</span> <span class="n">DeviceID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">device_grid</span><span class="o">.</span><span class="n">get_device_id</span><span class="p">(</span>
+                    <span class="n">grid_entry</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span>
+                <span class="p">)</span>
+                <span class="n">ba</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_block_fs</span><span class="p">(</span>
+                    <span class="n">filename</span><span class="p">,</span>
+                    <span class="n">grid_entry</span><span class="p">,</span>
+                    <span class="n">file_meta</span><span class="p">[</span><span class="s2">&quot;grid&quot;</span><span class="p">],</span>
+                    <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="n">device_id</span><span class="p">},</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">ba</span>
+
+        <span class="c1"># Organize data for reads.</span>
+        <span class="n">grid_entry_sets</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">file_results</span><span class="p">)):</span>
+            <span class="n">node_grid_entries</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="n">file_results</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">node_grid_entries</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">device_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">devices</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">grid_entry_sets</span><span class="p">[</span><span class="n">device_id</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">node_grid_entries</span><span class="o">.</span><span class="n">tolist</span><span class="p">()))</span>
+
+        <span class="c1"># The data may be partitioned according to the grid layout for this cluster.</span>
+        <span class="c1"># Test this and load accordingly if it is.</span>
+        <span class="n">aligned</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">():</span>
+            <span class="n">device_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">device_grid</span><span class="o">.</span><span class="n">get_device_id</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+                <span class="n">device_id</span> <span class="ow">in</span> <span class="n">grid_entry_sets</span>
+                <span class="ow">and</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="n">grid_entry_sets</span><span class="p">[</span><span class="n">device_id</span><span class="p">]</span>
+            <span class="p">):</span>
+                <span class="n">aligned</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">aligned</span><span class="p">:</span>
+            <span class="c1"># If data is partitioning aligned, then just load it using device grid ordering.</span>
+            <span class="n">ba</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="n">BlockArray</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">():</span>
+                <span class="n">device_id</span><span class="p">:</span> <span class="n">DeviceID</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">device_grid</span><span class="o">.</span><span class="n">get_device_id</span><span class="p">(</span>
+                    <span class="n">grid_entry</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span>
+                <span class="p">)</span>
+                <span class="n">ba</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_block_fs</span><span class="p">(</span>
+                    <span class="n">filename</span><span class="p">,</span>
+                    <span class="n">grid_entry</span><span class="p">,</span>
+                    <span class="n">file_meta</span><span class="p">[</span><span class="s2">&quot;grid&quot;</span><span class="p">],</span>
+                    <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="n">device_id</span><span class="p">},</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">ba</span>
+
+        <span class="c1"># This is the worst-case scenario. Make sure we have all blocks.</span>
+        <span class="n">grid_entry_to_devices</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">():</span>
+            <span class="n">grid_entry_to_devices</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">device_id</span> <span class="ow">in</span> <span class="n">grid_entry_sets</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="n">grid_entry_sets</span><span class="p">[</span><span class="n">device_id</span><span class="p">]:</span>
+                    <span class="n">grid_entry_to_devices</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">grid_entry_to_devices</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unable to find all blocks for </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="p">(</span><span class="s2">&quot;Loading </span><span class="si">%s</span><span class="s2"> with no data layout guarantee. &quot;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot;This may negatively impact performance. &quot;</span>
+            <span class="o">+</span> <span class="s2">&quot;To fix this, rewrite this block array to disk.&quot;</span>
+        <span class="p">)</span>
+        <span class="n">ba</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="n">BlockArray</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="n">grid_entry_to_devices</span><span class="p">:</span>
+            <span class="c1"># Distribute load of read operations randomly over available nodes.</span>
+            <span class="n">device_id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">grid_entry_to_devices</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">])</span>
+            <span class="c1"># Schedule the load operation.</span>
+            <span class="n">ba</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_block_fs</span><span class="p">(</span>
+                <span class="n">filename</span><span class="p">,</span>
+                <span class="n">grid_entry</span><span class="p">,</span>
+                <span class="n">file_meta</span><span class="p">[</span><span class="s2">&quot;grid&quot;</span><span class="p">],</span>
+                <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="n">device_id</span><span class="p">},</span>
+            <span class="p">)</span>
+        <span class="c1"># The blocks are likely not distributed properly,</span>
+        <span class="c1"># but any operations performed on this block array</span>
+        <span class="c1"># will force the appropriate placement.</span>
+        <span class="c1"># We could alternatively invoke touch() on the array,</span>
+        <span class="c1"># but this would block until the data is loaded.</span>
+        <span class="k">return</span> <span class="n">ba</span></div>
+
+<div class="viewcode-block" id="FileSystem.loadtxt"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.loadtxt">[docs]</a>    <span class="k">def</span> <span class="nf">loadtxt</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fname</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+        <span class="n">comments</span><span class="o">=</span><span class="s2">&quot;# &quot;</span><span class="p">,</span>
+        <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span>
+        <span class="n">converters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">skiprows</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">usecols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">unpack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">ndmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
+        <span class="n">max_rows</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+        <span class="c1"># pylint: disable=unused-variable</span>
+        <span class="p">(</span>
+            <span class="n">bytes_per_char</span><span class="p">,</span>
+            <span class="n">bytes_per_row</span><span class="p">,</span>
+            <span class="n">bytes_per_col</span><span class="p">,</span>
+            <span class="n">num_cols</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">storage_utils</span><span class="o">.</span><span class="n">get_np_txt_info</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">comments</span><span class="p">,</span> <span class="n">delimiter</span><span class="p">)</span>
+        <span class="n">chars_per_row</span> <span class="o">=</span> <span class="n">bytes_per_row</span> <span class="o">//</span> <span class="n">bytes_per_char</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">chars_per_row</span><span class="p">),</span> <span class="n">bytes_per_row</span> <span class="o">/</span> <span class="n">bytes_per_char</span><span class="p">)</span>
+        <span class="n">comment_lines</span><span class="p">,</span> <span class="n">trailing_newlines</span> <span class="o">=</span> <span class="n">storage_utils</span><span class="o">.</span><span class="n">get_np_comments</span><span class="p">(</span>
+            <span class="n">fname</span><span class="p">,</span> <span class="n">comments</span>
+        <span class="p">)</span>
+        <span class="n">nonrow_chars</span> <span class="o">=</span> <span class="n">trailing_newlines</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">comment_lines</span><span class="p">:</span>
+            <span class="n">nonrow_chars</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">file_size</span> <span class="o">=</span> <span class="n">storage_utils</span><span class="o">.</span><span class="n">get_file_size</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+        <span class="n">file_chars</span> <span class="o">=</span> <span class="n">file_size</span> <span class="o">//</span> <span class="n">bytes_per_char</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">file_chars</span><span class="p">),</span> <span class="n">file_size</span> <span class="o">/</span> <span class="n">bytes_per_char</span><span class="p">)</span>
+        <span class="n">row_chars</span> <span class="o">=</span> <span class="n">file_chars</span> <span class="o">-</span> <span class="n">nonrow_chars</span>
+        <span class="n">num_rows</span> <span class="o">=</span> <span class="n">row_chars</span> <span class="o">//</span> <span class="n">chars_per_row</span>
+        <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">num_rows</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">row_chars</span> <span class="o">/</span> <span class="n">chars_per_row</span><span class="p">))</span>
+        <span class="n">num_rows_final</span> <span class="o">=</span> <span class="n">num_rows</span> <span class="o">-</span> <span class="n">skiprows</span>
+        <span class="k">if</span> <span class="n">max_rows</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">num_rows_final</span> <span class="o">=</span> <span class="p">(</span><span class="n">num_rows_final</span><span class="p">,</span> <span class="n">max_rows</span><span class="p">)</span>
+        <span class="n">row_batches</span><span class="p">:</span> <span class="n">storage_utils</span><span class="o">.</span><span class="n">Batch</span> <span class="o">=</span> <span class="n">storage_utils</span><span class="o">.</span><span class="n">Batch</span><span class="o">.</span><span class="n">from_num_batches</span><span class="p">(</span>
+            <span class="n">num_rows_final</span><span class="p">,</span> <span class="n">num_workers</span>
+        <span class="p">)</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">ArrayGrid</span><span class="p">(</span>
+            <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">num_rows_final</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">),</span>
+            <span class="n">block_shape</span><span class="o">=</span><span class="p">(</span><span class="n">row_batches</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">num_cols</span><span class="p">),</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="nb">float</span> <span class="k">else</span> <span class="n">dtype</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="n">BlockArray</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="n">cm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">()):</span>
+            <span class="n">row_start</span><span class="p">,</span> <span class="n">row_end</span> <span class="o">=</span> <span class="n">row_batches</span><span class="o">.</span><span class="n">batches</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">batch_skiprows</span> <span class="o">=</span> <span class="n">skiprows</span> <span class="o">+</span> <span class="n">row_start</span>
+            <span class="n">batch_max_rows</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">get_block_shape</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="n">batch_max_rows</span> <span class="o">==</span> <span class="n">row_end</span> <span class="o">-</span> <span class="n">row_start</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loadtxt_block</span><span class="p">(</span>
+                <span class="n">fname</span><span class="p">,</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+                <span class="n">comments</span><span class="o">=</span><span class="n">comments</span><span class="p">,</span>
+                <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">,</span>
+                <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span>
+                <span class="n">skiprows</span><span class="o">=</span><span class="n">batch_skiprows</span><span class="p">,</span>
+                <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span>
+                <span class="n">unpack</span><span class="o">=</span><span class="n">unpack</span><span class="p">,</span>
+                <span class="n">ndmin</span><span class="o">=</span><span class="n">ndmin</span><span class="p">,</span>
+                <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
+                <span class="n">max_rows</span><span class="o">=</span><span class="n">batch_max_rows</span><span class="p">,</span>
+                <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">grid_entry</span><span class="p">,</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">},</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="FileSystem.read_csv"><a class="viewcode-back" href="../../../../generated/nums.core.systems.filesystem.html#nums.core.systems.filesystem.FileSystem.read_csv">[docs]</a>    <span class="k">def</span> <span class="nf">read_csv</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="n">has_header</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span>
+    <span class="p">):</span>
+        <span class="n">file_size</span> <span class="o">=</span> <span class="n">storage_utils</span><span class="o">.</span><span class="n">get_file_size</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">file_batches</span><span class="p">:</span> <span class="n">storage_utils</span><span class="o">.</span><span class="n">Batch</span> <span class="o">=</span> <span class="n">storage_utils</span><span class="o">.</span><span class="n">Batch</span><span class="o">.</span><span class="n">from_num_batches</span><span class="p">(</span>
+            <span class="n">file_size</span><span class="p">,</span> <span class="n">num_workers</span>
+        <span class="p">)</span>
+        <span class="n">blocks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">shape_oids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">file_batches</span><span class="o">.</span><span class="n">batches</span><span class="p">):</span>
+            <span class="n">file_start</span><span class="p">,</span> <span class="n">file_end</span> <span class="o">=</span> <span class="n">batch</span>
+            <span class="n">block_oid</span><span class="p">,</span> <span class="n">shape_oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+                <span class="s2">&quot;read_csv_block&quot;</span><span class="p">,</span>
+                <span class="n">filename</span><span class="p">,</span>
+                <span class="n">file_start</span><span class="p">,</span>
+                <span class="n">file_end</span><span class="p">,</span>
+                <span class="n">dtype</span><span class="p">,</span>
+                <span class="n">delimiter</span><span class="p">,</span>
+                <span class="n">has_header</span><span class="p">,</span>
+                <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span><span class="p">,),</span>
+                    <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">num_workers</span><span class="p">,),</span>
+                    <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;num_returns&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+                <span class="p">},</span>
+            <span class="p">)</span>
+            <span class="n">blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block_oid</span><span class="p">)</span>
+            <span class="n">shape_oids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shape_oid</span><span class="p">)</span>
+        <span class="n">shapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">shape_oids</span><span class="p">)</span>
+        <span class="n">arrays</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">shapes</span><span class="p">)):</span>
+            <span class="n">shape</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">block</span> <span class="o">=</span> <span class="n">blocks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">ArrayGrid</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">BlockArray</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="p">)</span>
+            <span class="n">iter_one</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">():</span>
+                <span class="k">assert</span> <span class="n">iter_one</span>
+                <span class="n">iter_one</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">arr</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="n">block</span>
+            <span class="n">arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">arrays</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The NumS Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1327 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.numpy.api.creation &#8212; NumS  documentation</title>
+    
+    <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../../../../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../../../../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../../../../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../../../../index.html">
+  <img src="../../../../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for nums.numpy.api.creation</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="c1"># pylint: disable = redefined-builtin, too-many-lines, anomalous-backslash-in-string, unused-wildcard-import, wildcard-import</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">nums.core.application_manager</span> <span class="kn">import</span> <span class="n">instance</span> <span class="k">as</span> <span class="n">_instance</span>
+<span class="kn">from</span> <span class="nn">nums.core.array.blockarray</span> <span class="kn">import</span> <span class="n">BlockArray</span>
+
+<span class="kn">from</span> <span class="nn">nums.numpy.api.stats</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">nums.numpy.api.logic</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1">############################################</span>
+<span class="c1"># Creation Ops</span>
+<span class="c1">############################################</span>
+
+
+<div class="viewcode-block" id="arange"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.arange.html#nums.numpy.api.creation.arange">[docs]</a><span class="k">def</span> <span class="nf">arange</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return evenly spaced values within a given interval.</span>
+
+<span class="sd">    This docstring was copied from numpy.arange.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Values are generated within the half-open interval ``[start, stop)``</span>
+<span class="sd">    (in other words, the interval including `start` but excluding `stop`).</span>
+<span class="sd">    For integer arguments the function is equivalent to the Python built-in</span>
+<span class="sd">    `range` function, but returns an BlockArray rather than a list.</span>
+
+<span class="sd">    When using a non-integer step, such as 0.1, the results will often not</span>
+<span class="sd">    be consistent.  It is better to use `nums.linspace` for these cases.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    start : number, optional</span>
+<span class="sd">        Start of interval.  The interval includes this value.  The default</span>
+<span class="sd">        start value is 0.</span>
+<span class="sd">    stop : number</span>
+<span class="sd">        End of interval.  The interval does not include this value, except</span>
+<span class="sd">        in some cases where `step` is not an integer and floating point</span>
+<span class="sd">        round-off affects the length of `out`.</span>
+<span class="sd">    step : number, optional</span>
+<span class="sd">        Spacing between values.  For any output `out`, this is the distance</span>
+<span class="sd">        between two adjacent values, ``out[i+1] - out[i]``.  The default</span>
+<span class="sd">        step size is 1.  If `step` is specified as a position argument,</span>
+<span class="sd">        `start` must also be given.</span>
+<span class="sd">    dtype : dtype</span>
+<span class="sd">        The type of the output array.  If `dtype` is not given, infer the data</span>
+<span class="sd">        type from the other input arguments.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    arange : BlockArray</span>
+<span class="sd">        Array of evenly spaced values.</span>
+
+<span class="sd">        For floating point arguments, the length of the result is</span>
+<span class="sd">        ``ceil((stop - start)/step)``.  Because of floating point overflow,</span>
+<span class="sd">        this rule may result in the last element of `out` being greater</span>
+<span class="sd">        than `stop`.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    linspace : Evenly spaced numbers with careful handling of endpoints.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Only step size of 1 is currently supported.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.arange(3).get()  # doctest: +SKIP</span>
+<span class="sd">    array([0, 1, 2])</span>
+<span class="sd">    &gt;&gt;&gt; nps.arange(3.0).get()  # doctest: +SKIP</span>
+<span class="sd">    array([ 0.,  1.,  2.])</span>
+<span class="sd">    &gt;&gt;&gt; nps.arange(3,7).get()  # doctest: +SKIP</span>
+<span class="sd">    array([3, 4, 5, 6])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Missing required argument start&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">stop</span> <span class="o">=</span> <span class="n">start</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">step</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only step size of 1 is currently supported.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">result_type</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)))</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">stop</span> <span class="o">-</span> <span class="n">start</span><span class="p">)),)</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">get_block_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="array"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.array.html#nums.numpy.api.creation.array">[docs]</a><span class="k">def</span> <span class="nf">array</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">subok</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Creates a BlockArray.</span>
+
+<span class="sd">    This docstring was copied from numpy.array.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    object : array_like</span>
+<span class="sd">        An array, any object exposing the array interface, an object whose</span>
+<span class="sd">        __array__ method returns an array, or any (nested) sequence.</span>
+<span class="sd">    dtype : data-type, optional</span>
+<span class="sd">        The desired data-type for the array.  If not given, then the type will</span>
+<span class="sd">        be determined as the minimum type required to hold the objects in the</span>
+<span class="sd">        sequence.</span>
+<span class="sd">    copy : bool, optional</span>
+<span class="sd">        If true (default), then the object is copied.  Otherwise, a copy will</span>
+<span class="sd">        only be made if __array__ returns a copy, if obj is a nested sequence,</span>
+<span class="sd">        or if a copy is needed to satisfy any of the other requirements</span>
+<span class="sd">        (`dtype`, `order`, etc.).</span>
+<span class="sd">    order : {&#39;K&#39;}, optional</span>
+<span class="sd">        Specify the memory layout of the array. If object is not an array, the</span>
+<span class="sd">        newly created array will be in C order (row major) unless &#39;F&#39; is</span>
+<span class="sd">        specified, in which case it will be in Fortran order (column major).</span>
+<span class="sd">        If object is an array the following holds.</span>
+
+<span class="sd">        ===== ========= ===================================================</span>
+<span class="sd">        order  no copy                     copy=True</span>
+<span class="sd">        ===== ========= ===================================================</span>
+<span class="sd">        &#39;K&#39;   unchanged F &amp; C order preserved, otherwise most similar order</span>
+<span class="sd">        &#39;A&#39;   unchanged F order if input is F and not C, otherwise C order</span>
+<span class="sd">        &#39;C&#39;   C order   C order</span>
+<span class="sd">        &#39;F&#39;   F order   F order</span>
+<span class="sd">        ===== ========= ===================================================</span>
+
+<span class="sd">        When ``copy=False`` and a copy is made for other reasons, the result is</span>
+<span class="sd">        the same as if ``copy=True``, with some exceptions for `A`, see the</span>
+<span class="sd">        Notes section. The default order is &#39;K&#39;.</span>
+<span class="sd">    subok : bool, optional</span>
+<span class="sd">        If True, then sub-classes will be passed-through, otherwise</span>
+<span class="sd">        the returned array will be forced to be a base-class array (default).</span>
+<span class="sd">    ndmin : int, optional</span>
+<span class="sd">        Specifies the minimum number of dimensions that the resulting</span>
+<span class="sd">        array should have.  Ones will be pre-pended to the shape as</span>
+<span class="sd">        needed to meet this requirement.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : BlockArray</span>
+<span class="sd">        An array object satisfying the specified requirements.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    empty_like : Return an empty array with shape and type of input.</span>
+<span class="sd">    ones_like : Return an array of ones with shape and type of input.</span>
+<span class="sd">    zeros_like : Return an array of zeros with shape and type of input.</span>
+<span class="sd">    full_like : Return a new array with shape of input filled with value.</span>
+<span class="sd">    empty : Return a new uninitialized array.</span>
+<span class="sd">    ones : Return a new array setting values to one.</span>
+<span class="sd">    zeros : Return a new array setting values to zero.</span>
+<span class="sd">    full : Return a new array of given shape filled with value.</span>
+
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Only order=&#39;K&#39; is supported.</span>
+
+<span class="sd">    Only ndmin=0 is currently supported.</span>
+
+<span class="sd">    subok must be False</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.array([1, 2, 3]).get()  # doctest: +SKIP</span>
+<span class="sd">    array([1, 2, 3])</span>
+
+<span class="sd">    Upcasting:</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.array([1, 2, 3.0]).get()  # doctest: +SKIP</span>
+<span class="sd">    array([ 1.,  2.,  3.])</span>
+
+<span class="sd">    More than one dimension:</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.array([[1, 2], [3, 4]]).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[1, 2],</span>
+<span class="sd">           [3, 4]])</span>
+
+<span class="sd">    Type provided:</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.array([1, 2, 3], dtype=complex).get()  # doctest: +SKIP</span>
+<span class="sd">    array([ 1.+0.j,  2.+0.j,  3.+0.j])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">order</span> <span class="o">!=</span> <span class="s2">&quot;K&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only order=&#39;K&#39; is supported.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ndmin</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only ndmin=0 is currently supported.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">subok</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;subok must be False.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">BlockArray</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">copy</span><span class="p">:</span>
+            <span class="nb">object</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">object</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+                <span class="nb">object</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">object</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="nb">object</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="n">copy</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">ndmin</span><span class="o">=</span><span class="n">ndmin</span><span class="p">,</span> <span class="n">subok</span><span class="o">=</span><span class="n">subok</span>
+    <span class="p">)</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">compute_block_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="copy"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.copy.html#nums.numpy.api.creation.copy">[docs]</a><span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="n">subok</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return an array copy of the given object.</span>
+
+<span class="sd">    This docstring was copied from numpy.copy.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : BlockArray</span>
+<span class="sd">        Input data.</span>
+<span class="sd">    order : {&#39;C&#39;, &#39;F&#39;, &#39;A&#39;, &#39;K&#39;}, optional</span>
+<span class="sd">        Controls the memory layout of the copy. &#39;C&#39; means C-order,</span>
+<span class="sd">        &#39;F&#39; means F-order, &#39;A&#39; means &#39;F&#39; if `a` is Fortran contiguous,</span>
+<span class="sd">        &#39;C&#39; otherwise. &#39;K&#39; means match the layout of `a` as closely</span>
+<span class="sd">        as possible. (Note that this function and :meth:`BlockArray.copy` are very</span>
+<span class="sd">        similar, but have different default values for their order=</span>
+<span class="sd">        arguments.)</span>
+<span class="sd">    subok : bool, optional</span>
+<span class="sd">        If True, then sub-classes will be passed-through, otherwise the</span>
+<span class="sd">        returned array will be forced to be a base-class array (defaults to False).</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    arr : BlockArray</span>
+<span class="sd">        Array interpretation of `a`.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    copy : Preferred method for creating an array copy</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This is equivalent to:</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.array(a, copy=True).get()  #doctest: +SKIP</span>
+
+<span class="sd">    Only default args supported.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    Create an array x, with a reference y and a copy z:</span>
+
+<span class="sd">    &gt;&gt;&gt; x = nps.array([1, 2, 3])  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; y = x  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; z = nps.copy(x)  # doctest: +SKIP</span>
+
+<span class="sd">    Note that, when we modify x, y changes, but not z:</span>
+
+<span class="sd">    &gt;&gt;&gt; x[0] = 10  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; (x[0] == y[0]).get()  # doctest: +SKIP</span>
+<span class="sd">    array(True)</span>
+<span class="sd">    &gt;&gt;&gt; (x[0] == z[0]).get()  # doctest: +SKIP</span>
+<span class="sd">    False</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">order</span> <span class="o">==</span> <span class="s2">&quot;K&quot;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">subok</span><span class="p">,</span> <span class="s2">&quot;Only default args supported.&quot;</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="diag"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.diag.html#nums.numpy.api.creation.diag">[docs]</a><span class="k">def</span> <span class="nf">diag</span><span class="p">(</span><span class="n">v</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Extract a diagonal or construct a diagonal array.</span>
+
+<span class="sd">    This docstring was copied from numpy.diag.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    See the more detailed documentation for ``numpy.diagonal`` if you use this</span>
+<span class="sd">    function to extract a diagonal and wish to write to the resulting array;</span>
+<span class="sd">    whether it returns a copy or a view depends on what version of numpy you</span>
+<span class="sd">    are using.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    v : BlockArray</span>
+<span class="sd">        If `v` is a 2-D array, return a copy of its `k`-th diagonal.</span>
+<span class="sd">        If `v` is a 1-D array, return a 2-D array with `v` on the `k`-th</span>
+<span class="sd">        diagonal.</span>
+<span class="sd">    k : int, optional</span>
+<span class="sd">        Diagonal in question. The default is 0. Use `k&gt;0` for diagonals</span>
+<span class="sd">        above the main diagonal, and `k&lt;0` for diagonals below the main</span>
+<span class="sd">        diagonal.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : BlockArray</span>
+<span class="sd">        The extracted diagonal or constructed diagonal array.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    diagonal : Return specified diagonals.</span>
+<span class="sd">    trace : Sum along diagonals.</span>
+<span class="sd">    triu : Upper triangle of an array.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    offset != 0 is currently not supported.</span>
+
+<span class="sd">    out is currently not supported.</span>
+
+<span class="sd">    axis1 != 0 or axis2 != 1 is currently not supported.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; x = nps.arange(9).reshape((3,3))  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; x.get()  # doctest: +SKIP</span>
+<span class="sd">    array([[0, 1, 2],</span>
+<span class="sd">           [3, 4, 5],</span>
+<span class="sd">           [6, 7, 8]])</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.diag(x).get()  # doctest: +SKIP</span>
+<span class="sd">    array([0, 4, 8])</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.diag(nps.diag(x)).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[0, 0, 0],</span>
+<span class="sd">           [0, 4, 0],</span>
+<span class="sd">           [0, 0, 8]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only k==0 is currently supported.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">v</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="empty"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.empty.html#nums.numpy.api.creation.empty">[docs]</a><span class="k">def</span> <span class="nf">empty</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a new array of given shape and type, without initializing entries.</span>
+
+<span class="sd">    This docstring was copied from numpy.empty.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shape : int or tuple of int</span>
+<span class="sd">        Shape of the empty array, e.g., ``(2, 3)`` or ``2``.</span>
+<span class="sd">    dtype : data-type, optional</span>
+<span class="sd">        Desired output data-type for the array, e.g, `int`. Default is</span>
+<span class="sd">        `float`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : BlockArray</span>
+<span class="sd">        Array of uninitialized (arbitrary) data of the given shape and dtype.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    empty_like : Return an empty array with shape and type of input.</span>
+<span class="sd">    ones : Return a new array setting values to one.</span>
+<span class="sd">    zeros : Return a new array setting values to zero.</span>
+<span class="sd">    full : Return a new array of given shape filled with value.</span>
+
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    `empty`, unlike `zeros`, does not set the array values to zero,</span>
+<span class="sd">    and may therefore be marginally faster.  On the other hand, it requires</span>
+<span class="sd">    the user to manually set all the values in the array, and should be</span>
+<span class="sd">    used with caution.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.empty([2, 2]).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[ -9.74499359e+001,   6.69583040e-309],</span>
+<span class="sd">           [  2.13182611e-314,   3.06959433e-309]])         #uninitialized</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.empty([2, 2], dtype=int).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[-1073741821, -1067949133],</span>
+<span class="sd">           [  496041986,    19249760]])                     #uninitialized</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">,)</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">compute_block_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="empty_like"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.empty_like.html#nums.numpy.api.creation.empty_like">[docs]</a><span class="k">def</span> <span class="nf">empty_like</span><span class="p">(</span><span class="n">prototype</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a new array with the same shape and type as a given array.</span>
+
+<span class="sd">    This docstring was copied from numpy.empty_like.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    prototype : BlockArray</span>
+<span class="sd">        The shape and data-type of `prototype` define these same attributes</span>
+<span class="sd">        of the returned array.</span>
+<span class="sd">    dtype : data-type, optional</span>
+<span class="sd">        Overrides the data type of the result.</span>
+<span class="sd">    order : {&#39;C&#39;, &#39;F&#39;, &#39;A&#39;, or &#39;K&#39;}, optional</span>
+<span class="sd">        Overrides the memory layout of the result. &#39;C&#39; means C-order,</span>
+<span class="sd">        &#39;F&#39; means F-order, &#39;A&#39; means &#39;F&#39; if ``prototype`` is Fortran</span>
+<span class="sd">        contiguous, &#39;C&#39; otherwise. &#39;K&#39; means match the layout of ``prototype``</span>
+<span class="sd">        as closely as possible.</span>
+<span class="sd">    shape : int or sequence of ints, optional.</span>
+<span class="sd">        Overrides the shape of the result. If order=&#39;K&#39; and the number of</span>
+<span class="sd">        dimensions is unchanged, will try to keep order, otherwise,</span>
+<span class="sd">        order=&#39;C&#39; is implied.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : BlockArray</span>
+<span class="sd">        Array of uninitialized (arbitrary) data with the same</span>
+<span class="sd">        shape and type as `prototype`.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    ones_like : Return an array of ones with shape and type of input.</span>
+<span class="sd">    zeros_like : Return an array of zeros with shape and type of input.</span>
+<span class="sd">    full_like : Return a new array with shape of input filled with value.</span>
+<span class="sd">    empty : Return a new uninitialized array.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function does *not* initialize the returned array; to do that use</span>
+<span class="sd">    `zeros_like` or `ones_like` instead.  It may be marginally faster than</span>
+<span class="sd">    the functions that do set the array values.</span>
+
+<span class="sd">    Only order=&#39;K&#39; is supported.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; a = ([1,2,3], [4,5,6])                         # a is array-like  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; nps.empty_like(a, shape=(2, 3), dtype=float).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[-1073741821, -1073741821,           3],    # uninitialized</span>
+<span class="sd">           [          0,           0, -1073741821]])</span>
+<span class="sd">    &gt;&gt;&gt; a = nps.array([[1., 2., 3.],[4.,5.,6.]]).get()  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; nps.empty_like(a, shape=(2, 3), dtype=float).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[ -2.00000715e+000,   1.48219694e-323,  -2.00000572e+000], # uninitialized</span>
+<span class="sd">           [  4.38791518e-305,  -2.00000715e+000,   4.17269252e-309]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">prototype</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">prototype</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">order</span> <span class="o">!=</span> <span class="s2">&quot;K&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only order=&#39;K&#39; is supported.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="eye"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.eye.html#nums.numpy.api.creation.eye">[docs]</a><span class="k">def</span> <span class="nf">eye</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a 2-D array with ones on the diagonal and zeros elsewhere.</span>
+
+<span class="sd">    This docstring was copied from numpy.eye.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    N : int</span>
+<span class="sd">      Number of rows in the output.</span>
+<span class="sd">    M : int, optional</span>
+<span class="sd">      Number of columns in the output. If None, defaults to `N`.</span>
+<span class="sd">    k : int, optional</span>
+<span class="sd">      Index of the diagonal: 0 (the default) refers to the main diagonal,</span>
+<span class="sd">      a positive value refers to an upper diagonal, and a negative value</span>
+<span class="sd">      to a lower diagonal.</span>
+<span class="sd">    dtype : data-type, optional</span>
+<span class="sd">      Data-type of the returned array.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    I : BlockArray of shape (N,M)</span>
+<span class="sd">      An array where all elements are equal to zero, except for the `k`-th</span>
+<span class="sd">      diagonal, whose values are equal to one.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    identity : (almost) equivalent function</span>
+<span class="sd">    diag : diagonal 2-D array from a 1-D array specified by the user.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Only k==0 is currently supported.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.eye(2, dtype=int).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[1, 0],</span>
+<span class="sd">           [0, 1]])</span>
+<span class="sd">    &gt;&gt;&gt; nps.eye(3, k=1).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[0.,  1.,  0.],</span>
+<span class="sd">           [0.,  0.,  1.],</span>
+<span class="sd">           [0.,  0.,  0.]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only k==0 is currently supported.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">M</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">N</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">get_block_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="identity"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.identity.html#nums.numpy.api.creation.identity">[docs]</a><span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Return the identity array.</span>
+
+<span class="sd">    This docstring was copied from numpy.identity.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    The identity array is a square array with ones on</span>
+<span class="sd">    the main diagonal.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    n : int</span>
+<span class="sd">        Number of rows (and columns) in `n` x `n` output.</span>
+<span class="sd">    dtype : data-type, optional</span>
+<span class="sd">        Data-type of the output.  Defaults to ``float``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : BlockArray</span>
+<span class="sd">        `n` x `n` array with its main diagonal set to one,</span>
+<span class="sd">        and all other elements 0.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.identity(3).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[1.,  0.,  0.],</span>
+<span class="sd">           [0.,  1.,  0.],</span>
+<span class="sd">           [0.,  0.,  1.]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="loadtxt"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.loadtxt.html#nums.numpy.api.creation.loadtxt">[docs]</a><span class="k">def</span> <span class="nf">loadtxt</span><span class="p">(</span>
+    <span class="n">fname</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+    <span class="n">comments</span><span class="o">=</span><span class="s2">&quot;# &quot;</span><span class="p">,</span>
+    <span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span>
+    <span class="n">converters</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">skiprows</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">usecols</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">unpack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">ndmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;bytes&quot;</span><span class="p">,</span>
+    <span class="n">max_rows</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Load data from a text file.</span>
+
+<span class="sd">    This docstring was copied from numpy.loadtxt.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Each row in the text file must have the same number of values.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    fname : file, str, or pathlib.Path</span>
+<span class="sd">        File, filename, or generator to read.  If the filename extension is</span>
+<span class="sd">        ``.gz`` or ``.bz2``, the file is first decompressed. Note that</span>
+<span class="sd">        generators should return byte strings.</span>
+<span class="sd">    dtype : data-type, optional</span>
+<span class="sd">        Data-type of the resulting array; default: float.  If this is a</span>
+<span class="sd">        structured data-type, the resulting array will be 1-dimensional, and</span>
+<span class="sd">        each row will be interpreted as an element of the array.  In this</span>
+<span class="sd">        case, the number of columns used must match the number of fields in</span>
+<span class="sd">        the data-type.</span>
+<span class="sd">    comments : str or sequence of str, optional</span>
+<span class="sd">        The characters or list of characters used to indicate the start of a</span>
+<span class="sd">        comment. None implies no comments. For backwards compatibility, byte</span>
+<span class="sd">        strings will be decoded as &#39;latin1&#39;. The default is &#39;#&#39;.</span>
+<span class="sd">    delimiter : str, optional</span>
+<span class="sd">        The string used to separate values. For backwards compatibility, byte</span>
+<span class="sd">        strings will be decoded as &#39;latin1&#39;. The default is whitespace.</span>
+<span class="sd">    converters : dict, optional</span>
+<span class="sd">        A dictionary mapping column number to a function that will parse the</span>
+<span class="sd">        column string into the desired value.  E.g., if column 0 is a date</span>
+<span class="sd">        string: ``converters = {0: datestr2num}``.  Converters can also be</span>
+<span class="sd">        used to provide a default value for missing data (but see also</span>
+<span class="sd">        `genfromtxt`): ``converters = {3: lambda s: float(s.strip() or 0)}``.</span>
+<span class="sd">        Default: None.</span>
+<span class="sd">    skiprows : int, optional</span>
+<span class="sd">        Skip the first `skiprows` lines, including comments; default: 0.</span>
+<span class="sd">    usecols : int or sequence, optional</span>
+<span class="sd">        Which columns to read, with 0 being the first. For example,</span>
+<span class="sd">        ``usecols = (1,4,5)`` will extract the 2nd, 5th and 6th columns.</span>
+<span class="sd">        The default, None, results in all columns being read.</span>
+
+<span class="sd">            When a single column has to be read it is possible to use</span>
+<span class="sd">            an integer instead of a tuple. E.g ``usecols = 3`` reads the</span>
+<span class="sd">            fourth column the same way as ``usecols = (3,)`` would.</span>
+<span class="sd">    unpack : bool, optional</span>
+<span class="sd">        If True, the returned array is transposed, so that arguments may be</span>
+<span class="sd">        unpacked using ``x, y, z = loadtxt(...)``.  When used with a structured</span>
+<span class="sd">        data-type, arrays are returned for each field.  Default is False.</span>
+<span class="sd">    ndmin : int, optional</span>
+<span class="sd">        The returned array will have at least `ndmin` dimensions.</span>
+<span class="sd">        Otherwise mono-dimensional axes will be squeezed.</span>
+<span class="sd">        Legal values: 0 (default), 1 or 2.</span>
+<span class="sd">    encoding : str, optional</span>
+<span class="sd">        Encoding used to decode the inputfile. Does not apply to input streams.</span>
+<span class="sd">        The special value &#39;bytes&#39; enables backward compatibility workarounds</span>
+<span class="sd">        that ensures you receive byte arrays as results if possible and passes</span>
+<span class="sd">        &#39;latin1&#39; encoded strings to converters. Override this value to receive</span>
+<span class="sd">        unicode arrays and pass strings as input to converters.  If set to None</span>
+<span class="sd">        the system default is used. The default value is &#39;bytes&#39;.</span>
+<span class="sd">    max_rows : int, optional</span>
+<span class="sd">        Read `max_rows` lines of content after `skiprows` lines. The default</span>
+<span class="sd">        is to read all the lines.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : BlockArray</span>
+<span class="sd">        Data read from the text file.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    This function aims to be a fast reader for simply formatted files.  The</span>
+<span class="sd">    `genfromtxt` function provides more sophisticated handling of, e.g.,</span>
+<span class="sd">    lines with missing values.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; from io import StringIO  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; c = StringIO(&quot;0 1\\n2 3&quot;)  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; nps.loadtxt(c).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[0., 1.],</span>
+<span class="sd">           [2., 3.]])</span>
+
+<span class="sd">    &gt;&gt;&gt; c = StringIO(&quot;1,0,2\\n3,0,4&quot;)  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; x, y = nps.loadtxt(c, delimiter=&#39;,&#39;, usecols=(0, 2), unpack=True)  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; x.get()  # doctest: +SKIP</span>
+<span class="sd">    array([1., 3.])</span>
+<span class="sd">    &gt;&gt;&gt; y.get()  # doctest: +SKIP</span>
+<span class="sd">    array([2., 4.])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="n">num_rows</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">num_cores_total</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ba</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span>
+            <span class="n">fname</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="n">comments</span><span class="o">=</span><span class="n">comments</span><span class="p">,</span>
+            <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">,</span>
+            <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span>
+            <span class="n">skiprows</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span>
+            <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span>
+            <span class="n">unpack</span><span class="o">=</span><span class="n">unpack</span><span class="p">,</span>
+            <span class="n">ndmin</span><span class="o">=</span><span class="n">ndmin</span><span class="p">,</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
+            <span class="n">max_rows</span><span class="o">=</span><span class="n">max_rows</span><span class="p">,</span>
+            <span class="n">num_workers</span><span class="o">=</span><span class="n">num_rows</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">block_shape</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">compute_block_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ba</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">block_shape</span><span class="o">=</span><span class="n">block_shape</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Failed to load text data in parallel; using np.loadtxt locally.&quot;</span><span class="p">)</span>
+        <span class="n">np_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span>
+            <span class="n">fname</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="n">comments</span><span class="o">=</span><span class="n">comments</span><span class="p">,</span>
+            <span class="n">delimiter</span><span class="o">=</span><span class="n">delimiter</span><span class="p">,</span>
+            <span class="n">converters</span><span class="o">=</span><span class="n">converters</span><span class="p">,</span>
+            <span class="n">skiprows</span><span class="o">=</span><span class="n">skiprows</span><span class="p">,</span>
+            <span class="n">usecols</span><span class="o">=</span><span class="n">usecols</span><span class="p">,</span>
+            <span class="n">unpack</span><span class="o">=</span><span class="n">unpack</span><span class="p">,</span>
+            <span class="n">ndmin</span><span class="o">=</span><span class="n">ndmin</span><span class="p">,</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">,</span>
+            <span class="n">max_rows</span><span class="o">=</span><span class="n">max_rows</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">np_arr</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">block_shape</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">compute_block_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np_arr</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">block_shape</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="linspace"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.linspace.html#nums.numpy.api.creation.linspace">[docs]</a><span class="k">def</span> <span class="nf">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">retstep</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return evenly spaced numbers over a specified interval.</span>
+
+<span class="sd">    This docstring was copied from numpy.linspace.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Returns `num` evenly spaced samples, calculated over the</span>
+<span class="sd">    interval [`start`, `stop`].</span>
+
+<span class="sd">    The endpoint of the interval can optionally be excluded.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    start : BlockArray</span>
+<span class="sd">        The starting value of the sequence.</span>
+<span class="sd">    stop : BlockArray</span>
+<span class="sd">        The end value of the sequence, unless `endpoint` is set to False.</span>
+<span class="sd">        In that case, the sequence consists of all but the last of ``num + 1``</span>
+<span class="sd">        evenly spaced samples, so that `stop` is excluded.  Note that the step</span>
+<span class="sd">        size changes when `endpoint` is False.</span>
+<span class="sd">    num : int, optional</span>
+<span class="sd">        Number of samples to generate. Default is 50. Must be non-negative.</span>
+<span class="sd">    endpoint : bool, optional</span>
+<span class="sd">        If True, `stop` is the last sample. Otherwise, it is not included.</span>
+<span class="sd">        Default is True.</span>
+<span class="sd">    retstep : bool, optional</span>
+<span class="sd">        If True, return (`samples`, `step`), where `step` is the spacing</span>
+<span class="sd">        between samples.</span>
+<span class="sd">    dtype : dtype, optional</span>
+<span class="sd">        The type of the output array.  If `dtype` is not given, infer the data</span>
+<span class="sd">        type from the other input arguments.</span>
+<span class="sd">    axis : int, optional</span>
+<span class="sd">        The axis in the result to store the samples.  Relevant only if start</span>
+<span class="sd">        or stop are array-like.  By default (0), the samples will be along a</span>
+<span class="sd">        new axis inserted at the beginning. Use -1 to get an axis at the end.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    samples : BlockArray</span>
+<span class="sd">        There are `num` equally spaced samples in the closed interval</span>
+<span class="sd">        ``[start, stop]`` or the half-open interval ``[start, stop)``</span>
+<span class="sd">        (depending on whether `endpoint` is True or False).</span>
+<span class="sd">    step : float, optional</span>
+<span class="sd">        Only returned if `retstep` is True</span>
+
+<span class="sd">        Size of spacing between samples.</span>
+
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    arange : Similar to `linspace`, but uses a step size (instead of the</span>
+<span class="sd">             number of samples).</span>
+<span class="sd">    geomspace : Similar to `linspace`, but with numbers spaced evenly on a log</span>
+<span class="sd">                scale (a geometric progression).</span>
+<span class="sd">    logspace : Similar to `geomspace`, but with the end points specified as</span>
+<span class="sd">               logarithms.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.linspace(2.0, 3.0, num=5).get()  # doctest: +SKIP</span>
+<span class="sd">    array([2.  , 2.25, 2.5 , 2.75, 3.  ])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">num</span><span class="p">,)</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span> <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">dtype</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">get_block_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">retstep</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="logspace"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.logspace.html#nums.numpy.api.creation.logspace">[docs]</a><span class="k">def</span> <span class="nf">logspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return numbers spaced evenly on a log scale.</span>
+
+<span class="sd">    This docstring was copied from numpy.logspace.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    In linear space, the sequence starts at ``base ** start``</span>
+<span class="sd">    (`base` to the power of `start`) and ends with ``base ** stop``</span>
+<span class="sd">    (see `endpoint` below).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    start : BlockArray</span>
+<span class="sd">        ``base ** start`` is the starting value of the sequence.</span>
+<span class="sd">    stop : BlockArray</span>
+<span class="sd">        ``base ** stop`` is the final value of the sequence, unless `endpoint`</span>
+<span class="sd">        is False.  In that case, ``num + 1`` values are spaced over the</span>
+<span class="sd">        interval in log-space, of which all but the last (a sequence of</span>
+<span class="sd">        length `num`) are returned.</span>
+<span class="sd">    num : integer, optional</span>
+<span class="sd">        Number of samples to generate.  Default is 50.</span>
+<span class="sd">    endpoint : boolean, optional</span>
+<span class="sd">        If true, `stop` is the last sample. Otherwise, it is not included.</span>
+<span class="sd">        Default is True.</span>
+<span class="sd">    base : float, optional</span>
+<span class="sd">        The base of the log space. The step size between the elements in</span>
+<span class="sd">        ``ln(samples) / ln(base)`` (or ``log_base(samples)``) is uniform.</span>
+<span class="sd">        Default is 10.0.</span>
+<span class="sd">    dtype : dtype</span>
+<span class="sd">        The type of the output array.  If `dtype` is not given, infer the data</span>
+<span class="sd">        type from the other input arguments.</span>
+<span class="sd">    axis : int, optional</span>
+<span class="sd">        The axis in the result to store the samples.  Relevant only if start</span>
+<span class="sd">        or stop are array-like.  By default (0), the samples will be along a</span>
+<span class="sd">        new axis inserted at the beginning. Use -1 to get an axis at the end.</span>
+
+<span class="sd">        .. versionadded:: 1.16.0</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    samples : BlockArray</span>
+<span class="sd">        `num` samples, equally spaced on a log scale.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    arange : Similar to linspace, with the step size specified instead of the</span>
+<span class="sd">             number of samples. Note that, when used with a float endpoint, the</span>
+<span class="sd">             endpoint may or may not be included.</span>
+<span class="sd">    linspace : Similar to logspace, but with the samples uniformly distributed</span>
+<span class="sd">               in linear space, instead of log space.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Logspace is equivalent to the code</span>
+
+<span class="sd">    &gt;&gt;&gt; y = nps.linspace(start, stop, num=num, endpoint=endpoint)  # doctest: +SKIP</span>
+<span class="sd">    ... # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; power(base, y).astype(dtype)  # doctest: +SKIP</span>
+<span class="sd">    ... # doctest: +SKIP</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.logspace(2.0, 3.0, num=4).get()  # doctest: +SKIP</span>
+<span class="sd">    array([ 100.        ,  215.443469  ,  464.15888336, 1000.        ])</span>
+<span class="sd">    &gt;&gt;&gt; nps.logspace(2.0, 3.0, num=4, base=2.0).get()  # doctest: +SKIP</span>
+<span class="sd">    array([4.        ,  5.0396842 ,  6.34960421,  8.        ])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="n">ba</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">num</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+    <span class="n">ba</span> <span class="o">=</span> <span class="n">power</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="n">base</span><span class="p">),</span> <span class="n">ba</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dtype</span> <span class="o">!=</span> <span class="n">ba</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+        <span class="n">ba</span> <span class="o">=</span> <span class="n">ba</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ba</span></div>
+
+
+<div class="viewcode-block" id="ones"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.ones.html#nums.numpy.api.creation.ones">[docs]</a><span class="k">def</span> <span class="nf">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a new array of given shape and type, filled with ones.</span>
+
+<span class="sd">    This docstring was copied from numpy.ones.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shape : int or sequence of ints</span>
+<span class="sd">        Shape of the new array, e.g., ``(2, 3)`` or ``2``.</span>
+<span class="sd">    dtype : data-type, optional</span>
+<span class="sd">        The desired data-type for the array, e.g., `int`.  Default is</span>
+<span class="sd">        `float`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : BlockArray</span>
+<span class="sd">        Array of ones with the given shape and dtype.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    ones_like : Return an array of ones with shape and type of input.</span>
+<span class="sd">    empty : Return a new uninitialized array.</span>
+<span class="sd">    zeros : Return a new array setting values to zero.</span>
+<span class="sd">    full : Return a new array of given shape filled with value.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.ones(5).get()  # doctest: +SKIP</span>
+<span class="sd">    array([1., 1., 1., 1., 1.])</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.ones((5,), dtype=int).get()  # doctest: +SKIP</span>
+<span class="sd">    array([1, 1, 1, 1, 1])</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.ones((2, 1)).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[1.],</span>
+<span class="sd">           [1.]])</span>
+
+<span class="sd">    &gt;&gt;&gt; s = (2,2)  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; nps.ones(s).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[1.,  1.],</span>
+<span class="sd">           [1.,  1.]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">,)</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">get_block_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ones_like"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.ones_like.html#nums.numpy.api.creation.ones_like">[docs]</a><span class="k">def</span> <span class="nf">ones_like</span><span class="p">(</span><span class="n">prototype</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return an array of ones with the same shape and type as a given array.</span>
+
+<span class="sd">    This docstring was copied from numpy.ones_like.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    prototype : array_like</span>
+<span class="sd">        The shape and data-type of `a` define these same attributes of</span>
+<span class="sd">        the returned array.</span>
+<span class="sd">    dtype : data-type, optional</span>
+<span class="sd">        Overrides the data type of the result.</span>
+<span class="sd">    order : {&#39;C&#39;, &#39;F&#39;, &#39;A&#39;, or &#39;K&#39;}, optional</span>
+<span class="sd">        Overrides the memory layout of the result. &#39;C&#39; means C-order,</span>
+<span class="sd">        &#39;F&#39; means F-order, &#39;A&#39; means &#39;F&#39; if `a` is Fortran contiguous,</span>
+<span class="sd">        &#39;C&#39; otherwise. &#39;K&#39; means match the layout of `a` as closely</span>
+<span class="sd">        as possible.</span>
+<span class="sd">    shape : int or sequence of ints, optional.</span>
+<span class="sd">        Overrides the shape of the result. If order=&#39;K&#39; and the number of</span>
+<span class="sd">        dimensions is unchanged, will try to keep order, otherwise,</span>
+<span class="sd">        order=&#39;C&#39; is implied.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : BlockArray</span>
+<span class="sd">        Array of ones with the same shape and type as `a`.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    empty_like : Return an empty array with shape and type of input.</span>
+<span class="sd">    zeros_like : Return an array of zeros with shape and type of input.</span>
+<span class="sd">    full_like : Return a new array with shape of input filled with value.</span>
+<span class="sd">    ones : Return a new array setting values to one.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Only order=&#39;K&#39; is supported.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; x = nps.arange(6)  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; x = x.reshape((2, 3))  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; x.get()  # doctest: +SKIP</span>
+<span class="sd">    array([[0, 1, 2],</span>
+<span class="sd">           [3, 4, 5]])</span>
+<span class="sd">    &gt;&gt;&gt; nps.ones_like(x).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[1, 1, 1],</span>
+<span class="sd">           [1, 1, 1]])</span>
+
+<span class="sd">    &gt;&gt;&gt; y = nps.arange(3, dtype=float)  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; y.get()  # doctest: +SKIP</span>
+<span class="sd">    array([0., 1., 2.])</span>
+<span class="sd">    &gt;&gt;&gt; nps.ones_like(y).get()  # doctest: +SKIP</span>
+<span class="sd">    array([1.,  1.,  1.])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">prototype</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">prototype</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">order</span> <span class="o">!=</span> <span class="s2">&quot;K&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only order=&#39;K&#39; is supported.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="zeros"><a class="viewcode-back" href="../../../../generated/nums.numpy.api.creation.html#nums.numpy.api.creation.zeros">[docs]</a><span class="k">def</span> <span class="nf">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return a new array of given shape and type, without initializing entries.</span>
+
+<span class="sd">    This docstring was copied from numpy.zeros.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Return a new array of given shape and type, filled with zeros.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shape : int or tuple of ints</span>
+<span class="sd">        Shape of the new array, e.g., ``(2, 3)`` or ``2``.</span>
+<span class="sd">    dtype : data-type, optional</span>
+<span class="sd">        The desired data-type for the array, e.g., `int`.  Default is</span>
+<span class="sd">        `float`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : BlockArray</span>
+<span class="sd">        Array of zeros with the given shape and dtype.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    zeros_like : Return an array of zeros with shape and type of input.</span>
+<span class="sd">    empty : Return a new uninitialized array.</span>
+<span class="sd">    ones : Return a new array setting values to one.</span>
+<span class="sd">    full : Return a new array of given shape filled with value.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.zeros(5).get()  # doctest: +SKIP</span>
+<span class="sd">    array([ 0.,  0.,  0.,  0.,  0.])</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.zeros((5,), dtype=int).get()  # doctest: +SKIP</span>
+<span class="sd">    array([0, 0, 0, 0, 0])</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.zeros((2, 1)).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[ 0.],</span>
+<span class="sd">           [ 0.]])</span>
+
+<span class="sd">    &gt;&gt;&gt; s = (2,2)  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; nps.zeros(s).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[ 0.,  0.],</span>
+<span class="sd">           [ 0.,  0.]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">,)</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">get_block_shape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">app</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="zeros_like"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.zeros_like.html#nums.numpy.api.creation.zeros_like">[docs]</a><span class="k">def</span> <span class="nf">zeros_like</span><span class="p">(</span><span class="n">prototype</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">&quot;K&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return an array of zeros with the same shape and type as a given array.</span>
+
+<span class="sd">    This docstring was copied from numpy.zeros_like.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    prototype : array_like</span>
+<span class="sd">        The shape and data-type of `prototype` define these same attributes of</span>
+<span class="sd">        the returned array.</span>
+<span class="sd">    dtype : data-type, optional</span>
+<span class="sd">        Overrides the data type of the result.</span>
+<span class="sd">    order : {&#39;C&#39;, &#39;F&#39;, &#39;A&#39;, or &#39;K&#39;}, optional</span>
+<span class="sd">        Overrides the memory layout of the result. &#39;C&#39; means C-order,</span>
+<span class="sd">        &#39;F&#39; means F-order, &#39;A&#39; means &#39;F&#39; if `a` is Fortran contiguous,</span>
+<span class="sd">        &#39;C&#39; otherwise. &#39;K&#39; means match the layout of `a` as closely</span>
+<span class="sd">        as possible.</span>
+<span class="sd">    shape : int or sequence of ints, optional.</span>
+<span class="sd">        Overrides the shape of the result. If order=&#39;K&#39; and the number of</span>
+<span class="sd">        dimensions is unchanged, will try to keep order, otherwise,</span>
+<span class="sd">        order=&#39;C&#39; is implied.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : BlockArray</span>
+<span class="sd">        Array of zeros with the same shape and type as `prototype`.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    empty_like : Return an empty array with shape and type of input.</span>
+<span class="sd">    ones_like : Return an array of ones with shape and type of input.</span>
+<span class="sd">    full_like : Return a new array with shape of input filled with value.</span>
+<span class="sd">    zeros : Return a new array setting values to zero.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Only order=&#39;K&#39; is supported.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; x = nps.arange(6)  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; x = x.reshape((2, 3))  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; x.get()  # doctest: +SKIP</span>
+<span class="sd">    array([[0, 1, 2],</span>
+<span class="sd">           [3, 4, 5]])</span>
+<span class="sd">    &gt;&gt;&gt; nps.zeros_like(x).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[0, 0, 0],</span>
+<span class="sd">           [0, 0, 0]])</span>
+
+<span class="sd">    &gt;&gt;&gt; y = nps.arange(3, dtype=float)  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; y.get()  # doctest: +SKIP</span>
+<span class="sd">    array([0., 1., 2.])</span>
+<span class="sd">    &gt;&gt;&gt; nps.zeros_like(y).get()  # doctest: +SKIP</span>
+<span class="sd">    array([0.,  0.,  0.])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="n">prototype</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="n">dtype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">prototype</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">order</span> <span class="o">!=</span> <span class="s2">&quot;K&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Only order=&#39;K&#39; is supported.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

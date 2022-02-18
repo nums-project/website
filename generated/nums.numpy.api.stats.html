@@ -1,0 +1,948 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.numpy.api.stats module &#8212; NumS  documentation</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="nums.numpy.api.html">
+   nums.numpy.api package
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.algebra.html">
+     nums.numpy.api.algebra module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.arithmetic.html">
+     nums.numpy.api.arithmetic module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.creation.html">
+     nums.numpy.api.creation module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.generated.html">
+     nums.numpy.api.generated module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.logic.html">
+     nums.numpy.api.logic module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.manipulation.html">
+     nums.numpy.api.manipulation module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.nan.html">
+     nums.numpy.api.nan module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.properties.html">
+     nums.numpy.api.properties module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.sort.html">
+     nums.numpy.api.sort module
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     nums.numpy.api.stats module
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.numpy.fft.html">
+   nums.numpy.fft module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.numpy.linalg.html">
+   nums.numpy.linalg module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.numpy.numpy_utils.html">
+   nums.numpy.numpy_utils module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.numpy.random.html">
+   nums.numpy.random module
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-nums.numpy.api.stats">
+<span id="nums-numpy-api-stats-module"></span><h1>nums.numpy.api.stats module<a class="headerlink" href="#module-nums.numpy.api.stats" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt id="nums.numpy.api.stats.average">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.stats.</span></code><code class="sig-name descname"><span class="pre">average</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">returned</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/stats.html#average"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.stats.average" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the weighted average along the specified axis.</p>
+<p>This docstring was copied from numpy.average.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Compute the weighted average along the specified axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Array containing data to be averaged. If <cite>a</cite> is not an array, a
+conversion is attempted.</p></li>
+<li><p><strong>axis</strong> (<em>None</em><em> or </em><em>int</em><em> or </em><em>tuple of ints</em><em>, </em><em>optional</em>) – Axis or axes along which to average <cite>a</cite>.  The default,
+axis=None, will average over all of the elements of the input array.
+If axis is negative it counts from the last to the first axis.
+If axis is a tuple of ints, averaging is performed on all of the axes
+specified in the tuple instead of a single axis or all the axes as
+before.</p></li>
+<li><p><strong>weights</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>optional</em>) – <p>An array of weights associated with the values in <cite>a</cite>. Each value in
+<cite>a</cite> contributes to the average according to its associated weight.
+The weights array can either be 1-D (in which case its length must be
+the size of <cite>a</cite> along the given axis) or of the same shape as <cite>a</cite>.
+If <cite>weights=None</cite>, then all data in <cite>a</cite> are assumed to have a
+weight equal to one.  The 1-D calculation is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">avg</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The only constraint on <cite>weights</cite> is that <cite>sum(weights)</cite> must not be 0.</p>
+</p></li>
+<li><p><strong>returned</strong> (<em>bool</em><em>, </em><em>optional</em>) – Default is <cite>False</cite>. If <cite>True</cite>, the tuple (<cite>average</cite>, <cite>sum_of_weights</cite>)
+is returned, otherwise only the average is returned.
+If <cite>weights=None</cite>, <cite>sum_of_weights</cite> is equivalent to the number of
+elements over which the average is taken.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>retval, [sum_of_weights]</strong> – Return the average along the specified axis. When <cite>returned</cite> is <cite>True</cite>,
+return a tuple with the average as the first element and the sum
+of the weights as the second element. <cite>sum_of_weights</cite> is of the
+same type as <cite>retval</cite>. The result dtype follows a genereal pattern.
+If <cite>weights</cite> is None, the result dtype will be that of <cite>a</cite> , or <code class="docutils literal notranslate"><span class="pre">float64</span></code>
+if <cite>a</cite> is integral. Otherwise, if <cite>weights</cite> is not None and <cite>a</cite> is non-
+integral, the result type will be the type of lowest precision capable of
+representing values of both <cite>a</cite> and <cite>weights</cite>. If <cite>a</cite> happens to be
+integral, the previous rules still applies but the result dtype will
+at least be <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array_type or double</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ZeroDivisionError</strong> – When all weights along axis are zero. See <cite>numpy.ma.average</cite> for a
+    version robust to this type of error.</p></li>
+<li><p><strong>TypeError</strong> – When the length of 1D <cite>weights</cite> is not the same as the shape of <cite>a</cite>
+    along axis.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nums.numpy.api.stats.mean" title="nums.numpy.api.stats.mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>Only single ‘axis’ is currently supported.</p>
+<p>1D weights broadcasting is currently not supported.</p>
+<p>Weights along one or more axes sum to zero.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([1, 2, 3, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array(2.5)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0, 1],</span>
+<span class="go">       [2, 3],</span>
+<span class="go">       [4, 5]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.stats.cov">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.stats.</span></code><code class="sig-name descname"><span class="pre">cov</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">m</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowvar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fweights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aweights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/stats.html#cov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.stats.cov" title="Permalink to this definition"></a></dt>
+<dd><p>Estimate a covariance matrix, given data and weights.</p>
+<p>This docstring was copied from numpy.cov.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Covariance indicates the level to which two variables vary together.
+If we examine N-dimensional samples, <span class="math notranslate nohighlight">\(X = [x_1, x_2, ... x_N]^T\)</span>,
+then the covariance matrix element <span class="math notranslate nohighlight">\(C_{ij}\)</span> is the covariance of
+<span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(x_j\)</span>. The element <span class="math notranslate nohighlight">\(C_{ii}\)</span> is the variance
+of <span class="math notranslate nohighlight">\(x_i\)</span>.</p>
+<p>See the notes for an outline of the algorithm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>m</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – A 1-D or 2-D array containing multiple variables and observations.
+Each row of <cite>m</cite> represents a variable, and each column a single
+observation of all those variables. Also see <cite>rowvar</cite> below.</p></li>
+<li><p><strong>y</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>optional</em>) – An additional set of variables and observations. <cite>y</cite> has the same form
+as that of <cite>m</cite>.</p></li>
+<li><p><strong>rowvar</strong> (<em>bool</em><em>, </em><em>optional</em>) – If <cite>rowvar</cite> is True (default), then each row represents a
+variable, with observations in the columns. Otherwise, the relationship
+is transposed: each column represents a variable, while the rows
+contain observations.</p></li>
+<li><p><strong>bias</strong> (<em>bool</em><em>, </em><em>optional</em>) – Default normalization (False) is by <code class="docutils literal notranslate"><span class="pre">(N</span> <span class="pre">-</span> <span class="pre">1)</span></code>, where <code class="docutils literal notranslate"><span class="pre">N</span></code> is the
+number of observations given (unbiased estimate). If <cite>bias</cite> is True,
+then normalization is by <code class="docutils literal notranslate"><span class="pre">N</span></code>. These values can be overridden by using
+the keyword <code class="docutils literal notranslate"><span class="pre">ddof</span></code> in numpy versions &gt;= 1.5.</p></li>
+<li><p><strong>ddof</strong> (<em>int</em><em>, </em><em>optional</em>) – If not <code class="docutils literal notranslate"><span class="pre">None</span></code> the default value implied by <cite>bias</cite> is overridden.
+Note that <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> will return the unbiased estimate, even if both
+<cite>fweights</cite> and <cite>aweights</cite> are specified, and <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code> will return
+the simple average. See the notes for the details. The default value
+is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
+<li><p><strong>fweights</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>int</em><em>, </em><em>optional</em>) – 1-D array of integer frequency weights; the number of times each
+observation vector should be repeated.</p></li>
+<li><p><strong>aweights</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>optional</em>) – 1-D array of observation vector weights. These relative weights are
+typically large for observations considered “important” and smaller for
+observations considered less “important”. If <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code> the array of
+weights can be used to assign probabilities to observation vectors.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – The covariance matrix of the variables.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">corrcoef</span></code></dt><dd><p>Normalized covariance matrix</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Assume that the observations are in the columns of the observation
+array <cite>m</cite> and let <code class="docutils literal notranslate"><span class="pre">f</span> <span class="pre">=</span> <span class="pre">fweights</span></code> and <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">=</span> <span class="pre">aweights</span></code> for brevity. The
+steps to compute the weighted covariance are as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">nps</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">**</span> <span class="mf">2.</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ddof</span> <span class="o">=</span> <span class="mi">1</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">w</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">a</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v1</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v2</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">a</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">-=</span> <span class="n">nps</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">/</span> <span class="n">v1</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cov</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">m</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">v1</span> <span class="o">/</span> <span class="p">(</span><span class="n">v1</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">ddof</span> <span class="o">*</span> <span class="n">v2</span><span class="p">)</span>  
+</pre></div>
+</div>
+<p>Note that when <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">==</span> <span class="pre">1</span></code>, the normalization factor
+<code class="docutils literal notranslate"><span class="pre">v1</span> <span class="pre">/</span> <span class="pre">(v1**2</span> <span class="pre">-</span> <span class="pre">ddof</span> <span class="pre">*</span> <span class="pre">v2)</span></code> goes over to <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(nps.sum(f)</span> <span class="pre">-</span> <span class="pre">ddof).get()</span></code>
+as it should.</p>
+<p>y, ddof, fweights, and aweights are not supported.</p>
+<p>Only 2-dimensional arrays are supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<p>Consider two variables, <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x_1\)</span>, which
+correlate perfectly, but in opposite directions:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0, 1, 2],</span>
+<span class="go">       [2, 1, 0]])</span>
+</pre></div>
+</div>
+<p>Note how <span class="math notranslate nohighlight">\(x_0\)</span> increases while <span class="math notranslate nohighlight">\(x_1\)</span> decreases. The covariance
+matrix shows this clearly:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[ 1., -1.],</span>
+<span class="go">       [-1.,  1.]])</span>
+</pre></div>
+</div>
+<p>Note that element <span class="math notranslate nohighlight">\(C_{0,1}\)</span>, which shows the correlation between
+<span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x_1\)</span>, is negative.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.stats.mean">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.stats.</span></code><code class="sig-name descname"><span class="pre">mean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/stats.html#mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.stats.mean" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the arithmetic mean along the specified axis.</p>
+<p>This docstring was copied from numpy.mean.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Array containing numbers whose mean is desired. If <cite>a</cite> is not an
+array, a conversion is attempted.</p></li>
+<li><p><strong>axis</strong> (<em>None</em><em> or </em><em>int</em><em> or </em><em>tuple of ints</em><em>, </em><em>optional</em>) – Axis or axes along which the means are computed. The default is to
+compute the mean of the flattened array.
+If this is a tuple of ints, a mean is performed over multiple axes,
+instead of a single axis or all the axes as before.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – Type to use in computing the mean.  For integer inputs, the default
+is <cite>float64</cite>; for floating point inputs, it is the same as the
+input dtype.</p></li>
+<li><p><strong>out</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>optional</em>) – Alternate output array in which to place the result.  The default
+is <code class="docutils literal notranslate"><span class="pre">None</span></code>; if provided, it must have the same shape as the
+expected output, but the type will be cast if necessary.
+See <cite>ufuncs-output-type</cite> for more details.</p></li>
+<li><p><strong>keepdims</strong> (<em>bool</em><em>, </em><em>optional</em>) – If this is set to True, the axes which are reduced are left
+in the result as dimensions with size one. With this option,
+the result will broadcast correctly against the input array.
+If the default value is passed, then <cite>keepdims</cite> will not be
+passed through to the <cite>mean</cite> method of sub-classes of
+<cite>BlockArray</cite>, however any non-default value will be.  If the
+sub-class’ method does not implement <cite>keepdims</cite> any
+exceptions will be raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>m</strong> – If <cite>out=None</cite>, returns a new array containing the mean values,
+otherwise a reference to the output array is returned.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a>, see dtype parameter above</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.stats.average" title="nums.numpy.api.stats.average"><code class="xref py py-obj docutils literal notranslate"><span class="pre">average</span></code></a></dt><dd><p>Weighted average</p>
+</dd>
+</dl>
+<p><a class="reference internal" href="#nums.numpy.api.stats.std" title="nums.numpy.api.stats.std"><code class="xref py py-obj docutils literal notranslate"><span class="pre">std</span></code></a>, <a class="reference internal" href="#nums.numpy.api.stats.var" title="nums.numpy.api.stats.var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">var</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmean</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">nanstd</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">nanvar</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>The arithmetic mean is the sum of the elements along the axis divided
+by the number of elements.</p>
+<p>Note that for floating-point input, the mean is computed using the
+same precision the input has.  Depending on the input data, this can
+cause the results to be inaccurate, especially for <cite>float32</cite> (see
+example below).  Specifying a higher-precision accumulator using the
+<cite>dtype</cite> keyword can alleviate this issue.</p>
+<p>By default, <cite>float16</cite> results are computed using <cite>float32</cite> intermediates
+for extra precision.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array(2.5)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([2., 3.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([1.5, 3.5])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.stats.median">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.stats.</span></code><code class="sig-name descname"><span class="pre">median</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/stats.html#median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.stats.median" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the median along the specified axis.</p>
+<p>This docstring was copied from numpy.median.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Returns the median of the array elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Input array or object that can be converted to an array.</p></li>
+<li><p><strong>axis</strong> (<em>{int</em><em>, </em><em>sequence of int</em><em>, </em><em>None}</em><em>, </em><em>optional</em>) – Axis or axes along which the medians are computed. The default
+is to compute the median along a flattened version of the array.</p></li>
+<li><p><strong>out</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>optional</em>) – Alternative output array in which to place the result. It must
+have the same shape and buffer length as the expected output,
+but the type (of the output) will be cast if necessary.</p></li>
+<li><p><strong>keepdims</strong> (<em>bool</em><em>, </em><em>optional</em>) – If this is set to True, the axes which are reduced are left
+in the result as dimensions with size one. With this option,
+the result will broadcast correctly against the original <cite>arr</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>median</strong> – A new array holding the result. If the input contains integers
+or floats smaller than <code class="docutils literal notranslate"><span class="pre">float64</span></code>, then the output data-type is
+<code class="docutils literal notranslate"><span class="pre">nps.float64</span></code>.  Otherwise, the data-type of the output is the
+same as that of the input. If <cite>out</cite> is specified, that array is
+returned instead.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nums.numpy.api.stats.mean" title="nums.numpy.api.stats.mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean</span></code></a>, <a class="reference internal" href="#nums.numpy.api.stats.percentile" title="nums.numpy.api.stats.percentile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">percentile</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>Given a vector <code class="docutils literal notranslate"><span class="pre">V</span></code> of length <code class="docutils literal notranslate"><span class="pre">N</span></code>, the median of <code class="docutils literal notranslate"><span class="pre">V</span></code> is the
+middle value of a sorted copy of <code class="docutils literal notranslate"><span class="pre">V</span></code>, <code class="docutils literal notranslate"><span class="pre">V_sorted</span></code> - i
+e., <code class="docutils literal notranslate"><span class="pre">V_sorted[(N-1)/2]</span></code>, when <code class="docutils literal notranslate"><span class="pre">N</span></code> is odd, and the average of the
+two middle values of <code class="docutils literal notranslate"><span class="pre">V_sorted</span></code> when <code class="docutils literal notranslate"><span class="pre">N</span></code> is even.</p>
+<p>‘axis’ is currently not supported.</p>
+<p>‘out’ is currently not supported.</p>
+<p>‘keepdims’ is currently not supported.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.stats.percentile">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.stats.</span></code><code class="sig-name descname"><span class="pre">percentile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/stats.html#percentile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.stats.percentile" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the q-th percentile of the data along the specified axis.</p>
+<p>This docstring was copied from numpy.percentile.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Returns the q-th percentile(s) of the array elements.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Input array or object that can be converted to an array.</p></li>
+<li><p><strong>q</strong> (<em>float</em>) – Percentile or sequence of percentiles to compute, which must be between
+0 and 100 inclusive.</p></li>
+<li><p><strong>axis</strong> (<em>{int</em><em>, </em><em>tuple of int</em><em>, </em><em>None}</em><em>, </em><em>optional</em>) – Axis or axes along which the percentiles are computed. The
+default is to compute the percentile(s) along a flattened
+version of the array.</p></li>
+<li><p><strong>out</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>optional</em>) – Alternative output array in which to place the result. It must
+have the same shape and buffer length as the expected output,
+but the type (of the output) will be cast if necessary.</p></li>
+<li><p><strong>overwrite_input</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, then allow the input array <cite>a</cite> to be modified by intermediate
+calculations, to save memory. In this case, the contents of the input
+<cite>a</cite> after this function completes is undefined.</p></li>
+<li><p><strong>interpolation</strong> (<em>{'linear'</em><em>, </em><em>'lower'</em><em>, </em><em>'higher'</em><em>, </em><em>'midpoint'</em><em>, </em><em>'nearest'}</em>) – <p>This optional parameter specifies the interpolation method to
+use when the desired percentile lies between two data points
+<code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">&lt;</span> <span class="pre">j</span></code>:</p>
+<ul>
+<li><p>’linear’: <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">+</span> <span class="pre">(j</span> <span class="pre">-</span> <span class="pre">i)</span> <span class="pre">*</span> <span class="pre">fraction</span></code>, where <code class="docutils literal notranslate"><span class="pre">fraction</span></code>
+is the fractional part of the index surrounded by <code class="docutils literal notranslate"><span class="pre">i</span></code>
+and <code class="docutils literal notranslate"><span class="pre">j</span></code>.</p></li>
+<li><p>’lower’: <code class="docutils literal notranslate"><span class="pre">i</span></code>.</p></li>
+<li><p>’higher’: <code class="docutils literal notranslate"><span class="pre">j</span></code>.</p></li>
+<li><p>’nearest’: <code class="docutils literal notranslate"><span class="pre">i</span></code> or <code class="docutils literal notranslate"><span class="pre">j</span></code>, whichever is nearest.</p></li>
+<li><p>’midpoint’: <code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">+</span> <span class="pre">j)</span> <span class="pre">/</span> <span class="pre">2</span></code>.</p></li>
+</ul>
+</p></li>
+<li><p><strong>keepdims</strong> (<em>bool</em><em>, </em><em>optional</em>) – If this is set to True, the axes which are reduced are left in
+the result as dimensions with size one. With this option, the
+result will broadcast correctly against the original array <cite>a</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>percentile</strong> – If <cite>q</cite> is a single percentile and <cite>axis=None</cite>, then the result
+is a scalar. If multiple percentiles are given, first axis of
+the result corresponds to the percentiles. The other axes are
+the axes that remain after the reduction of <cite>a</cite>. If the input
+contains integers or floats smaller than <code class="docutils literal notranslate"><span class="pre">float64</span></code>, the output
+data-type is <code class="docutils literal notranslate"><span class="pre">float64</span></code>. Otherwise, the output data-type is the
+same as that of the input. If <cite>out</cite> is specified, that array is
+returned instead.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nums.numpy.api.stats.mean" title="nums.numpy.api.stats.mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean</span></code></a></p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.stats.median" title="nums.numpy.api.stats.median"><code class="xref py py-obj docutils literal notranslate"><span class="pre">median</span></code></a></dt><dd><p>equivalent to <code class="docutils literal notranslate"><span class="pre">percentile(...,</span> <span class="pre">50)</span></code></p>
+</dd>
+</dl>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanpercentile</span></code></p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.stats.quantile" title="nums.numpy.api.stats.quantile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quantile</span></code></a></dt><dd><p>equivalent to percentile, except with q in the range [0, 1].</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Given a vector <code class="docutils literal notranslate"><span class="pre">V</span></code> of length <code class="docutils literal notranslate"><span class="pre">N</span></code>, the q-th percentile of
+<code class="docutils literal notranslate"><span class="pre">V</span></code> is the value <code class="docutils literal notranslate"><span class="pre">q/100</span></code> of the way from the minimum to the
+maximum in a sorted copy of <code class="docutils literal notranslate"><span class="pre">V</span></code>. The values and distances of
+the two nearest neighbors as well as the <cite>interpolation</cite> parameter
+will determine the percentile if the normalized ranking does not
+match the location of <code class="docutils literal notranslate"><span class="pre">q</span></code> exactly. This function is the same as
+the median if <code class="docutils literal notranslate"><span class="pre">q=50</span></code>, the same as the minimum if <code class="docutils literal notranslate"><span class="pre">q=0</span></code> and the
+same as the maximum if <code class="docutils literal notranslate"><span class="pre">q=100</span></code>.</p>
+<p>‘axis’ is currently not supported.</p>
+<p>‘out’ is currently not supported.</p>
+<p>‘overwrite_input’ is currently not supported.</p>
+<p>only ‘linear’ ‘interpolation’ is currently supported.</p>
+<p>‘keepdims’ is currently not supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[10,  7,  4],</span>
+<span class="go">       [ 3,  2,  1]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.stats.quantile">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.stats.</span></code><code class="sig-name descname"><span class="pre">quantile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite_input</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/stats.html#quantile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.stats.quantile" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the q-th quantile of the data along the specified axis.</p>
+<p>This docstring was copied from numpy.quantile.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Input array or object that can be converted to an array.</p></li>
+<li><p><strong>q</strong> (<em>BlockArray of float</em>) – Quantile or sequence of quantiles to compute, which must be between
+0 and 1 inclusive.</p></li>
+<li><p><strong>axis</strong> (<em>{int</em><em>, </em><em>tuple of int</em><em>, </em><em>None}</em><em>, </em><em>optional</em>) – Axis or axes along which the quantiles are computed. The
+default is to compute the quantile(s) along a flattened
+version of the array.</p></li>
+<li><p><strong>out</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>optional</em>) – Alternative output array in which to place the result. It must
+have the same shape and buffer length as the expected output,
+but the type (of the output) will be cast if necessary.</p></li>
+<li><p><strong>overwrite_input</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, then allow the input array <cite>a</cite> to be modified by intermediate
+calculations, to save memory. In this case, the contents of the input
+<cite>a</cite> after this function completes is undefined.</p></li>
+<li><p><strong>interpolation</strong> (<em>{'linear'</em><em>, </em><em>'lower'</em><em>, </em><em>'higher'</em><em>, </em><em>'midpoint'</em><em>, </em><em>'nearest'}</em>) – <p>This optional parameter specifies the interpolation method to
+use when the desired quantile lies between two data points
+<code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">&lt;</span> <span class="pre">j</span></code>:</p>
+<blockquote>
+<div><ul>
+<li><p>linear: <code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">+</span> <span class="pre">(j</span> <span class="pre">-</span> <span class="pre">i)</span> <span class="pre">*</span> <span class="pre">fraction</span></code>, where <code class="docutils literal notranslate"><span class="pre">fraction</span></code>
+is the fractional part of the index surrounded by <code class="docutils literal notranslate"><span class="pre">i</span></code>
+and <code class="docutils literal notranslate"><span class="pre">j</span></code>.</p></li>
+<li><p>lower: <code class="docutils literal notranslate"><span class="pre">i</span></code>.</p></li>
+<li><p>higher: <code class="docutils literal notranslate"><span class="pre">j</span></code>.</p></li>
+<li><p>nearest: <code class="docutils literal notranslate"><span class="pre">i</span></code> or <code class="docutils literal notranslate"><span class="pre">j</span></code>, whichever is nearest.</p></li>
+<li><p>midpoint: <code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">+</span> <span class="pre">j)</span> <span class="pre">/</span> <span class="pre">2</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+<li><p><strong>keepdims</strong> (<em>bool</em><em>, </em><em>optional</em>) – If this is set to True, the axes which are reduced are left in
+the result as dimensions with size one. With this option, the
+result will broadcast correctly against the original array <cite>a</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>quantile</strong> – If <cite>q</cite> is a single quantile and <cite>axis=None</cite>, then the result
+is a scalar. If multiple quantiles are given, first axis of
+the result corresponds to the quantiles. The other axes are
+the axes that remain after the reduction of <cite>a</cite>. If the input
+contains integers or floats smaller than <code class="docutils literal notranslate"><span class="pre">float</span></code>, the output
+data-type is <code class="docutils literal notranslate"><span class="pre">float</span></code>. Otherwise, the output data-type is the
+same as that of the input. If <cite>out</cite> is specified, that array is
+returned instead.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nums.numpy.api.stats.mean" title="nums.numpy.api.stats.mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean</span></code></a></p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.stats.percentile" title="nums.numpy.api.stats.percentile"><code class="xref py py-obj docutils literal notranslate"><span class="pre">percentile</span></code></a></dt><dd><p>equivalent to quantile, but with q in the range [0, 100].</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.stats.median" title="nums.numpy.api.stats.median"><code class="xref py py-obj docutils literal notranslate"><span class="pre">median</span></code></a></dt><dd><p>equivalent to <code class="docutils literal notranslate"><span class="pre">quantile(...,</span> <span class="pre">0.5)</span></code></p>
+</dd>
+</dl>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanquantile</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>Given a vector <code class="docutils literal notranslate"><span class="pre">V</span></code> of length <code class="docutils literal notranslate"><span class="pre">N</span></code>, the q-th quantile of
+<code class="docutils literal notranslate"><span class="pre">V</span></code> is the value <code class="docutils literal notranslate"><span class="pre">q</span></code> of the way from the minimum to the
+maximum in a sorted copy of <code class="docutils literal notranslate"><span class="pre">V</span></code>. The values and distances of
+the two nearest neighbors as well as the <cite>interpolation</cite> parameter
+will determine the quantile if the normalized ranking does not
+match the location of <code class="docutils literal notranslate"><span class="pre">q</span></code> exactly. This function is the same as
+the median if <code class="docutils literal notranslate"><span class="pre">q=0.5</span></code>, the same as the minimum if <code class="docutils literal notranslate"><span class="pre">q=0.0</span></code> and the
+same as the maximum if <code class="docutils literal notranslate"><span class="pre">q=1.0</span></code>.</p>
+<p>‘axis’ is currently not supported.</p>
+<p>‘out’ is currently not supported.</p>
+<p>‘overwrite_input’ is currently not supported.</p>
+<p>only ‘linear’ ‘interpolation’ is currently supported.</p>
+<p>‘keepdims’ is currently not supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[10,  7,  4],</span>
+<span class="go">       [ 3,  2,  1]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.stats.std">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.stats.</span></code><code class="sig-name descname"><span class="pre">std</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/stats.html#std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.stats.std" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the standard deviation along the specified axis.</p>
+<p>This docstring was copied from numpy.std.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Returns the standard deviation, a measure of the spread of a distribution,
+of the array elements. The standard deviation is computed for the
+flattened array by default, otherwise over the specified axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Calculate the standard deviation of these values.</p></li>
+<li><p><strong>axis</strong> (<em>None</em><em> or </em><em>int</em><em> or </em><em>tuple of ints</em><em>, </em><em>optional</em>) – Axis or axes along which the standard deviation is computed. The
+default is to compute the standard deviation of the flattened array.
+If this is a tuple of ints, a standard deviation is performed over
+multiple axes, instead of a single axis or all the axes as before.</p></li>
+<li><p><strong>dtype</strong> (<em>dtype</em><em>, </em><em>optional</em>) – Type to use in computing the standard deviation. For arrays of
+integer type the default is None.</p></li>
+<li><p><strong>out</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>optional</em>) – Alternative output array in which to place the result. It must have
+the same shape as the expected output but the type (of the calculated
+values) will be cast if necessary.</p></li>
+<li><p><strong>ddof</strong> (<em>int</em><em>, </em><em>optional</em>) – Means Delta Degrees of Freedom.  The divisor used in calculations
+is <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code>, where <code class="docutils literal notranslate"><span class="pre">N</span></code> represents the number of elements.
+By default <cite>ddof</cite> is zero.</p></li>
+<li><p><strong>keepdims</strong> (<em>bool</em><em>, </em><em>optional</em>) – If this is set to True, the axes which are reduced are left
+in the result as dimensions with size one. With this option,
+the result will broadcast correctly against the input array.
+If the default value is passed, then <cite>keepdims</cite> will not be
+passed through to the <cite>std</cite> method of sub-classes of
+<cite>BlockArray</cite>, however any non-default value will be.  If the
+sub-class’ method does not implement <cite>keepdims</cite> any
+exceptions will be raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>standard_deviation</strong> – If <cite>out</cite> is None, return a new array containing the standard deviation,
+otherwise return a reference to the output array.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a>, see dtype parameter above.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nums.numpy.api.stats.var" title="nums.numpy.api.stats.var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">var</span></code></a>, <a class="reference internal" href="#nums.numpy.api.stats.mean" title="nums.numpy.api.stats.mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmean</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">nanstd</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">nanvar</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>The standard deviation is the square root of the average of the squared
+deviations from the mean, i.e., <code class="docutils literal notranslate"><span class="pre">std</span> <span class="pre">=</span> <span class="pre">sqrt(mean(abs(x</span> <span class="pre">-</span> <span class="pre">x.mean())**2))</span></code>.</p>
+<p>The average squared deviation is normally calculated as
+<code class="docutils literal notranslate"><span class="pre">x.sum()</span> <span class="pre">/</span> <span class="pre">N</span></code>, where <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">len(x)</span></code>.  If, however, <cite>ddof</cite> is specified,
+the divisor <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code> is used instead. In standard statistical
+practice, <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> provides an unbiased estimator of the variance
+of the infinite population. <code class="docutils literal notranslate"><span class="pre">ddof=0</span></code> provides a maximum likelihood
+estimate of the variance for normally distributed variables. The
+standard deviation computed in this function is the square root of
+the estimated variance, so even with <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code>, it will not be an
+unbiased estimate of the standard deviation per se.</p>
+<p>Note that, for complex numbers, <cite>std</cite> takes the absolute
+value before squaring, so that the result is always real and nonnegative.</p>
+<p>‘out’ is currently not supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array(1.1180339887498949) # may vary</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([1.,  1.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([0.5,  0.5])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.stats.var">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.stats.</span></code><code class="sig-name descname"><span class="pre">var</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/stats.html#var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.stats.var" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the variance along the specified axis.</p>
+<p>This docstring was copied from numpy.var.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Returns the variance of the array elements, a measure of the spread of a
+distribution.  The variance is computed for the flattened array by
+default, otherwise over the specified axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Array containing numbers whose variance is desired.  If <cite>a</cite> is not an
+array, a conversion is attempted.</p></li>
+<li><p><strong>axis</strong> (<em>None</em><em> or </em><em>int</em><em> or </em><em>tuple of ints</em><em>, </em><em>optional</em>) – Axis or axes along which the variance is computed.  The default is to
+compute the variance of the flattened array.
+If this is a tuple of ints, a variance is performed over multiple axes,
+instead of a single axis or all the axes as before.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – Type to use in computing the variance.  For arrays of integer type
+the default is <cite>float</cite>; for arrays of float types it is the same as
+the array type.</p></li>
+<li><p><strong>out</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>optional</em>) – Alternate output array in which to place the result.  It must have
+the same shape as the expected output, but the type is cast if
+necessary.</p></li>
+<li><p><strong>ddof</strong> (<em>int</em><em>, </em><em>optional</em>) – “Delta Degrees of Freedom”: the divisor used in the calculation is
+<code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code>, where <code class="docutils literal notranslate"><span class="pre">N</span></code> represents the number of elements. By
+default <cite>ddof</cite> is zero.</p></li>
+<li><p><strong>keepdims</strong> (<em>bool</em><em>, </em><em>optional</em>) – <p>If this is set to True, the axes which are reduced are left
+in the result as dimensions with size one. With this option,
+the result will broadcast correctly against the input array.</p>
+<p>If the default value is passed, then <cite>keepdims</cite> will not be
+passed through to the <cite>var</cite> method of sub-classes of
+<cite>BlockArray</cite>, however any non-default value will be.  If the
+sub-class’ method does not implement <cite>keepdims</cite> any
+exceptions will be raised.</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>variance</strong> – If <code class="docutils literal notranslate"><span class="pre">out=None</span></code>, returns a new array containing the variance;
+otherwise, a reference to the output array is returned.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a>, see dtype parameter above</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nums.numpy.api.stats.std" title="nums.numpy.api.stats.std"><code class="xref py py-obj docutils literal notranslate"><span class="pre">std</span></code></a>, <a class="reference internal" href="#nums.numpy.api.stats.mean" title="nums.numpy.api.stats.mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mean</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmean</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">nanstd</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">nanvar</span></code></p>
+</div>
+<p class="rubric">Notes</p>
+<p>The variance is the average of the squared deviations from the mean,
+i.e.,  <code class="docutils literal notranslate"><span class="pre">var</span> <span class="pre">=</span> <span class="pre">mean(abs(x</span> <span class="pre">-</span> <span class="pre">x.mean())**2)</span></code>.</p>
+<p>The mean is normally calculated as <code class="docutils literal notranslate"><span class="pre">x.sum()</span> <span class="pre">/</span> <span class="pre">N</span></code>, where <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">len(x)</span></code>.
+If, however, <cite>ddof</cite> is specified, the divisor <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code> is used
+instead.  In standard statistical practice, <code class="docutils literal notranslate"><span class="pre">ddof=1</span></code> provides an
+unbiased estimator of the variance of a hypothetical infinite population.
+<code class="docutils literal notranslate"><span class="pre">ddof=0</span></code> provides a maximum likelihood estimate of the variance for
+normally distributed variables.</p>
+<p>Note that for complex numbers, the absolute value is taken before
+squaring, so that the result is always real and nonnegative.</p>
+<p>‘out’ is currently not supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array(1.25)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([1.,  1.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([0.25,  0.25])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

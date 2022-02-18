@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nums.core.array.view &mdash; NumS  documentation</title><link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> NumS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">nums.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../numpy.html">nums.numpy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">NumS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>nums.core.array.view</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nums.core.array.view</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">nums.core.array</span> <span class="kn">import</span> <span class="n">selection</span>
+<span class="kn">from</span> <span class="nn">nums.core.array</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">array_utils</span>
+<span class="kn">from</span> <span class="nn">nums.core.array.base</span> <span class="kn">import</span> <span class="n">Block</span><span class="p">,</span> <span class="n">BlockArrayBase</span>
+<span class="kn">from</span> <span class="nn">nums.core.array.selection</span> <span class="kn">import</span> <span class="n">BasicSelection</span>
+<span class="kn">from</span> <span class="nn">nums.core.compute.compute_manager</span> <span class="kn">import</span> <span class="n">ComputeManager</span>
+<span class="kn">from</span> <span class="nn">nums.core.grid.grid</span> <span class="kn">import</span> <span class="n">ArrayGrid</span>
+
+
+<div class="viewcode-block" id="ArrayView"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView">[docs]</a><span class="k">class</span> <span class="nc">ArrayView</span><span class="p">:</span>
+<div class="viewcode-block" id="ArrayView.from_block_array"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.from_block_array">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_block_array</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">bab</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bab</span><span class="p">,</span> <span class="n">BlockArrayBase</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">bab</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">bab</span><span class="o">.</span><span class="n">block_shape</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ArrayView.from_subscript"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.from_subscript">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_subscript</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">bab</span><span class="p">,</span> <span class="n">subscript</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bab</span><span class="p">,</span> <span class="n">BlockArrayBase</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">bab</span><span class="p">,</span> <span class="n">sel</span><span class="o">=</span><span class="n">BasicSelection</span><span class="o">.</span><span class="n">from_subscript</span><span class="p">(</span><span class="n">bab</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">subscript</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">sel</span><span class="p">:</span> <span class="n">BasicSelection</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="p">:</span> <span class="n">BlockArrayBase</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="p">:</span> <span class="n">ComputeManager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">cm</span>
+
+        <span class="k">if</span> <span class="n">sel</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sel</span> <span class="o">=</span> <span class="n">BasicSelection</span><span class="o">.</span><span class="n">from_shape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="c1"># Currently, this is all we support.</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">sel</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sel</span> <span class="o">=</span> <span class="n">sel</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">get_output_shape</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">block_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">block_shape</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">block_shape_from_subscript</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">selector</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">block_shape</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span> <span class="o">=</span> <span class="n">block_shape</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">:</span> <span class="n">ArrayGrid</span> <span class="o">=</span> <span class="n">ArrayGrid</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_regular_subscript</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_regular_subscript</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">select</span><span class="p">((</span><span class="n">item</span><span class="p">,))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;getitem failed&quot;</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ArrayView.select"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subscript</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">selection</span><span class="o">.</span><span class="n">is_advanced_selection</span><span class="p">(</span><span class="n">subscript</span><span class="p">):</span>
+            <span class="c1"># This is not optimized.</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">advanced_select</span><span class="p">(</span><span class="n">subscript</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># This is optimized.</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">basic_select</span><span class="p">(</span><span class="n">subscript</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ArrayView.basic_select"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.basic_select">[docs]</a>    <span class="k">def</span> <span class="nf">basic_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subscript</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="c1"># No support for subscripts of subscripts.</span>
+        <span class="c1"># We create new block arrays to deal with nested subscripts.</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">block_shape</span>
+        <span class="n">sel</span><span class="p">:</span> <span class="n">BasicSelection</span> <span class="o">=</span> <span class="n">BasicSelection</span><span class="o">.</span><span class="n">from_subscript</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">subscript</span><span class="p">)</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">ArrayView</span> <span class="o">=</span> <span class="n">ArrayView</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="p">,</span> <span class="n">sel</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="ArrayView.create"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">concrete_cls</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArrayBase</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">basic_steps</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">is_aligned</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">block_shape</span><span class="p">):</span>
+                <span class="c1"># Assertion below should form a conjunction with the above condition.</span>
+                <span class="c1"># This isn&#39;t currently an issue but an assumption that</span>
+                <span class="c1"># may not always hold true, depending on how the ArrayView</span>
+                <span class="c1"># is constructed.</span>
+                <span class="k">assert</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">can_broadcast_shape_to</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">get_broadcastable_block_shape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span><span class="p">),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">block_shape</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_references</span><span class="p">(</span><span class="n">concrete_cls</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_basic_single_step</span><span class="p">(</span><span class="n">concrete_cls</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_basic_multi_step</span><span class="p">(</span><span class="n">concrete_cls</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ArrayView.create_references"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.create_references">[docs]</a>    <span class="k">def</span> <span class="nf">create_references</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">concrete_cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArrayBase</span><span class="p">:</span>
+        <span class="c1"># TODO (hme): Double check this.</span>
+        <span class="n">array_cls</span> <span class="o">=</span> <span class="n">BlockArrayBase</span> <span class="k">if</span> <span class="n">concrete_cls</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">concrete_cls</span>
+        <span class="n">dst_ba</span><span class="p">:</span> <span class="n">BlockArrayBase</span> <span class="o">=</span> <span class="n">array_cls</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="p">)</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">dst_ba</span>
+        <span class="n">grid_offset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">value</span> <span class="o">//</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span>
+        <span class="p">)</span>
+        <span class="n">dst_inflated_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">get_broadcastable_shape</span><span class="p">()</span>
+        <span class="n">dst_inflated_block_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">get_broadcastable_block_shape</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span>
+        <span class="p">)</span>
+        <span class="n">dst_inflated_grid</span><span class="p">:</span> <span class="n">ArrayGrid</span> <span class="o">=</span> <span class="n">ArrayGrid</span><span class="p">(</span>
+            <span class="n">dst_inflated_shape</span><span class="p">,</span> <span class="n">dst_inflated_block_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="p">)</span>
+        <span class="n">dst_grid_entry_iterator</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dst_ba</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">dst_index</span><span class="p">,</span> <span class="n">dst_inflated_grid_entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+            <span class="n">dst_inflated_grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="n">dst_grid_entry</span> <span class="o">=</span> <span class="n">dst_grid_entry_iterator</span><span class="p">[</span><span class="n">dst_index</span><span class="p">]</span>
+            <span class="n">src_grid_entry</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dst_inflated_grid_entry</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">grid_offset</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="p">)</span>
+            <span class="n">dst_ba</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">dst_grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">src_grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span>
+            <span class="n">dst_ba</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">dst_grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">transposed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span>
+                <span class="n">src_grid_entry</span>
+            <span class="p">]</span><span class="o">.</span><span class="n">transposed</span>
+        <span class="k">return</span> <span class="n">dst_ba</span></div>
+
+<div class="viewcode-block" id="ArrayView.create_basic_single_step"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.create_basic_single_step">[docs]</a>    <span class="k">def</span> <span class="nf">create_basic_single_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">concrete_cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArrayBase</span><span class="p">:</span>
+        <span class="n">array_cls</span> <span class="o">=</span> <span class="n">BlockArrayBase</span> <span class="k">if</span> <span class="n">concrete_cls</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">concrete_cls</span>
+        <span class="n">dst_ba</span><span class="p">:</span> <span class="n">BlockArrayBase</span> <span class="o">=</span> <span class="n">array_cls</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="p">)</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">dst_ba</span>
+
+        <span class="n">src_sel_arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">selection</span><span class="o">.</span><span class="n">BasicSelection</span><span class="o">.</span><span class="n">block_selection</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">block_shape</span>
+        <span class="p">)</span>
+        <span class="c1"># TODO(hme): The following op is very slow for integer subscripts of large arrays.</span>
+        <span class="n">src_sel_clipped</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">src_sel_arr</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">sel</span>
+        <span class="k">assert</span> <span class="n">src_sel_clipped</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span>
+
+        <span class="n">broadcast_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">get_broadcastable_shape</span><span class="p">()</span>
+        <span class="n">broadcast_block_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">get_broadcastable_block_shape</span><span class="p">(</span>
+            <span class="n">dst_ba</span><span class="o">.</span><span class="n">block_shape</span>
+        <span class="p">)</span>
+        <span class="n">dst_grid_bc</span><span class="p">:</span> <span class="n">ArrayGrid</span> <span class="o">=</span> <span class="n">ArrayGrid</span><span class="p">(</span>
+            <span class="n">broadcast_shape</span><span class="p">,</span> <span class="n">broadcast_block_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="p">)</span>
+        <span class="n">dst_sel_arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">selection</span><span class="o">.</span><span class="n">BasicSelection</span><span class="o">.</span><span class="n">block_selection</span><span class="p">(</span>
+            <span class="n">broadcast_shape</span><span class="p">,</span> <span class="n">broadcast_block_shape</span>
+        <span class="p">)</span>
+        <span class="n">dst_sel_offset</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">dst_sel_arr</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">position</span><span class="p">()</span>
+        <span class="n">dst_entry_iterator</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dst_ba</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">dst_index</span><span class="p">,</span> <span class="n">dst_grid_entry_bc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dst_grid_bc</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">()):</span>
+            <span class="n">dst_sel_offset_block</span><span class="p">:</span> <span class="n">BasicSelection</span> <span class="o">=</span> <span class="n">dst_sel_offset</span><span class="p">[</span><span class="n">dst_grid_entry_bc</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">dst_sel_offset_block</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+                <span class="k">continue</span>
+            <span class="n">src_dst_intersection_arr</span> <span class="o">=</span> <span class="n">src_sel_clipped</span> <span class="o">&amp;</span> <span class="n">dst_sel_offset_block</span>
+            <span class="n">cm</span><span class="p">:</span> <span class="n">ComputeManager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span>
+            <span class="n">src_oids</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">src_params</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">dst_params</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">src_grid_entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">()):</span>
+                <span class="n">src_dst_intersection_block</span><span class="p">:</span> <span class="n">BasicSelection</span> <span class="o">=</span> <span class="n">src_dst_intersection_arr</span><span class="p">[</span>
+                    <span class="n">src_grid_entry</span>
+                <span class="p">]</span>
+                <span class="k">if</span> <span class="n">src_dst_intersection_block</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+                    <span class="k">continue</span>
+                <span class="n">src_block</span><span class="p">:</span> <span class="n">Block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">src_grid_entry</span><span class="p">]</span>
+                <span class="n">src_oids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">src_block</span><span class="o">.</span><span class="n">oid</span><span class="p">)</span>
+                <span class="n">src_sel_block</span><span class="p">:</span> <span class="n">BasicSelection</span> <span class="o">=</span> <span class="n">src_sel_arr</span><span class="p">[</span><span class="n">src_grid_entry</span><span class="p">]</span>
+                <span class="n">src_dep_sel_loc</span> <span class="o">=</span> <span class="n">src_dst_intersection_block</span> <span class="o">-</span> <span class="n">src_sel_block</span><span class="o">.</span><span class="n">position</span><span class="p">()</span>
+                <span class="n">src_params</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">src_dep_sel_loc</span><span class="o">.</span><span class="n">selector</span><span class="p">(),</span> <span class="n">src_block</span><span class="o">.</span><span class="n">transposed</span><span class="p">))</span>
+                <span class="n">dst_block_sel_loc</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">src_dst_intersection_block</span> <span class="o">-</span> <span class="n">dst_sel_offset_block</span><span class="o">.</span><span class="n">position</span><span class="p">()</span>
+                <span class="p">)</span>
+                <span class="n">dst_params</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">dst_block_sel_loc</span><span class="o">.</span><span class="n">selector</span><span class="p">(),</span> <span class="kc">False</span><span class="p">))</span>
+            <span class="n">dst_block</span><span class="p">:</span> <span class="n">Block</span> <span class="o">=</span> <span class="n">dst_ba</span><span class="o">.</span><span class="n">blocks</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">dst_grid_bc</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">)[</span>
+                <span class="n">dst_grid_entry_bc</span>
+            <span class="p">]</span>
+            <span class="n">dst_block</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">create_block</span><span class="p">(</span>
+                <span class="o">*</span><span class="n">src_oids</span><span class="p">,</span>
+                <span class="n">src_params</span><span class="o">=</span><span class="n">src_params</span><span class="p">,</span>
+                <span class="n">dst_params</span><span class="o">=</span><span class="n">dst_params</span><span class="p">,</span>
+                <span class="n">dst_shape</span><span class="o">=</span><span class="n">dst_block</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                <span class="n">dst_shape_bc</span><span class="o">=</span><span class="n">dst_sel_offset_block</span><span class="o">.</span><span class="n">get_output_shape</span><span class="p">(),</span>
+                <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">dst_entry_iterator</span><span class="p">[</span><span class="n">dst_index</span><span class="p">],</span>
+                    <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">dst_ba</span></div>
+
+<div class="viewcode-block" id="ArrayView.create_basic_multi_step"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.create_basic_multi_step">[docs]</a>    <span class="k">def</span> <span class="nf">create_basic_multi_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">concrete_cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArrayBase</span><span class="p">:</span>
+        <span class="c1"># Create each entry one by one.</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Positive steps of size 1 are currently supported.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ArrayView.advanced_select"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.advanced_select">[docs]</a>    <span class="k">def</span> <span class="nf">advanced_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subscript</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+                <span class="k">assert</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_regular_subscript</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span>
+                    <span class="n">entry</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_regular_subscript</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">assign</span><span class="p">((</span><span class="n">key</span><span class="p">,),</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;setitem failed&quot;</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ArrayView.assign"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.assign">[docs]</a>    <span class="k">def</span> <span class="nf">assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subscript</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">selection</span><span class="o">.</span><span class="n">is_advanced_selection</span><span class="p">(</span><span class="n">subscript</span><span class="p">):</span>
+            <span class="c1"># This is not optimized.</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">advanced_assign</span><span class="p">(</span><span class="n">subscript</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># This is optimized.</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">basic_assign</span><span class="p">(</span><span class="n">subscript</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ArrayView.basic_assign"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.basic_assign">[docs]</a>    <span class="k">def</span> <span class="nf">basic_assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subscript</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># No support for subscripts of subscripts.</span>
+        <span class="c1"># We create new block arrays to deal with nested subscripts.</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">block_shape</span>
+        <span class="n">dst_ba</span><span class="p">:</span> <span class="n">BlockArrayBase</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span>
+        <span class="n">dst_sel</span> <span class="o">=</span> <span class="n">selection</span><span class="o">.</span><span class="n">BasicSelection</span><span class="o">.</span><span class="n">from_subscript</span><span class="p">(</span><span class="n">dst_ba</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">subscript</span><span class="p">)</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="n">dst_sel</span><span class="o">.</span><span class="n">get_output_shape</span><span class="p">():</span>
+            <span class="c1"># Nothing to do.</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">dst_sel</span><span class="o">.</span><span class="n">basic_steps</span><span class="p">():</span>
+            <span class="n">value_is_aligned</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ArrayView</span><span class="p">):</span>
+                <span class="n">value_is_aligned</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">is_aligned</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">block_shape</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">value_is_aligned</span>
+                <span class="ow">and</span> <span class="n">dst_sel</span><span class="o">.</span><span class="n">is_aligned</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">block_shape</span><span class="p">)</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span> <span class="o">==</span> <span class="n">value</span><span class="o">.</span><span class="n">block_shape</span>
+            <span class="p">):</span>
+                <span class="c1"># TODO (hme): Sometimes self.block_shape != value.block_shape</span>
+                <span class="c1">#  when it is in fact equal. This happens when value</span>
+                <span class="c1">#  is created from the last block of its source,</span>
+                <span class="c1">#  and is being assigned to the last block of this view&#39;s source.</span>
+                <span class="c1">#  This is a minor issue.</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">assign_references</span><span class="p">(</span><span class="n">dst_sel</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">basic_assign_single_step</span><span class="p">(</span><span class="n">dst_sel</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">basic_assign_multi_step</span><span class="p">(</span><span class="n">dst_sel</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ArrayView.assign_references"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.assign_references">[docs]</a>    <span class="k">def</span> <span class="nf">assign_references</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dst_sel</span><span class="p">:</span> <span class="n">BasicSelection</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># TODO (hme): This seems overly complicated, but correct. Double check it.</span>
+        <span class="c1">#  Also, revisit some of the variable names. They will likely</span>
+        <span class="c1">#  be confusing in the future.</span>
+        <span class="c1"># The destination has same block shape as value,</span>
+        <span class="c1"># but the destination selection may not have the same shape as value.</span>
+        <span class="c1"># May need to broadcast value to destination selection output shape.</span>
+        <span class="n">dst_offset</span> <span class="o">=</span> <span class="n">dst_sel</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">value</span> <span class="o">//</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span>
+        <span class="p">)</span>
+        <span class="c1"># Do we need to broadcast?</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ArrayView</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span>
+            <span class="n">dst_sel</span><span class="o">.</span><span class="n">get_output_shape</span><span class="p">()</span> <span class="o">!=</span> <span class="n">value</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">get_output_shape</span><span class="p">()</span>
+        <span class="p">):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ArrayView</span><span class="p">):</span>
+            <span class="c1"># This is the best case.</span>
+            <span class="c1"># We don&#39;t need to create value to perform the reference copy.</span>
+            <span class="c1"># No broadcasting required, so this should be okay.</span>
+            <span class="n">src_offset</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">sel</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">value</span> <span class="o">//</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="n">value</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span>
+            <span class="p">)</span>
+            <span class="n">src_inflated_shape</span> <span class="o">=</span> <span class="n">dst_sel</span><span class="o">.</span><span class="n">get_broadcastable_shape</span><span class="p">()</span>
+            <span class="n">src_inflated_block_shape</span> <span class="o">=</span> <span class="n">dst_sel</span><span class="o">.</span><span class="n">get_broadcastable_block_shape</span><span class="p">(</span>
+                <span class="n">value</span><span class="o">.</span><span class="n">block_shape</span>
+            <span class="p">)</span>
+            <span class="n">src_inflated_grid</span><span class="p">:</span> <span class="n">ArrayGrid</span> <span class="o">=</span> <span class="n">ArrayGrid</span><span class="p">(</span>
+                <span class="n">src_inflated_shape</span><span class="p">,</span> <span class="n">src_inflated_block_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">src_grid_entry_inflated</span> <span class="ow">in</span> <span class="n">src_inflated_grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">():</span>
+                <span class="c1"># Num axes in value grid may be too small.</span>
+                <span class="n">dst_grid_entry</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">src_grid_entry_inflated</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">dst_offset</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="p">)</span>
+                <span class="n">src_grid_entry</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">src_grid_entry_inflated</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">src_offset</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="p">)</span>
+                <span class="c1"># This is a reference assignment, and the grid properties between the</span>
+                <span class="c1"># two blocks may differ, so retain those properties in the copy.</span>
+                <span class="n">dst_block</span><span class="p">:</span> <span class="n">Block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">dst_grid_entry</span><span class="p">]</span>
+                <span class="n">src_block_copy</span><span class="p">:</span> <span class="n">Block</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">src_grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">src_block_copy</span><span class="o">.</span><span class="n">grid_entry</span> <span class="o">=</span> <span class="n">dst_block</span><span class="o">.</span><span class="n">grid_entry</span>
+                <span class="n">src_block_copy</span><span class="o">.</span><span class="n">grid_shape</span> <span class="o">=</span> <span class="n">dst_block</span><span class="o">.</span><span class="n">grid_shape</span>
+                <span class="n">src_block_copy</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="n">dst_block</span><span class="o">.</span><span class="n">rect</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">dst_grid_entry</span><span class="p">]</span> <span class="o">=</span> <span class="n">src_block_copy</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">BlockArrayBase</span><span class="p">):</span>
+            <span class="c1"># The value has already been created, so just leverage value&#39;s existing grid iterator.</span>
+            <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">dst_sel</span><span class="o">.</span><span class="n">get_output_shape</span><span class="p">():</span>
+                <span class="c1"># Need to broadcast.</span>
+                <span class="n">src_ba</span><span class="p">:</span> <span class="n">BlockArrayBase</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">dst_sel</span><span class="o">.</span><span class="n">get_output_shape</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">src_ba</span><span class="p">:</span> <span class="n">BlockArrayBase</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">src_inflated_shape</span> <span class="o">=</span> <span class="n">dst_sel</span><span class="o">.</span><span class="n">get_broadcastable_shape</span><span class="p">()</span>
+            <span class="n">src_inflated_block_shape</span> <span class="o">=</span> <span class="n">dst_sel</span><span class="o">.</span><span class="n">get_broadcastable_block_shape</span><span class="p">(</span>
+                <span class="n">src_ba</span><span class="o">.</span><span class="n">block_shape</span>
+            <span class="p">)</span>
+            <span class="n">src_inflated_grid</span><span class="p">:</span> <span class="n">ArrayGrid</span> <span class="o">=</span> <span class="n">ArrayGrid</span><span class="p">(</span>
+                <span class="n">src_inflated_shape</span><span class="p">,</span> <span class="n">src_inflated_block_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="p">)</span>
+            <span class="n">src_grid_entry_iterator</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">src_ba</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">())</span>
+            <span class="k">for</span> <span class="n">src_index</span><span class="p">,</span> <span class="n">src_grid_entry_inflated</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+                <span class="n">src_inflated_grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">()</span>
+            <span class="p">):</span>
+                <span class="n">src_grid_entry</span> <span class="o">=</span> <span class="n">src_grid_entry_iterator</span><span class="p">[</span><span class="n">src_index</span><span class="p">]</span>
+                <span class="n">dst_grid_entry</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">src_grid_entry_inflated</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">dst_offset</span>
+                    <span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                <span class="p">)</span>
+                <span class="c1"># This is a reference assignment, and the grid properties between the</span>
+                <span class="c1"># two blocks may differ, so retain those properties in the copy.</span>
+                <span class="n">dst_block</span><span class="p">:</span> <span class="n">Block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">dst_grid_entry</span><span class="p">]</span>
+                <span class="n">src_block_copy</span><span class="p">:</span> <span class="n">Block</span> <span class="o">=</span> <span class="n">src_ba</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">src_grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="n">src_block_copy</span><span class="o">.</span><span class="n">grid_entry</span> <span class="o">=</span> <span class="n">dst_block</span><span class="o">.</span><span class="n">grid_entry</span>
+                <span class="n">src_block_copy</span><span class="o">.</span><span class="n">grid_shape</span> <span class="o">=</span> <span class="n">dst_block</span><span class="o">.</span><span class="n">grid_shape</span>
+                <span class="n">src_block_copy</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="n">dst_block</span><span class="o">.</span><span class="n">rect</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">dst_grid_entry</span><span class="p">]</span> <span class="o">=</span> <span class="n">src_block_copy</span></div>
+
+<div class="viewcode-block" id="ArrayView.basic_assign_single_step"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.basic_assign_single_step">[docs]</a>    <span class="k">def</span> <span class="nf">basic_assign_single_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dst_sel</span><span class="p">:</span> <span class="n">BasicSelection</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">ArrayView</span><span class="p">,</span> <span class="n">BlockArrayBase</span><span class="p">))</span>
+
+        <span class="n">dst_ba</span><span class="p">:</span> <span class="n">BlockArrayBase</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span>
+        <span class="n">dst_sel_arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">selection</span><span class="o">.</span><span class="n">BasicSelection</span><span class="o">.</span><span class="n">block_selection</span><span class="p">(</span>
+            <span class="n">dst_ba</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dst_ba</span><span class="o">.</span><span class="n">block_shape</span>
+        <span class="p">)</span>
+
+        <span class="n">dst_sel_clipped</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">dst_sel_arr</span> <span class="o">&amp;</span> <span class="n">dst_sel</span>
+        <span class="k">assert</span> <span class="n">dst_sel_clipped</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span>
+
+        <span class="c1"># We create value&#39;s block array, in case we need to broadcast.</span>
+        <span class="c1"># This may not be necessary, but alternative solutions are extremely tedious.</span>
+        <span class="c1"># The result is a block array with replicated blocks,</span>
+        <span class="c1"># which match the output shape of dst_sel.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">ArrayView</span><span class="p">):</span>
+            <span class="n">src_ba_bc</span><span class="p">:</span> <span class="n">BlockArrayBase</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">create</span><span class="p">()</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span>
+                <span class="n">dst_sel</span><span class="o">.</span><span class="n">get_output_shape</span><span class="p">()</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">BlockArrayBase</span><span class="p">):</span>
+            <span class="n">src_ba_bc</span><span class="p">:</span> <span class="n">BlockArrayBase</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">dst_sel</span><span class="o">.</span><span class="n">get_output_shape</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unexpected value type </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+        <span class="c1"># Different lengths occur when an index is used to perform</span>
+        <span class="c1"># a selection on an axis. Numpy semantics drops such axes. To allow operations</span>
+        <span class="c1"># between source and destination selections, dropped axes are restored with dimension 1</span>
+        <span class="c1"># so that selections are of equal length.</span>
+        <span class="c1"># We restore the dropped dimensions of the destination selection, because</span>
+        <span class="c1"># the source selection must be broadcastable to the destination selection</span>
+        <span class="c1"># for the assignment to be valid.</span>
+        <span class="n">src_inflated_shape</span> <span class="o">=</span> <span class="n">dst_sel</span><span class="o">.</span><span class="n">get_broadcastable_shape</span><span class="p">()</span>
+        <span class="c1"># The block shapes need not be equal, but the broadcast source block shape must</span>
+        <span class="c1"># match the block shape we obtain below, so that there&#39;s a 1-to-1 correspondence</span>
+        <span class="c1"># between the grid entries.</span>
+        <span class="n">src_inflated_block_shape</span> <span class="o">=</span> <span class="n">dst_sel</span><span class="o">.</span><span class="n">get_broadcastable_block_shape</span><span class="p">(</span>
+            <span class="n">src_ba_bc</span><span class="o">.</span><span class="n">block_shape</span>
+        <span class="p">)</span>
+        <span class="n">src_inflated_grid</span><span class="p">:</span> <span class="n">ArrayGrid</span> <span class="o">=</span> <span class="n">ArrayGrid</span><span class="p">(</span>
+            <span class="n">src_inflated_shape</span><span class="p">,</span> <span class="n">src_inflated_block_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="p">)</span>
+        <span class="n">src_sel_arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">selection</span><span class="o">.</span><span class="n">BasicSelection</span><span class="o">.</span><span class="n">block_selection</span><span class="p">(</span>
+            <span class="n">src_inflated_shape</span><span class="p">,</span> <span class="n">src_inflated_block_shape</span>
+        <span class="p">)</span>
+        <span class="n">src_sel_offset</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">src_sel_arr</span> <span class="o">+</span> <span class="n">dst_sel</span><span class="o">.</span><span class="n">position</span><span class="p">()</span>
+        <span class="c1"># The enumeration of grid entries is identical if the broadcast source grid and</span>
+        <span class="c1"># inflated grid have the same number of blocks.</span>
+        <span class="n">src_grid_entry_iterator</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">src_ba_bc</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">dst_grid_entry</span> <span class="ow">in</span> <span class="n">dst_ba</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">():</span>
+            <span class="n">dst_sel_block</span><span class="p">:</span> <span class="n">BasicSelection</span> <span class="o">=</span> <span class="n">dst_sel_arr</span><span class="p">[</span><span class="n">dst_grid_entry</span><span class="p">]</span>
+            <span class="n">dst_sel_block_clipped</span><span class="p">:</span> <span class="n">BasicSelection</span> <span class="o">=</span> <span class="n">dst_sel_clipped</span><span class="p">[</span><span class="n">dst_grid_entry</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">dst_sel_block_clipped</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+                <span class="k">continue</span>
+            <span class="n">src_intersection_arr</span> <span class="o">=</span> <span class="n">src_sel_offset</span> <span class="o">&amp;</span> <span class="n">dst_sel_block_clipped</span>
+            <span class="n">src_oids</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">src_params</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">dst_params</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">dst_block</span><span class="p">:</span> <span class="n">Block</span> <span class="o">=</span> <span class="n">dst_ba</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">dst_grid_entry</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">src_index</span><span class="p">,</span> <span class="n">src_grid_entry_bc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+                <span class="n">src_inflated_grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">()</span>
+            <span class="p">):</span>
+                <span class="n">src_intersection_block</span><span class="p">:</span> <span class="n">BasicSelection</span> <span class="o">=</span> <span class="n">src_intersection_arr</span><span class="p">[</span>
+                    <span class="n">src_grid_entry_bc</span>
+                <span class="p">]</span>
+                <span class="k">if</span> <span class="n">src_intersection_block</span><span class="o">.</span><span class="n">is_empty</span><span class="p">():</span>
+                    <span class="k">continue</span>
+
+                <span class="n">src_grid_entry</span> <span class="o">=</span> <span class="n">src_grid_entry_iterator</span><span class="p">[</span><span class="n">src_index</span><span class="p">]</span>
+                <span class="n">src_block</span><span class="p">:</span> <span class="n">Block</span> <span class="o">=</span> <span class="n">src_ba_bc</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">src_grid_entry</span><span class="p">]</span>
+                <span class="n">src_oids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">src_block</span><span class="o">.</span><span class="n">oid</span><span class="p">)</span>
+
+                <span class="n">src_sel_block_offset</span><span class="p">:</span> <span class="n">BasicSelection</span> <span class="o">=</span> <span class="n">src_sel_offset</span><span class="p">[</span><span class="n">src_grid_entry_bc</span><span class="p">]</span>
+                <span class="n">src_dep_sel_loc</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">src_intersection_block</span> <span class="o">-</span> <span class="n">src_sel_block_offset</span><span class="o">.</span><span class="n">position</span><span class="p">()</span>
+                <span class="p">)</span>
+                <span class="n">src_params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="p">(</span>
+                        <span class="n">src_dep_sel_loc</span><span class="o">.</span><span class="n">selector</span><span class="p">(),</span>
+                        <span class="n">src_sel_block_offset</span><span class="o">.</span><span class="n">get_output_shape</span><span class="p">(),</span>
+                        <span class="n">src_block</span><span class="o">.</span><span class="n">transposed</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="c1"># We&#39;re looking at intersection of dst block and src block, so the</span>
+                <span class="c1"># location to which we assign must be offset by dst_sel_block.</span>
+                <span class="n">dst_block_sel_loc</span><span class="p">:</span> <span class="n">BasicSelection</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">src_intersection_block</span> <span class="o">-</span> <span class="n">dst_sel_block</span><span class="o">.</span><span class="n">position</span><span class="p">()</span>
+                <span class="p">)</span>
+                <span class="n">dst_params</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">dst_block_sel_loc</span><span class="o">.</span><span class="n">selector</span><span class="p">(),</span> <span class="n">dst_block</span><span class="o">.</span><span class="n">transposed</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">src_oids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">dst_block</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="o">.</span><span class="n">update_block</span><span class="p">(</span>
+                <span class="n">dst_block</span><span class="o">.</span><span class="n">oid</span><span class="p">,</span>
+                <span class="o">*</span><span class="n">src_oids</span><span class="p">,</span>
+                <span class="n">src_params</span><span class="o">=</span><span class="n">src_params</span><span class="p">,</span>
+                <span class="n">dst_params</span><span class="o">=</span><span class="n">dst_params</span><span class="p">,</span>
+                <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">dst_block</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">,</span>
+                    <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">dst_block</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ArrayView.basic_assign_multi_step"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.basic_assign_multi_step">[docs]</a>    <span class="k">def</span> <span class="nf">basic_assign_multi_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dst_sel</span><span class="p">:</span> <span class="n">BasicSelection</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="c1"># Update each entry in subscript shape, one by one.</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ArrayView.advanced_assign"><a class="viewcode-back" href="../../../../generated/nums.core.array.view.html#nums.core.array.view.ArrayView.advanced_assign">[docs]</a>    <span class="k">def</span> <span class="nf">advanced_assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">subscript</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The NumS Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nums.core.array.base &mdash; NumS  documentation</title><link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> NumS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">nums.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../numpy.html">nums.numpy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">NumS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>nums.core.array.base</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nums.core.array.base</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">nums.core.array</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">array_utils</span>
+<span class="kn">from</span> <span class="nn">nums.core.compute.compute_manager</span> <span class="kn">import</span> <span class="n">ComputeManager</span>
+<span class="kn">from</span> <span class="nn">nums.core.grid.grid</span> <span class="kn">import</span> <span class="n">ArrayGrid</span>
+
+
+<div class="viewcode-block" id="Block"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block">[docs]</a><span class="k">class</span> <span class="nc">Block</span><span class="p">:</span>
+    <span class="c1"># pylint: disable=redefined-builtin, global-statement</span>
+    <span class="c1"># TODO(hme): Create a base class, and move this concrete class into blockarray.py.</span>
+    <span class="c1">#  Do this when we implement a SparseBlock object.</span>
+
+    <span class="n">block_id_counter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">grid_entry</span><span class="p">,</span>
+        <span class="n">grid_shape</span><span class="p">,</span>
+        <span class="n">rect</span><span class="p">,</span>
+        <span class="n">shape</span><span class="p">,</span>
+        <span class="n">dtype</span><span class="p">,</span>
+        <span class="n">transposed</span><span class="p">,</span>
+        <span class="n">cm</span><span class="p">:</span> <span class="n">ComputeManager</span><span class="p">,</span>
+        <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span> <span class="o">=</span> <span class="n">cm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="n">grid_entry</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="n">grid_shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">rect</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oid</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_dims</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transposed</span> <span class="o">=</span> <span class="n">transposed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">Block</span><span class="o">.</span><span class="n">block_id_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">Block</span><span class="o">.</span><span class="n">block_id_counter</span>
+        <span class="c1"># Set if a device id was used to compute this block.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Block(&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+
+<div class="viewcode-block" id="Block.size"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.size">[docs]</a>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Block.copy"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shallow</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">shallow</span><span class="p">,</span> <span class="s2">&quot;Only shallow copies are currently supported.&quot;</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="n">Block</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transposed</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">block</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oid</span>
+        <span class="k">return</span> <span class="n">block</span></div>
+
+<div class="viewcode-block" id="Block.true_grid_entry"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.true_grid_entry">[docs]</a>    <span class="k">def</span> <span class="nf">true_grid_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transposed</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_entry</span></div>
+
+<div class="viewcode-block" id="Block.true_grid_shape"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.true_grid_shape">[docs]</a>    <span class="k">def</span> <span class="nf">true_grid_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transposed</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span></div>
+
+<div class="viewcode-block" id="Block.transpose"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.transpose">[docs]</a>    <span class="k">def</span> <span class="nf">transpose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">defer</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">redistribute</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="c1"># If defer is True, this operation does not modify the remote object.</span>
+        <span class="c1"># If defer is True and redistribute is False,</span>
+        <span class="c1"># this operation does not move the remote object.</span>
+        <span class="n">grid_entryT</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">))</span>
+        <span class="n">grid_shapeT</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">))</span>
+        <span class="n">rectT</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">))</span>
+        <span class="n">blockT</span> <span class="o">=</span> <span class="n">Block</span><span class="p">(</span>
+            <span class="n">grid_entry</span><span class="o">=</span><span class="n">grid_entryT</span><span class="p">,</span>
+            <span class="n">grid_shape</span><span class="o">=</span><span class="n">grid_shapeT</span><span class="p">,</span>
+            <span class="n">rect</span><span class="o">=</span><span class="n">rectT</span><span class="p">,</span>
+            <span class="n">shape</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)),</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="n">transposed</span><span class="o">=</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">transposed</span><span class="p">,</span>
+            <span class="n">cm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">blockT</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oid</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">defer</span><span class="p">:</span>
+            <span class="n">blockT</span><span class="o">.</span><span class="n">transposed</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">redistribute</span><span class="p">:</span>
+                <span class="n">syskwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">grid_entryT</span><span class="p">,</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">grid_shapeT</span><span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">syskwargs</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">,</span>
+                    <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="n">blockT</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oid</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">blockT</span></div>
+
+<div class="viewcode-block" id="Block.swapaxes"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.swapaxes">[docs]</a>    <span class="k">def</span> <span class="nf">swapaxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis1</span><span class="p">,</span> <span class="n">axis2</span><span class="p">):</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">grid_entry</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">block</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">)</span>
+        <span class="n">grid_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">block</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">)</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">block</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">block</span><span class="o">.</span><span class="n">rect</span>
+
+        <span class="n">grid_entry</span><span class="p">[</span><span class="n">axis1</span><span class="p">],</span> <span class="n">grid_entry</span><span class="p">[</span><span class="n">axis2</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid_entry</span><span class="p">[</span><span class="n">axis2</span><span class="p">],</span> <span class="n">grid_entry</span><span class="p">[</span><span class="n">axis1</span><span class="p">]</span>
+        <span class="n">grid_shape</span><span class="p">[</span><span class="n">axis1</span><span class="p">],</span> <span class="n">grid_shape</span><span class="p">[</span><span class="n">axis2</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid_shape</span><span class="p">[</span><span class="n">axis2</span><span class="p">],</span> <span class="n">grid_shape</span><span class="p">[</span><span class="n">axis1</span><span class="p">]</span>
+        <span class="n">shape</span><span class="p">[</span><span class="n">axis1</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="n">axis2</span><span class="p">]</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="n">axis2</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="n">axis1</span><span class="p">]</span>
+        <span class="n">rect</span><span class="p">[</span><span class="n">axis1</span><span class="p">],</span> <span class="n">rect</span><span class="p">[</span><span class="n">axis2</span><span class="p">]</span> <span class="o">=</span> <span class="n">rect</span><span class="p">[</span><span class="n">axis2</span><span class="p">],</span> <span class="n">rect</span><span class="p">[</span><span class="n">axis1</span><span class="p">]</span>
+
+        <span class="n">block</span><span class="o">.</span><span class="n">grid_entry</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">)</span>
+        <span class="n">block</span><span class="o">.</span><span class="n">grid_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">grid_shape</span><span class="p">)</span>
+        <span class="n">block</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+        <span class="n">block</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="n">rect</span>
+
+        <span class="n">block</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span>
+            <span class="n">block</span><span class="o">.</span><span class="n">oid</span><span class="p">,</span>
+            <span class="n">axis1</span><span class="p">,</span>
+            <span class="n">axis2</span><span class="p">,</span>
+            <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">block</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">,</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">block</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">block</span></div>
+
+<div class="viewcode-block" id="Block.ufunc"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.ufunc">[docs]</a>    <span class="k">def</span> <span class="nf">ufunc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_name</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">uop_map</span><span class="p">(</span><span class="n">op_name</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="n">device_id</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Block.uop_map"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.uop_map">[docs]</a>    <span class="k">def</span> <span class="nf">uop_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_name</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># This retains transpose.</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">block</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">get_uop_output_type</span><span class="p">(</span><span class="n">op_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">()</span> <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">args</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">kwargs</span>
+        <span class="k">if</span> <span class="n">device_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">syskwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">block</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">,</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">block</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">syskwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="n">device_id</span><span class="p">}</span>
+        <span class="n">block</span><span class="o">.</span><span class="n">device_id</span> <span class="o">=</span> <span class="n">device_id</span>
+        <span class="n">block</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="o">.</span><span class="n">map_uop</span><span class="p">(</span>
+            <span class="n">op_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">oid</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">block</span></div>
+
+    <span class="k">def</span> <span class="nf">_block_from_other</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="c1"># Assume other is numeric.</span>
+        <span class="c1"># This only occurs during some numpy operations (e.g. np.mean),</span>
+        <span class="c1"># where a literal is used in the operation.</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">))</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="n">Block</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">,</span>
+            <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)],</span>
+            <span class="p">(</span><span class="mi">1</span><span class="p">,),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="kc">False</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># We pass syskwargs here for correct node placement for `other`,</span>
+        <span class="c1"># which should be local to self.</span>
+        <span class="n">block</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">),</span>
+            <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">,</span>
+                <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">block</span>
+
+<div class="viewcode-block" id="Block.bop"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.bop">[docs]</a>    <span class="k">def</span> <span class="nf">bop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Block</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block_from_other</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;tensordot&quot;</span><span class="p">:</span>
+            <span class="n">axes</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="s2">&quot;axes&quot;</span><span class="p">]</span>
+            <span class="n">result_grid_entry</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">[:</span><span class="o">-</span><span class="n">axes</span><span class="p">])</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">[</span><span class="n">axes</span><span class="p">:])</span>
+            <span class="p">)</span>
+            <span class="n">result_grid_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">[:</span><span class="o">-</span><span class="n">axes</span><span class="p">])</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">[</span><span class="n">axes</span><span class="p">:])</span>
+            <span class="p">)</span>
+            <span class="n">result_rect</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">[:</span><span class="o">-</span><span class="n">axes</span><span class="p">]</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">rect</span><span class="p">[</span><span class="n">axes</span><span class="p">:])</span>
+            <span class="n">result_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="n">axes</span><span class="p">])</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axes</span><span class="p">:]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Broadcasting starts from trailing dimensions.</span>
+            <span class="c1"># Resulting shape is max of trailing shapes</span>
+            <span class="n">result_grid_entry</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">result_grid_shape</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">result_rect</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">result_shape</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_dims</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">num_dims</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">other_i</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">num_dims</span> <span class="o">-</span> <span class="n">i</span>
+                <span class="n">self_i</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_dims</span> <span class="o">-</span> <span class="n">i</span>
+                <span class="k">if</span> <span class="n">other_i</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">is_self</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="n">self_i</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">is_self</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">is_self</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">other_i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">self_i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">is_self</span><span class="p">:</span>
+                    <span class="n">result_grid_entry</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">[</span><span class="n">self_i</span><span class="p">])</span>
+                    <span class="n">result_grid_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">[</span><span class="n">self_i</span><span class="p">])</span>
+                    <span class="n">result_rect</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">[</span><span class="n">self_i</span><span class="p">])</span>
+                    <span class="n">result_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">self_i</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">result_grid_entry</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">[</span><span class="n">other_i</span><span class="p">])</span>
+                    <span class="n">result_grid_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">[</span><span class="n">other_i</span><span class="p">])</span>
+                    <span class="n">result_rect</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">rect</span><span class="p">[</span><span class="n">other_i</span><span class="p">])</span>
+                    <span class="n">result_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">other_i</span><span class="p">])</span>
+            <span class="n">result_grid_entry</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">result_grid_entry</span><span class="p">))</span>
+            <span class="n">result_grid_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">result_grid_shape</span><span class="p">))</span>
+            <span class="n">result_rect</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">result_rect</span><span class="p">))</span>
+            <span class="n">result_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">result_shape</span><span class="p">))</span>
+
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">get_bop_output_type</span><span class="p">(</span><span class="n">op</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="n">Block</span><span class="p">(</span>
+            <span class="n">grid_entry</span><span class="o">=</span><span class="n">result_grid_entry</span><span class="p">,</span>
+            <span class="n">grid_shape</span><span class="o">=</span><span class="n">result_grid_shape</span><span class="p">,</span>
+            <span class="n">rect</span><span class="o">=</span><span class="n">result_rect</span><span class="p">,</span>
+            <span class="n">shape</span><span class="o">=</span><span class="n">result_shape</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+            <span class="n">transposed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">cm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">device_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">syskwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">block</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">,</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">block</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">syskwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;device_id&quot;</span><span class="p">:</span> <span class="n">device_id</span><span class="p">}</span>
+        <span class="n">block</span><span class="o">.</span><span class="n">device_id</span> <span class="o">=</span> <span class="n">device_id</span>
+        <span class="n">block</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span>
+            <span class="n">op</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">oid</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">oid</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transposed</span><span class="p">,</span>
+            <span class="n">other</span><span class="o">.</span><span class="n">transposed</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;axes&quot;</span><span class="p">),</span>
+            <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">block</span></div>
+
+<div class="viewcode-block" id="Block.tensordot"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.tensordot">[docs]</a>    <span class="k">def</span> <span class="nf">tensordot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="s2">&quot;tensordot&quot;</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;axes&quot;</span><span class="p">:</span> <span class="n">axes</span><span class="p">})</span></div>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="s2">&quot;add&quot;</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="s2">&quot;sub&quot;</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="s2">&quot;mul&quot;</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="k">def</span> <span class="fm">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tensordot</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="s2">&quot;truediv&quot;</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="s2">&quot;pow&quot;</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="k">def</span> <span class="fm">__ge__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="s2">&quot;ge&quot;</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="k">def</span> <span class="fm">__gt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="s2">&quot;gt&quot;</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="k">def</span> <span class="fm">__le__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="s2">&quot;le&quot;</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="k">def</span> <span class="fm">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="s2">&quot;lt&quot;</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="s2">&quot;eq&quot;</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="k">def</span> <span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span><span class="s2">&quot;ne&quot;</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{})</span>
+
+    <span class="fm">__iadd__</span> <span class="o">=</span> <span class="fm">__add__</span>
+    <span class="fm">__isub__</span> <span class="o">=</span> <span class="fm">__sub__</span>
+    <span class="fm">__imul__</span> <span class="o">=</span> <span class="fm">__mul__</span>
+    <span class="fm">__imatmul__</span> <span class="o">=</span> <span class="fm">__matmul__</span>
+    <span class="fm">__itruediv__</span> <span class="o">=</span> <span class="fm">__truediv__</span>
+    <span class="fm">__ipow__</span> <span class="o">=</span> <span class="fm">__pow__</span>
+
+<div class="viewcode-block" id="Block.astype"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.astype">[docs]</a>    <span class="k">def</span> <span class="nf">astype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">block</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="n">dtype</span>
+        <span class="n">block</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">oid</span><span class="p">,</span>
+            <span class="n">dtype</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+            <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">block</span><span class="o">.</span><span class="n">grid_entry</span><span class="p">,</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">block</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">block</span></div>
+
+<div class="viewcode-block" id="Block.conjugate"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.conjugate">[docs]</a>    <span class="k">def</span> <span class="nf">conjugate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ufunc</span><span class="p">(</span><span class="s2">&quot;conjugate&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Block.sqrt"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.sqrt">[docs]</a>    <span class="k">def</span> <span class="nf">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ufunc</span><span class="p">(</span><span class="s2">&quot;sqrt&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Block.get"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.Block.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oid</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BlockArrayBase"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.BlockArrayBase">[docs]</a><span class="k">class</span> <span class="nc">BlockArrayBase</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grid</span><span class="p">:</span> <span class="n">ArrayGrid</span><span class="p">,</span> <span class="n">cm</span><span class="p">:</span> <span class="n">ComputeManager</span><span class="p">,</span> <span class="n">blocks</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid</span> <span class="o">=</span> <span class="n">grid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cm</span> <span class="o">=</span> <span class="n">cm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">block_shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ndim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">nbytes</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">_</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">blocks</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># TODO (hme): Subclass np.ndarray for self.blocks instances,</span>
+            <span class="c1">#  and override key methods to better integrate with NumPy&#39;s ufuncs.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">Block</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">]</span> <span class="o">=</span> <span class="n">Block</span><span class="p">(</span>
+                    <span class="n">grid_entry</span><span class="o">=</span><span class="n">grid_entry</span><span class="p">,</span>
+                    <span class="n">grid_shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">,</span>
+                    <span class="n">rect</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_slice_tuples</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">),</span>
+                    <span class="n">shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_block_shape</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">),</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+                    <span class="n">transposed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">cm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="p">,</span>
+                <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;BlockArray(&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blocks</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+
+<div class="viewcode-block" id="BlockArrayBase.get"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.BlockArrayBase.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">block_shape</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+        <span class="n">arrays</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span>
+                <span class="k">for</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">()</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">block_index</span><span class="p">,</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">()):</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">block_shape</span> <span class="o">*</span> <span class="n">grid_entry</span>
+            <span class="n">entry_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_block_shape</span><span class="p">(</span><span class="n">grid_entry</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">entry_shape</span>
+            <span class="n">slices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="nb">slice</span><span class="p">(</span><span class="o">*</span><span class="n">item</span><span class="p">),</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">))))</span>
+            <span class="n">block</span><span class="p">:</span> <span class="n">Block</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">]</span>
+            <span class="n">arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">arrays</span><span class="p">[</span><span class="n">block_index</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">block</span><span class="o">.</span><span class="n">transposed</span><span class="p">:</span>
+                <span class="n">arr</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">T</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">slices</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">block</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="BlockArrayBase.broadcast_to"><a class="viewcode-back" href="../../../../generated/nums.core.array.base.html#nums.core.array.base.BlockArrayBase.broadcast_to">[docs]</a>    <span class="k">def</span> <span class="nf">broadcast_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">shape</span><span class="p">)</span>
+        <span class="n">result_block_shape</span> <span class="o">=</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">broadcast_block_shape</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span>
+        <span class="p">)</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">BlockArrayBase</span> <span class="o">=</span> <span class="n">BlockArrayBase</span><span class="p">(</span>
+            <span class="n">ArrayGrid</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">result_block_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="vm">__name__</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">cm</span>
+        <span class="p">)</span>
+        <span class="n">extras</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Below taken directly from _broadcast_to in numpy&#39;s stride_tricks.py.</span>
+        <span class="n">it</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nditer</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blocks</span><span class="p">,),</span>
+            <span class="n">flags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;multi_index&quot;</span><span class="p">,</span> <span class="s2">&quot;refs_ok&quot;</span><span class="p">,</span> <span class="s2">&quot;zerosize_ok&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">extras</span><span class="p">,</span>
+            <span class="n">op_flags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;readonly&quot;</span><span class="p">],</span>
+            <span class="n">itershape</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">,</span>
+            <span class="n">order</span><span class="o">=</span><span class="s2">&quot;C&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">with</span> <span class="n">it</span><span class="p">:</span>
+            <span class="c1"># never really has writebackifcopy semantics</span>
+            <span class="n">broadcast</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">itviews</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">blocks</span> <span class="o">=</span> <span class="n">broadcast</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The NumS Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

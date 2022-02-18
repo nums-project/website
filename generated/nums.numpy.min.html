@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.numpy.min &#8212; NumS  documentation</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="nums-numpy-min">
+<h1>nums.numpy.min<a class="headerlink" href="#nums-numpy-min" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt id="nums.numpy.min">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.</span></code><code class="sig-name descname"><span class="pre">min</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/sort.html#min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.min" title="Permalink to this definition"></a></dt>
+<dd><p>Return the minimum of an array or minimum along an axis.</p>
+<p>This docstring was copied from numpy.min.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Input data.</p></li>
+<li><p><strong>axis</strong> (<em>None</em><em> or </em><em>int</em><em> or </em><em>tuple of ints</em><em>, </em><em>optional</em>) – Axis or axes along which to operate.  By default, flattened input is
+used.
+If this is a tuple of ints, the minimum is selected over multiple axes,
+instead of a single axis or all the axes as before.</p></li>
+<li><p><strong>out</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>optional</em>) – Alternative output array in which to place the result.  Must
+be of the same shape and buffer length as the expected output.</p></li>
+<li><p><strong>keepdims</strong> (<em>bool</em><em>, </em><em>optional</em>) – If this is set to True, the axes which are reduced are left
+in the result as dimensions with size one. With this option,
+the result will broadcast correctly against the input array.
+If the default value is passed, then <cite>keepdims</cite> will not be
+passed through to the <cite>amin</cite> method of sub-classes of
+<cite>BlockArray</cite>, however any non-default value will be. If the
+sub-class’ method does not implement <cite>keepdims</cite> any
+exceptions will be raised.</p></li>
+<li><p><strong>initial</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The maximum value of an output element. Must be present to allow
+computation on empty slice. See <cite>~numpy.ufunc.reduce</cite> for details.</p></li>
+<li><p><strong>where</strong> (<em>BlockArray of bool</em><em>, </em><em>optional</em>) – Elements to compare for the minimum. See <cite>~numpy.ufunc.reduce</cite>
+for details.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>amin</strong> – Minimum of <cite>a</cite>. If <cite>axis</cite> is None, the result is a scalar value.
+If <cite>axis</cite> is given, the result is an array of dimension
+<code class="docutils literal notranslate"><span class="pre">a.ndim</span> <span class="pre">-</span> <span class="pre">1</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">amax</span></code></dt><dd><p>The maximum value of an array along a given axis, propagating any NaNs.</p>
+</dd>
+<dt><a class="reference internal" href="../reference/generated/nums.numpy.nanmin.html#nums.numpy.nanmin" title="nums.numpy.nanmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmin</span></code></a></dt><dd><p>The minimum value of an array along a given axis, ignoring any NaNs.</p>
+</dd>
+<dt><a class="reference internal" href="../reference/generated/nums.numpy.minimum.html#nums.numpy.minimum" title="nums.numpy.minimum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minimum</span></code></a></dt><dd><p>Element-wise minimum of two arrays, propagating any NaNs.</p>
+</dd>
+<dt><a class="reference internal" href="../reference/generated/nums.numpy.fmin.html#nums.numpy.fmin" title="nums.numpy.fmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fmin</span></code></a></dt><dd><p>Element-wise minimum of two arrays, ignoring any NaNs.</p>
+</dd>
+<dt><a class="reference internal" href="../reference/generated/nums.numpy.argmin.html#nums.numpy.argmin" title="nums.numpy.argmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">argmin</span></code></a></dt><dd><p>Return the indices of the minimum values.</p>
+</dd>
+</dl>
+<p><a class="reference internal" href="../reference/generated/nums.numpy.nanmax.html#nums.numpy.nanmax" title="nums.numpy.nanmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmax</span></code></a>, <a class="reference internal" href="../reference/generated/nums.numpy.maximum.html#nums.numpy.maximum" title="nums.numpy.maximum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">maximum</span></code></a>, <a class="reference internal" href="../reference/generated/nums.numpy.fmax.html#nums.numpy.fmax" title="nums.numpy.fmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fmax</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>NaN values are propagated, that is if at least one item is NaN, the
+corresponding min value will be NaN as well. To ignore NaN values
+(MATLAB behavior), please use nanmin.</p>
+<p>Don’t use <cite>amin</cite> for element-wise comparison of 2 arrays; when
+<code class="docutils literal notranslate"><span class="pre">a.shape[0]</span></code> is 2, <code class="docutils literal notranslate"><span class="pre">minimum(a[0],</span> <span class="pre">a[1])</span></code> is faster than
+<code class="docutils literal notranslate"><span class="pre">amin(a,</span> <span class="pre">axis=0)</span></code>.</p>
+<p>‘initial’ is currently not supported.</p>
+<p>‘where’ is currently not supported.</p>
+<p>‘out’ is currently not supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0, 1],</span>
+<span class="go">       [2, 3]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>           <span class="c1"># Minimum of the flattened array  </span>
+<span class="go">array(0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>   <span class="c1"># Minima along the first axis  </span>
+<span class="go">array([0, 1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">amin</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>   <span class="c1"># Minima along the second axis  </span>
+<span class="go">array([0, 2])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">0.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

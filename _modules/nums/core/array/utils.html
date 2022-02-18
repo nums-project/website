@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nums.core.array.utils &mdash; NumS  documentation</title><link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> NumS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">nums.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../numpy.html">nums.numpy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">NumS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>nums.core.array.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nums.core.array.utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Iterator</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.special</span>
+
+<span class="kn">from</span> <span class="nn">nums.core.settings</span> <span class="kn">import</span> <span class="n">np_ufunc_map</span>
+<span class="kn">from</span> <span class="nn">nums.core.array.errors</span> <span class="kn">import</span> <span class="n">AxisError</span>
+
+<span class="c1"># pylint: disable = no-member, trailing-whitespace</span>
+
+
+<div class="viewcode-block" id="to_dtype_cls"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.to_dtype_cls">[docs]</a><span class="k">def</span> <span class="nf">to_dtype_cls</span><span class="p">(</span><span class="n">dtype</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">dtype</span><span class="p">,</span> <span class="s2">&quot;__name__&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">dtype</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="get_uop_output_type"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.get_uop_output_type">[docs]</a><span class="k">def</span> <span class="nf">get_uop_output_type</span><span class="p">(</span><span class="n">op_name</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">result_dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">op_name</span><span class="p">)(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="k">return</span> <span class="n">to_dtype_cls</span><span class="p">(</span><span class="n">result_dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_bop_output_type"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.get_bop_output_type">[docs]</a><span class="k">def</span> <span class="nf">get_bop_output_type</span><span class="p">(</span><span class="n">op_name</span><span class="p">,</span> <span class="n">dtype_a</span><span class="p">,</span> <span class="n">dtype_b</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype_a</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype_b</span><span class="p">)</span>
+    <span class="n">op_name</span> <span class="o">=</span> <span class="n">np_ufunc_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">op_name</span><span class="p">,</span> <span class="n">op_name</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">op_name</span><span class="p">)(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="k">return</span> <span class="n">to_dtype_cls</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">err</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_</span><span class="p">:</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">special</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">op_name</span><span class="p">)(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="k">return</span> <span class="n">to_dtype_cls</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_index_subscript"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.is_index_subscript">[docs]</a><span class="k">def</span> <span class="nf">is_index_subscript</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">is_int</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="ow">or</span> <span class="n">is_uint</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_regular_subscript"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.is_regular_subscript">[docs]</a><span class="k">def</span> <span class="nf">is_regular_subscript</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="ow">or</span> <span class="n">is_index_subscript</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_scalar"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.is_scalar">[docs]</a><span class="k">def</span> <span class="nf">is_scalar</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">is_supported</span><span class="p">(</span><span class="n">val</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_supported"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.is_supported">[docs]</a><span class="k">def</span> <span class="nf">is_supported</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">type_test</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">is_bool</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">type_test</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="n">is_uint</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">type_test</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="n">is_int</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">type_test</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="n">is_float</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">type_test</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="n">is_complex</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">type_test</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_bool"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.is_bool">[docs]</a><span class="k">def</span> <span class="nf">is_bool</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">type_test</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">is_type</span><span class="p">(</span><span class="n">type_test</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="is_uint"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.is_uint">[docs]</a><span class="k">def</span> <span class="nf">is_uint</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">type_test</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">is_type</span><span class="p">(</span><span class="n">type_test</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="is_int"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.is_int">[docs]</a><span class="k">def</span> <span class="nf">is_int</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">type_test</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">is_type</span><span class="p">(</span><span class="n">type_test</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="is_float"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.is_float">[docs]</a><span class="k">def</span> <span class="nf">is_float</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">type_test</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">is_type</span><span class="p">(</span><span class="n">type_test</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="is_complex"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.is_complex">[docs]</a><span class="k">def</span> <span class="nf">is_complex</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">type_test</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">is_type</span><span class="p">(</span><span class="n">type_test</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="is_type"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.is_type">[docs]</a><span class="k">def</span> <span class="nf">is_type</span><span class="p">(</span><span class="n">type_test</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">types</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">types</span> <span class="k">if</span> <span class="n">type_test</span> <span class="k">else</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">types</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_reduce_output_type"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.get_reduce_output_type">[docs]</a><span class="k">def</span> <span class="nf">get_reduce_output_type</span><span class="p">(</span><span class="n">op_name</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="n">op_name</span><span class="p">)(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="fm">__getattribute__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">dtype</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="shape_from_block_array"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.shape_from_block_array">[docs]</a><span class="k">def</span> <span class="nf">shape_from_block_array</span><span class="p">(</span><span class="n">arr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+    <span class="n">grid_shape</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">num_axes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_axes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_axes</span><span class="p">):</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="n">num_axes</span>
+        <span class="n">pos</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid_shape</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+        <span class="n">j_iter</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">pos</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">j_access</span> <span class="ow">in</span> <span class="n">j_iter</span><span class="p">:</span>
+            <span class="n">shape</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">arr</span><span class="p">[</span><span class="n">j_access</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="broadcast"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.broadcast">[docs]</a><span class="k">def</span> <span class="nf">broadcast</span><span class="p">(</span><span class="n">a_shape</span><span class="p">,</span> <span class="n">b_shape</span><span class="p">):</span>
+    <span class="n">a_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">stride_tricks</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">a_shape</span><span class="p">)</span>
+    <span class="n">b_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">stride_tricks</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">b_shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast</span><span class="p">(</span><span class="n">a_view</span><span class="p">,</span> <span class="n">b_view</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="broadcast_block_shape"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.broadcast_block_shape">[docs]</a><span class="k">def</span> <span class="nf">broadcast_block_shape</span><span class="p">(</span><span class="n">a_shape</span><span class="p">,</span> <span class="n">b_shape</span><span class="p">,</span> <span class="n">a_block_shape</span><span class="p">):</span>
+    <span class="c1"># Starting from last block shape dim and</span>
+    <span class="c1"># map each shape dim to block shape dim as already defined,</span>
+    <span class="c1"># and for the rest of dims, set block shape to 1.</span>
+    <span class="n">result_shape</span> <span class="o">=</span> <span class="n">broadcast</span><span class="p">(</span><span class="n">a_shape</span><span class="p">,</span> <span class="n">b_shape</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">result_block_shape</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">a_block_shape_r</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">a_block_shape</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">result_shape</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">a_block_shape_r</span><span class="p">):</span>
+            <span class="n">result_block_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a_block_shape_r</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result_block_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">result_block_shape</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="broadcast_shape"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.broadcast_shape">[docs]</a><span class="k">def</span> <span class="nf">broadcast_shape</span><span class="p">(</span><span class="n">a_shape</span><span class="p">,</span> <span class="n">b_shape</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">broadcast</span><span class="p">(</span><span class="n">a_shape</span><span class="p">,</span> <span class="n">b_shape</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span></div>
+
+
+<div class="viewcode-block" id="can_broadcast_shapes"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.can_broadcast_shapes">[docs]</a><span class="k">def</span> <span class="nf">can_broadcast_shapes</span><span class="p">(</span><span class="n">a_shape</span><span class="p">,</span> <span class="n">b_shape</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">broadcast_shape</span><span class="p">(</span><span class="n">a_shape</span><span class="p">,</span> <span class="n">b_shape</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">_</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="broadcastable"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.broadcastable">[docs]</a><span class="k">def</span> <span class="nf">broadcastable</span><span class="p">(</span><span class="n">a_shape</span><span class="p">,</span> <span class="n">b_shape</span><span class="p">,</span> <span class="n">a_block_shape</span><span class="p">,</span> <span class="n">b_block_shape</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">a_shape</span> <span class="o">==</span> <span class="n">b_shape</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">a_block_shape</span> <span class="o">==</span> <span class="n">b_block_shape</span>
+    <span class="n">result_shape</span> <span class="o">=</span> <span class="n">broadcast_shape</span><span class="p">(</span><span class="n">a_shape</span><span class="p">,</span> <span class="n">b_shape</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">result_shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">min_bs</span><span class="p">,</span> <span class="n">max_bs</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">a_block_shape</span><span class="p">,</span> <span class="n">b_block_shape</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">max_bs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">if</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">min_bs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span>
+                <span class="n">a_block_shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">b_block_shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="ow">and</span> <span class="n">a_block_shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span>
+                <span class="ow">and</span> <span class="n">b_block_shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span>
+            <span class="p">):</span>
+                <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="is_1d"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.is_1d">[docs]</a><span class="k">def</span> <span class="nf">is_1d</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
+    <span class="n">_shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">shape</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">_shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="broadcast_shape_to"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.broadcast_shape_to">[docs]</a><span class="k">def</span> <span class="nf">broadcast_shape_to</span><span class="p">(</span><span class="n">from_shape</span><span class="p">,</span> <span class="n">to_shape</span><span class="p">):</span>
+    <span class="c1"># Enforce broadcasting rules from an</span>
+    <span class="c1"># array of references to 0 with shape from_shape.</span>
+    <span class="n">from_view</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">stride_tricks</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">from_shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">lib</span><span class="o">.</span><span class="n">stride_tricks</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">from_view</span><span class="p">,</span> <span class="n">to_shape</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="can_broadcast_shape_to"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.can_broadcast_shape_to">[docs]</a><span class="k">def</span> <span class="nf">can_broadcast_shape_to</span><span class="p">(</span><span class="n">from_shape</span><span class="p">,</span> <span class="n">to_shape</span><span class="p">):</span>
+    <span class="c1"># See: https://numpy.org/devdocs/user/theory.broadcasting.html</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">broadcast_shape_to</span><span class="p">(</span><span class="n">from_shape</span><span class="p">,</span> <span class="n">to_shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">_</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="broadcast_shape_to_alt"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.broadcast_shape_to_alt">[docs]</a><span class="k">def</span> <span class="nf">broadcast_shape_to_alt</span><span class="p">(</span><span class="n">from_shape</span><span class="p">,</span> <span class="n">to_shape</span><span class="p">):</span>
+    <span class="c1"># This is heavily tested with shapes up to length 5.</span>
+    <span class="n">from_num_axes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">from_shape</span><span class="p">)</span>
+    <span class="n">to_num_axes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">to_shape</span><span class="p">)</span>
+    <span class="n">result_shape</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">to_num_axes</span> <span class="o">&lt;</span> <span class="n">from_num_axes</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Input shape has more dimensions than allowed by the axis remapping.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">to_num_axes</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">from_shape</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot broadcast non-scalar shape to scalar shape ().&quot;</span><span class="p">)</span>
+    <span class="n">from_shape_r</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">from_shape</span><span class="p">))</span>
+    <span class="n">to_shape_r</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">to_shape</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">from_dim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">from_shape_r</span><span class="p">):</span>
+        <span class="n">to_dim</span> <span class="o">=</span> <span class="n">to_shape_r</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">from_dim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">result_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to_dim</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">to_dim</span> <span class="o">==</span> <span class="n">from_dim</span><span class="p">:</span>
+            <span class="n">result_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">to_dim</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Cannot broadcast </span><span class="si">%s</span><span class="s2"> to </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">from_shape</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">to_shape</span><span class="p">))</span>
+            <span class="p">)</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">result_shape</span> <span class="o">+</span> <span class="n">to_shape_r</span><span class="p">[</span><span class="n">from_num_axes</span><span class="p">:]))</span></div>
+
+
+<div class="viewcode-block" id="is_array_like"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.is_array_like">[docs]</a><span class="k">def</span> <span class="nf">is_array_like</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="block_shape_from_subscript"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.block_shape_from_subscript">[docs]</a><span class="k">def</span> <span class="nf">block_shape_from_subscript</span><span class="p">(</span><span class="n">subscript</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+    <span class="n">new_block_shape</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">subscript</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="n">new_block_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">block_shape</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">is_regular_subscript</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;No support for advanced indexing.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">new_block_shape</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_slices"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.get_slices">[docs]</a><span class="k">def</span> <span class="nf">get_slices</span><span class="p">(</span><span class="n">total_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">reverse_blocks</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">order</span> <span class="ow">in</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">reverse_blocks</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">total_size</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">batch_size</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">total_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="n">total_size</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">slice</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="n">order</span><span class="p">),</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">result</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">reverse_blocks</span><span class="p">:</span>
+            <span class="c1"># If reverse order blocks are not multiples of axis dimension,</span>
+            <span class="c1"># then the last block is smaller than block size and should be</span>
+            <span class="c1"># the first block.</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">total_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">total_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">batch_size</span><span class="p">))</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="n">total_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="nb">slice</span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="n">order</span><span class="p">),</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">result</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))))</span></div>
+
+
+<div class="viewcode-block" id="OrderedGrid"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.OrderedGrid">[docs]</a><span class="k">class</span> <span class="nc">OrderedGrid</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">block_order</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">block_order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">block_order</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">([</span><span class="n">shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_slices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)):</span>
+            <span class="n">dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">block_dim</span> <span class="o">=</span> <span class="n">block_shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">axis_order</span> <span class="o">=</span> <span class="n">order</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">reverse_blocks</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="n">block_order</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">reverse_blocks</span> <span class="o">=</span> <span class="n">block_order</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="n">axis_slices</span> <span class="o">=</span> <span class="n">get_slices</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">block_dim</span><span class="p">,</span> <span class="n">axis_order</span><span class="p">,</span> <span class="n">reverse_blocks</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid_slices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">axis_slices</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">axis_slices</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">)</span>
+        <span class="c1"># Assumes C-style ordering.</span>
+        <span class="c1"># We add len(shape) to allow for axis consisting of the actual slices.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_slices</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">slice</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)]))</span>
+
+<div class="viewcode-block" id="OrderedGrid.index_iterator"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.OrderedGrid.index_iterator">[docs]</a>    <span class="k">def</span> <span class="nf">index_iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">return</span> <span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="nb">range</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="idx2addr"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.idx2addr">[docs]</a><span class="k">def</span> <span class="nf">idx2addr</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+    <span class="n">strides</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">))]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">addr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">index</span><span class="p">)</span> <span class="o">*</span> <span class="n">strides</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">addr</span></div>
+
+
+<div class="viewcode-block" id="addr2idx"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.addr2idx">[docs]</a><span class="k">def</span> <span class="nf">addr2idx</span><span class="p">(</span><span class="n">addr</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+    <span class="n">strides</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">))]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">val</span> <span class="o">=</span> <span class="n">addr</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">strides</span><span class="p">)):</span>
+        <span class="n">stride</span> <span class="o">=</span> <span class="n">strides</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">axis_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">val</span> <span class="o">/</span> <span class="n">stride</span><span class="p">)</span>
+        <span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">axis_index</span><span class="p">)</span>
+        <span class="n">val</span> <span class="o">%=</span> <span class="n">stride</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="slice_sel_to_index_list"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.slice_sel_to_index_list">[docs]</a><span class="k">def</span> <span class="nf">slice_sel_to_index_list</span><span class="p">(</span><span class="n">slice_selection</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">):</span>
+    <span class="n">slice_ranges</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">slice_or_index</span> <span class="ow">in</span> <span class="n">slice_selection</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">slice_or_index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="n">slice_ranges</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">slice_or_index</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">slice_or_index</span><span class="o">.</span><span class="n">stop</span><span class="p">)))</span>
+        <span class="k">elif</span> <span class="n">is_regular_subscript</span><span class="p">(</span><span class="n">slice_or_index</span><span class="p">):</span>
+            <span class="n">slice_ranges</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">slice_or_index</span><span class="p">])</span>
+    <span class="n">index_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">slice_ranges</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">index_list</span></div>
+
+
+<div class="viewcode-block" id="translate_index_list"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.translate_index_list">[docs]</a><span class="k">def</span> <span class="nf">translate_index_list</span><span class="p">(</span><span class="n">from_index_list</span><span class="p">,</span> <span class="n">from_shape</span><span class="p">,</span> <span class="n">to_shape</span><span class="p">):</span>
+    <span class="n">to_index_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">src_index</span> <span class="ow">in</span> <span class="n">from_index_list</span><span class="p">:</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="n">idx2addr</span><span class="p">(</span><span class="n">src_index</span><span class="p">,</span> <span class="n">from_shape</span><span class="p">)</span>
+        <span class="n">to_index_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">addr2idx</span><span class="p">(</span><span class="n">addr</span><span class="p">,</span> <span class="n">to_shape</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">to_index_list</span></div>
+
+
+<div class="viewcode-block" id="np_tensordot_param_test"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.np_tensordot_param_test">[docs]</a><span class="k">def</span> <span class="nf">np_tensordot_param_test</span><span class="p">(</span><span class="n">as_</span><span class="p">,</span> <span class="n">nda</span><span class="p">,</span> <span class="n">bs</span><span class="p">,</span> <span class="n">ndb</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="c1"># Error checking before everything gets passed into BlockArray operations. Modified from the</span>
+    <span class="c1"># original NumPy tensordot method for error checking:</span>
+    <span class="c1"># https://github.com/numpy/numpy/blob/v1.20.0/numpy/core/numeric.py#L949-L1139</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">iter</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">axes_a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">axes</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">axes_b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">axes</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">axes_a</span><span class="p">,</span> <span class="n">axes_b</span> <span class="o">=</span> <span class="n">axes</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">na</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes_a</span><span class="p">)</span>
+        <span class="n">axes_a</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">axes_a</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="n">axes_a</span> <span class="o">=</span> <span class="p">[</span><span class="n">axes_a</span><span class="p">]</span>
+        <span class="n">na</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">nb</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes_b</span><span class="p">)</span>
+        <span class="n">axes_b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">axes_b</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="n">axes_b</span> <span class="o">=</span> <span class="p">[</span><span class="n">axes_b</span><span class="p">]</span>
+        <span class="n">nb</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">equal</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">if</span> <span class="n">na</span> <span class="o">!=</span> <span class="n">nb</span><span class="p">:</span>
+        <span class="n">equal</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">na</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">as_</span><span class="p">[</span><span class="n">axes_a</span><span class="p">[</span><span class="n">k</span><span class="p">]]</span> <span class="o">!=</span> <span class="n">bs</span><span class="p">[</span><span class="n">axes_b</span><span class="p">[</span><span class="n">k</span><span class="p">]]:</span>
+                <span class="n">equal</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">break</span>
+            <span class="k">if</span> <span class="n">axes_a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">axes_a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+=</span> <span class="n">nda</span>
+            <span class="k">if</span> <span class="n">axes_b</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">axes_b</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+=</span> <span class="n">ndb</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">equal</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<span class="c1"># NumPy&#39;s internal axis-checking logic</span>
+<span class="c1"># https://www.kite.com/python/docs/numpy.core.multiarray.normalize_axis_index</span>
+<div class="viewcode-block" id="normalize_axis_index"><a class="viewcode-back" href="../../../../generated/nums.core.array.utils.html#nums.core.array.utils.normalize_axis_index">[docs]</a><span class="k">def</span> <span class="nf">normalize_axis_index</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">ndim</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    axis : int</span>
+<span class="sd">        The un-normalized index of the axis. Can be negative</span>
+<span class="sd">    ndim : int</span>
+<span class="sd">        The number of dimensions of the array that `axis` should be normalized</span>
+<span class="sd">        against</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    normalized_axis : int</span>
+<span class="sd">        The normalized axis index, such that `0 &lt;= normalized_axis &lt; ndim`</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    AxisError</span>
+<span class="sd">        If the axis index is invalid, when `-ndim &lt;= axis &lt; ndim` is false.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; normalize_axis_index(0, ndim=3)</span>
+<span class="sd">    0</span>
+<span class="sd">    &gt;&gt;&gt; normalize_axis_index(1, ndim=3)</span>
+<span class="sd">    1</span>
+<span class="sd">    &gt;&gt;&gt; normalize_axis_index(-1, ndim=3)</span>
+<span class="sd">    2</span>
+
+<span class="sd">    &gt;&gt;&gt; normalize_axis_index(3, ndim=3)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">    ...</span>
+<span class="sd">    AxisError: axis 3 is out of bounds for array of dimension 3</span>
+<span class="sd">    &gt;&gt;&gt; normalize_axis_index(-4, ndim=3, msg_prefix=&#39;axes_arg&#39;)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">    ...</span>
+<span class="sd">    AxisError: axes_arg: axis -4 is out of bounds for array of dimension 3</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="o">-</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="n">axis</span> <span class="o">&gt;=</span> <span class="n">ndim</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">AxisError</span><span class="p">(</span>
+            <span class="s2">&quot;axis </span><span class="si">{}</span><span class="s2"> is out of bounds for array of dimension </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">ndim</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">axis</span> <span class="o">%</span> <span class="n">ndim</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The NumS Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

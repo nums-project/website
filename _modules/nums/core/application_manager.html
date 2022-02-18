@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nums.core.application_manager &mdash; NumS  documentation</title><link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> NumS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">nums.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../numpy.html">nums.numpy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NumS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>nums.core.application_manager</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nums.core.application_manager</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">nums.core</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">nums.core.array.application</span> <span class="kn">import</span> <span class="n">ArrayApplication</span>
+<span class="kn">from</span> <span class="nn">nums.core.compute</span> <span class="kn">import</span> <span class="n">numpy_compute</span>
+<span class="kn">from</span> <span class="nn">nums.core.compute.compute_manager</span> <span class="kn">import</span> <span class="n">ComputeManager</span>
+<span class="kn">from</span> <span class="nn">nums.core.grid.grid</span> <span class="kn">import</span> <span class="n">DeviceGrid</span><span class="p">,</span> <span class="n">CyclicDeviceGrid</span><span class="p">,</span> <span class="n">PackedDeviceGrid</span>
+<span class="kn">from</span> <span class="nn">nums.core.systems.filesystem</span> <span class="kn">import</span> <span class="n">FileSystem</span>
+<span class="kn">from</span> <span class="nn">nums.core.systems.system_interface</span> <span class="kn">import</span> <span class="n">SystemInterface</span>
+<span class="kn">from</span> <span class="nn">nums.core.systems.systems</span> <span class="kn">import</span> <span class="n">SerialSystem</span><span class="p">,</span> <span class="n">RaySystem</span><span class="p">,</span> <span class="n">RaySystemStockScheduler</span>
+
+<span class="c1"># pylint: disable=global-statement</span>
+
+
+<span class="n">_instance</span><span class="p">:</span> <span class="n">ArrayApplication</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">_call_on_create</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+<div class="viewcode-block" id="call_on_create"><a class="viewcode-back" href="../../../generated/nums.core.application_manager.html#nums.core.application_manager.call_on_create">[docs]</a><span class="k">def</span> <span class="nf">call_on_create</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">_call_on_create</span>
+    <span class="c1"># Always include funcs in _call_on_create.</span>
+    <span class="c1"># If the app is destroyed, the hooks need to be invoked again on creation.</span>
+    <span class="n">_call_on_create</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">is_initialized</span><span class="p">():</span>
+        <span class="n">func</span><span class="p">(</span><span class="n">_instance</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="is_initialized"><a class="viewcode-back" href="../../../generated/nums.core.application_manager.html#nums.core.application_manager.is_initialized">[docs]</a><span class="k">def</span> <span class="nf">is_initialized</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">_instance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="instance"><a class="viewcode-back" href="../../../generated/nums.core.application_manager.html#nums.core.application_manager.instance">[docs]</a><span class="k">def</span> <span class="nf">instance</span><span class="p">():</span>
+    <span class="c1"># Lazy-initialize to initialize on use instead of initializing on import.</span>
+    <span class="k">global</span> <span class="n">_instance</span>
+    <span class="k">if</span> <span class="n">_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">_instance</span> <span class="o">=</span> <span class="n">create</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">_call_on_create</span><span class="p">:</span>
+            <span class="n">func</span><span class="p">(</span><span class="n">_instance</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_instance</span></div>
+
+
+<div class="viewcode-block" id="create"><a class="viewcode-back" href="../../../generated/nums.core.application_manager.html#nums.core.application_manager.create">[docs]</a><span class="k">def</span> <span class="nf">create</span><span class="p">():</span>
+    <span class="n">configure_logging</span><span class="p">()</span>
+
+    <span class="k">global</span> <span class="n">_instance</span>
+
+    <span class="k">if</span> <span class="n">_instance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;create() called more than once.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Initialize compute interface and system.</span>
+    <span class="n">system_name</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">system_name</span>
+    <span class="k">if</span> <span class="n">system_name</span> <span class="o">==</span> <span class="s2">&quot;serial&quot;</span><span class="p">:</span>
+        <span class="n">system</span><span class="p">:</span> <span class="n">SystemInterface</span> <span class="o">=</span> <span class="n">SerialSystem</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">num_cpus</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">system_name</span> <span class="o">==</span> <span class="s2">&quot;ray&quot;</span><span class="p">:</span>
+        <span class="n">use_head</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">use_head</span>
+        <span class="n">num_nodes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">cluster_shape</span><span class="p">))</span>
+        <span class="n">system</span><span class="p">:</span> <span class="n">SystemInterface</span> <span class="o">=</span> <span class="n">RaySystem</span><span class="p">(</span>
+            <span class="n">address</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+            <span class="n">use_head</span><span class="o">=</span><span class="n">use_head</span><span class="p">,</span>
+            <span class="n">num_nodes</span><span class="o">=</span><span class="n">num_nodes</span><span class="p">,</span>
+            <span class="n">num_cpus</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">num_cpus</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">system_name</span> <span class="o">==</span> <span class="s2">&quot;ray-scheduler&quot;</span><span class="p">:</span>
+        <span class="n">use_head</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">use_head</span>
+        <span class="n">num_nodes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">cluster_shape</span><span class="p">))</span>
+        <span class="n">system</span><span class="p">:</span> <span class="n">SystemInterface</span> <span class="o">=</span> <span class="n">RaySystemStockScheduler</span><span class="p">(</span>
+            <span class="n">address</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">address</span><span class="p">,</span>
+            <span class="n">use_head</span><span class="o">=</span><span class="n">use_head</span><span class="p">,</span>
+            <span class="n">num_nodes</span><span class="o">=</span><span class="n">num_nodes</span><span class="p">,</span>
+            <span class="n">num_cpus</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">num_cpus</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">system_name</span> <span class="o">==</span> <span class="s2">&quot;dask&quot;</span><span class="p">:</span>
+        <span class="c1"># pylint: disable=import-outside-toplevel</span>
+        <span class="kn">from</span> <span class="nn">nums.experimental.nums_dask.dask_system</span> <span class="kn">import</span> <span class="n">DaskSystem</span>
+
+        <span class="n">num_nodes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">cluster_shape</span><span class="p">))</span>
+        <span class="n">system</span><span class="p">:</span> <span class="n">SystemInterface</span> <span class="o">=</span> <span class="n">DaskSystem</span><span class="p">(</span>
+            <span class="n">address</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="n">num_nodes</span><span class="o">=</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">num_cpus</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">num_cpus</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">system_name</span> <span class="o">==</span> <span class="s2">&quot;dask-scheduler&quot;</span><span class="p">:</span>
+        <span class="c1"># pylint: disable=import-outside-toplevel</span>
+        <span class="kn">from</span> <span class="nn">nums.experimental.nums_dask.dask_system</span> <span class="kn">import</span> <span class="n">DaskSystemStockScheduler</span>
+
+        <span class="n">num_nodes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">cluster_shape</span><span class="p">))</span>
+        <span class="n">system</span><span class="p">:</span> <span class="n">SystemInterface</span> <span class="o">=</span> <span class="n">DaskSystemStockScheduler</span><span class="p">(</span>
+            <span class="n">address</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">address</span><span class="p">,</span> <span class="n">num_nodes</span><span class="o">=</span><span class="n">num_nodes</span><span class="p">,</span> <span class="n">num_cpus</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">num_cpus</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unexpected system name </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">settings</span><span class="o">.</span><span class="n">system_name</span><span class="p">)</span>
+    <span class="n">system</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+    <span class="n">compute_module</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;numpy&quot;</span><span class="p">:</span> <span class="n">numpy_compute</span><span class="p">}[</span><span class="n">settings</span><span class="o">.</span><span class="n">compute_name</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">device_grid_name</span> <span class="o">==</span> <span class="s2">&quot;cyclic&quot;</span><span class="p">:</span>
+        <span class="n">device_grid</span><span class="p">:</span> <span class="n">DeviceGrid</span> <span class="o">=</span> <span class="n">CyclicDeviceGrid</span><span class="p">(</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">cluster_shape</span><span class="p">,</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">system</span><span class="o">.</span><span class="n">devices</span><span class="p">()</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">settings</span><span class="o">.</span><span class="n">device_grid_name</span> <span class="o">==</span> <span class="s2">&quot;packed&quot;</span><span class="p">:</span>
+        <span class="n">device_grid</span><span class="p">:</span> <span class="n">DeviceGrid</span> <span class="o">=</span> <span class="n">PackedDeviceGrid</span><span class="p">(</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">cluster_shape</span><span class="p">,</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">system</span><span class="o">.</span><span class="n">devices</span><span class="p">()</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unexpected device grid name </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">settings</span><span class="o">.</span><span class="n">device_grid_name</span><span class="p">)</span>
+
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">ComputeManager</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">compute_module</span><span class="p">,</span> <span class="n">device_grid</span><span class="p">)</span>
+    <span class="n">fs</span> <span class="o">=</span> <span class="n">FileSystem</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ArrayApplication</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="destroy"><a class="viewcode-back" href="../../../generated/nums.core.application_manager.html#nums.core.application_manager.destroy">[docs]</a><span class="k">def</span> <span class="nf">destroy</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">_instance</span>
+    <span class="k">if</span> <span class="n">_instance</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="c1"># This will shutdown ray if ray was started by NumS.</span>
+    <span class="n">_instance</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">system</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+    <span class="n">ComputeManager</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+    <span class="k">del</span> <span class="n">_instance</span>
+    <span class="n">_instance</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="configure_logging"><a class="viewcode-back" href="../../../generated/nums.core.application_manager.html#nums.core.application_manager.configure_logging">[docs]</a><span class="k">def</span> <span class="nf">configure_logging</span><span class="p">():</span>
+    <span class="c1"># TODO (hme): Fix this to avoid debug messages for all packages.</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+    <span class="n">handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+    <span class="n">handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The NumS Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

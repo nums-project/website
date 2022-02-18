@@ -1,0 +1,690 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.core.systems.systems module &#8212; NumS  documentation</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.array.html">
+   nums.core.array package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.application.html">
+     nums.core.array.application module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.base.html">
+     nums.core.array.base module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.blockarray.html">
+     nums.core.array.blockarray module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.errors.html">
+     nums.core.array.errors module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.random.html">
+     nums.core.array.random module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.selection.html">
+     nums.core.array.selection module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.utils.html">
+     nums.core.array.utils module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.view.html">
+     nums.core.array.view module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.cmds.html">
+   nums.core.cmds package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.cmds.api_coverage.html">
+     nums.core.cmds.api_coverage module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.compute.html">
+   nums.core.compute package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.compute.compute_interface.html">
+     nums.core.compute.compute_interface module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.compute.compute_manager.html">
+     nums.core.compute.compute_manager module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.compute.numpy_compute.html">
+     nums.core.compute.numpy_compute module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.grid.html">
+   nums.core.grid package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.grid.grid.html">
+     nums.core.grid.grid module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.storage.html">
+   nums.core.storage package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.storage.storage.html">
+     nums.core.storage.storage module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.storage.utils.html">
+     nums.core.storage.utils module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="nums.core.systems.html">
+   nums.core.systems package
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.systems.filesystem.html">
+     nums.core.systems.filesystem module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.systems.system_interface.html">
+     nums.core.systems.system_interface module
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     nums.core.systems.systems module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.systems.utils.html">
+     nums.core.systems.utils module
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.application_manager.html">
+   nums.core.application_manager module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.linalg.html">
+   nums.core.linalg module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.settings.html">
+   nums.core.settings module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.utils.html">
+   nums.core.utils module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.version.html">
+   nums.core.version module
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-nums.core.systems.systems">
+<span id="nums-core-systems-systems-module"></span><h1>nums.core.systems.systems module<a class="headerlink" href="#module-nums.core.systems.systems" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt id="nums.core.systems.systems.RaySystem">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.core.systems.systems.</span></code><code class="sig-name descname"><span class="pre">RaySystem</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_head</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_cpus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="nums.core.systems.system_interface.html#nums.core.systems.system_interface.SystemInterface" title="nums.core.systems.system_interface.SystemInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.core.systems.system_interface.SystemInterface</span></code></a></p>
+<p>Implements SystemInterface for Ray.</p>
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.call">
+<code class="sig-name descname"><span class="pre">call</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.call"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.call" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.call_actor_method">
+<code class="sig-name descname"><span class="pre">call_actor_method</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.call_actor_method"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.call_actor_method" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>actor</strong> – Actor instance.</p></li>
+<li><p><strong>method</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Method name.</p></li>
+<li><p><strong>args</strong> – Method args.</p></li>
+<li><p><strong>kwargs</strong> – Method kwargs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Result of calling method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.devices">
+<code class="sig-name descname"><span class="pre">devices</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.devices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.devices" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="nums.core.grid.grid.html#nums.core.grid.grid.DeviceID" title="nums.core.grid.grid.DeviceID"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceID</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.get">
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.get" title="Permalink to this definition"></a></dt>
+<dd><p>Get object from system storage.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.init">
+<code class="sig-name descname"><span class="pre">init</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.init" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.init_devices">
+<code class="sig-name descname"><span class="pre">init_devices</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.init_devices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.init_devices" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.make_actor">
+<code class="sig-name descname"><span class="pre">make_actor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.make_actor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.make_actor" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The name of the actor.</p></li>
+<li><p><strong>args</strong> – args to pass to __init__.</p></li>
+<li><p><strong>device_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="nums.core.grid.grid.html#nums.core.grid.grid.DeviceID" title="nums.core.grid.grid.DeviceID"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceID</span></code></a>]) – A device id. This is captured by the system and not passed to __init__.</p></li>
+<li><p><strong>kwargs</strong> – kwargs to pass to __init__.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An Actor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.num_cores_total">
+<code class="sig-name descname"><span class="pre">num_cores_total</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.num_cores_total"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.num_cores_total" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.put">
+<code class="sig-name descname"><span class="pre">put</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.put" title="Permalink to this definition"></a></dt>
+<dd><p>Put object into system storage and force placement on the relevant node.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.register">
+<code class="sig-name descname"><span class="pre">register</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remote_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.register" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.register_actor">
+<code class="sig-name descname"><span class="pre">register_actor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.register_actor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.register_actor" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the actor. This should be unique.</p></li>
+<li><p><strong>cls</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>) – The Python class to convert into an actor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.remote">
+<code class="sig-name descname"><span class="pre">remote</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remote_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.remote"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.remote" title="Permalink to this definition"></a></dt>
+<dd><p>Return a callable remote function with remote_params.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.shutdown">
+<code class="sig-name descname"><span class="pre">shutdown</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.shutdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.shutdown" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystem.warmup">
+<code class="sig-name descname"><span class="pre">warmup</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystem.warmup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystem.warmup" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.core.systems.systems.RaySystemStockScheduler">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.core.systems.systems.</span></code><code class="sig-name descname"><span class="pre">RaySystemStockScheduler</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_head</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nodes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_cpus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystemStockScheduler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystemStockScheduler" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.core.systems.systems.RaySystem" title="nums.core.systems.systems.RaySystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.core.systems.systems.RaySystem</span></code></a></p>
+<p>An implementation of the Ray system which ignores scheduling commands given
+by the caller. For testing only.</p>
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystemStockScheduler.call">
+<code class="sig-name descname"><span class="pre">call</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystemStockScheduler.call"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystemStockScheduler.call" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.RaySystemStockScheduler.make_actor">
+<code class="sig-name descname"><span class="pre">make_actor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#RaySystemStockScheduler.make_actor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.RaySystemStockScheduler.make_actor" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The name of the actor.</p></li>
+<li><p><strong>args</strong> – args to pass to __init__.</p></li>
+<li><p><strong>device_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="nums.core.grid.grid.html#nums.core.grid.grid.DeviceID" title="nums.core.grid.grid.DeviceID"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceID</span></code></a>]) – A device id. This is captured by the system and not passed to __init__.</p></li>
+<li><p><strong>kwargs</strong> – kwargs to pass to __init__.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An Actor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.core.systems.systems.SerialSystem">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.core.systems.systems.</span></code><code class="sig-name descname"><span class="pre">SerialSystem</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_cpus</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="nums.core.systems.system_interface.html#nums.core.systems.system_interface.SystemInterface" title="nums.core.systems.system_interface.SystemInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.core.systems.system_interface.SystemInterface</span></code></a></p>
+<dl class="py method">
+<dt id="nums.core.systems.systems.SerialSystem.call">
+<code class="sig-name descname"><span class="pre">call</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem.call"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem.call" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.SerialSystem.call_actor_method">
+<code class="sig-name descname"><span class="pre">call_actor_method</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem.call_actor_method"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem.call_actor_method" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>actor</strong> – Actor instance.</p></li>
+<li><p><strong>method</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Method name.</p></li>
+<li><p><strong>args</strong> – Method args.</p></li>
+<li><p><strong>kwargs</strong> – Method kwargs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Result of calling method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.SerialSystem.devices">
+<code class="sig-name descname"><span class="pre">devices</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem.devices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem.devices" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.SerialSystem.get">
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem.get" title="Permalink to this definition"></a></dt>
+<dd><p>Get object from system storage.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.SerialSystem.init">
+<code class="sig-name descname"><span class="pre">init</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem.init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem.init" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.SerialSystem.make_actor">
+<code class="sig-name descname"><span class="pre">make_actor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem.make_actor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem.make_actor" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The name of the actor.</p></li>
+<li><p><strong>args</strong> – args to pass to __init__.</p></li>
+<li><p><strong>device_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="nums.core.grid.grid.html#nums.core.grid.grid.DeviceID" title="nums.core.grid.grid.DeviceID"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceID</span></code></a>]) – A device id. This is captured by the system and not passed to __init__.</p></li>
+<li><p><strong>kwargs</strong> – kwargs to pass to __init__.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An Actor.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.SerialSystem.num_cores_total">
+<code class="sig-name descname"><span class="pre">num_cores_total</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem.num_cores_total"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem.num_cores_total" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.SerialSystem.put">
+<code class="sig-name descname"><span class="pre">put</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem.put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem.put" title="Permalink to this definition"></a></dt>
+<dd><p>Put object into system storage and force placement on the relevant node.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.SerialSystem.register">
+<code class="sig-name descname"><span class="pre">register</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remote_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem.register"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem.register" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.SerialSystem.register_actor">
+<code class="sig-name descname"><span class="pre">register_actor</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem.register_actor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem.register_actor" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of the actor. This should be unique.</p></li>
+<li><p><strong>cls</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>) – The Python class to convert into an actor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.SerialSystem.remote">
+<code class="sig-name descname"><span class="pre">remote</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remote_params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem.remote"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem.remote" title="Permalink to this definition"></a></dt>
+<dd><p>Return a callable remote function with remote_params.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.systems.systems.SerialSystem.shutdown">
+<code class="sig-name descname"><span class="pre">shutdown</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/systems.html#SerialSystem.shutdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.systems.SerialSystem.shutdown" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

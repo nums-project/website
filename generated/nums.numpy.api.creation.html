@@ -1,0 +1,1281 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.numpy.api.creation module &#8212; NumS  documentation</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="nums.numpy.api.html">
+   nums.numpy.api package
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.algebra.html">
+     nums.numpy.api.algebra module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.arithmetic.html">
+     nums.numpy.api.arithmetic module
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     nums.numpy.api.creation module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.generated.html">
+     nums.numpy.api.generated module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.logic.html">
+     nums.numpy.api.logic module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.manipulation.html">
+     nums.numpy.api.manipulation module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.nan.html">
+     nums.numpy.api.nan module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.properties.html">
+     nums.numpy.api.properties module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.sort.html">
+     nums.numpy.api.sort module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.stats.html">
+     nums.numpy.api.stats module
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.numpy.fft.html">
+   nums.numpy.fft module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.numpy.linalg.html">
+   nums.numpy.linalg module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.numpy.numpy_utils.html">
+   nums.numpy.numpy_utils module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.numpy.random.html">
+   nums.numpy.random module
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-nums.numpy.api.creation">
+<span id="nums-numpy-api-creation-module"></span><h1>nums.numpy.api.creation module<a class="headerlink" href="#module-nums.numpy.api.creation" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt id="nums.numpy.api.creation.arange">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">arange</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#arange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.arange" title="Permalink to this definition"></a></dt>
+<dd><p>Return evenly spaced values within a given interval.</p>
+<p>This docstring was copied from numpy.arange.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Values are generated within the half-open interval <code class="docutils literal notranslate"><span class="pre">[start,</span> <span class="pre">stop)</span></code>
+(in other words, the interval including <cite>start</cite> but excluding <cite>stop</cite>).
+For integer arguments the function is equivalent to the Python built-in
+<cite>range</cite> function, but returns an BlockArray rather than a list.</p>
+<p>When using a non-integer step, such as 0.1, the results will often not
+be consistent.  It is better to use <cite>nums.linspace</cite> for these cases.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>number</em><em>, </em><em>optional</em>) – Start of interval.  The interval includes this value.  The default
+start value is 0.</p></li>
+<li><p><strong>stop</strong> (<em>number</em>) – End of interval.  The interval does not include this value, except
+in some cases where <cite>step</cite> is not an integer and floating point
+round-off affects the length of <cite>out</cite>.</p></li>
+<li><p><strong>step</strong> (<em>number</em><em>, </em><em>optional</em>) – Spacing between values.  For any output <cite>out</cite>, this is the distance
+between two adjacent values, <code class="docutils literal notranslate"><span class="pre">out[i+1]</span> <span class="pre">-</span> <span class="pre">out[i]</span></code>.  The default
+step size is 1.  If <cite>step</cite> is specified as a position argument,
+<cite>start</cite> must also be given.</p></li>
+<li><p><strong>dtype</strong> (<em>dtype</em>) – The type of the output array.  If <cite>dtype</cite> is not given, infer the data
+type from the other input arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p><strong>arange</strong> – Array of evenly spaced values.</p>
+<p>For floating point arguments, the length of the result is
+<code class="docutils literal notranslate"><span class="pre">ceil((stop</span> <span class="pre">-</span> <span class="pre">start)/step)</span></code>.  Because of floating point overflow,
+this rule may result in the last element of <cite>out</cite> being greater
+than <cite>stop</cite>.</p>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.creation.linspace" title="nums.numpy.api.creation.linspace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linspace</span></code></a></dt><dd><p>Evenly spaced numbers with careful handling of endpoints.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Only step size of 1 is currently supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([0, 1, 2])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([ 0.,  1.,  2.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([3, 4, 5, 6])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.array">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">array</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'K'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ndmin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subok</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.array" title="Permalink to this definition"></a></dt>
+<dd><p>Creates a BlockArray.</p>
+<p>This docstring was copied from numpy.array.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>object</strong> (<em>array_like</em>) – An array, any object exposing the array interface, an object whose
+__array__ method returns an array, or any (nested) sequence.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – The desired data-type for the array.  If not given, then the type will
+be determined as the minimum type required to hold the objects in the
+sequence.</p></li>
+<li><p><strong>copy</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true (default), then the object is copied.  Otherwise, a copy will
+only be made if __array__ returns a copy, if obj is a nested sequence,
+or if a copy is needed to satisfy any of the other requirements
+(<cite>dtype</cite>, <cite>order</cite>, etc.).</p></li>
+<li><p><strong>order</strong> (<em>{'K'}</em><em>, </em><em>optional</em>) – <p>Specify the memory layout of the array. If object is not an array, the
+newly created array will be in C order (row major) unless ‘F’ is
+specified, in which case it will be in Fortran order (column major).
+If object is an array the following holds.</p>
+<table class="table">
+<colgroup>
+<col style="width: 8%" />
+<col style="width: 14%" />
+<col style="width: 78%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>order</p></th>
+<th class="head"><p>no copy</p></th>
+<th class="head"><p>copy=True</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>’K’</p></td>
+<td><p>unchanged</p></td>
+<td><p>F &amp; C order preserved, otherwise most similar order</p></td>
+</tr>
+<tr class="row-odd"><td><p>’A’</p></td>
+<td><p>unchanged</p></td>
+<td><p>F order if input is F and not C, otherwise C order</p></td>
+</tr>
+<tr class="row-even"><td><p>’C’</p></td>
+<td><p>C order</p></td>
+<td><p>C order</p></td>
+</tr>
+<tr class="row-odd"><td><p>’F’</p></td>
+<td><p>F order</p></td>
+<td><p>F order</p></td>
+</tr>
+</tbody>
+</table>
+<p>When <code class="docutils literal notranslate"><span class="pre">copy=False</span></code> and a copy is made for other reasons, the result is
+the same as if <code class="docutils literal notranslate"><span class="pre">copy=True</span></code>, with some exceptions for <cite>A</cite>, see the
+Notes section. The default order is ‘K’.</p>
+</p></li>
+<li><p><strong>subok</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, then sub-classes will be passed-through, otherwise
+the returned array will be forced to be a base-class array (default).</p></li>
+<li><p><strong>ndmin</strong> (<em>int</em><em>, </em><em>optional</em>) – Specifies the minimum number of dimensions that the resulting
+array should have.  Ones will be pre-pended to the shape as
+needed to meet this requirement.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – An array object satisfying the specified requirements.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.creation.empty_like" title="nums.numpy.api.creation.empty_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_like</span></code></a></dt><dd><p>Return an empty array with shape and type of input.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.ones_like" title="nums.numpy.api.creation.ones_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ones_like</span></code></a></dt><dd><p>Return an array of ones with shape and type of input.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.zeros_like" title="nums.numpy.api.creation.zeros_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros_like</span></code></a></dt><dd><p>Return an array of zeros with shape and type of input.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">full_like</span></code></dt><dd><p>Return a new array with shape of input filled with value.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.empty" title="nums.numpy.api.creation.empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty</span></code></a></dt><dd><p>Return a new uninitialized array.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.ones" title="nums.numpy.api.creation.ones"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ones</span></code></a></dt><dd><p>Return a new array setting values to one.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.zeros" title="nums.numpy.api.creation.zeros"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros</span></code></a></dt><dd><p>Return a new array setting values to zero.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">full</span></code></dt><dd><p>Return a new array of given shape filled with value.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Only order=’K’ is supported.</p>
+<p>Only ndmin=0 is currently supported.</p>
+<p>subok must be False</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([1, 2, 3])</span>
+</pre></div>
+</div>
+<p>Upcasting:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([ 1.,  2.,  3.])</span>
+</pre></div>
+</div>
+<p>More than one dimension:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1, 2],</span>
+<span class="go">       [3, 4]])</span>
+</pre></div>
+</div>
+<p>Type provided:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([ 1.+0.j,  2.+0.j,  3.+0.j])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.copy">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">copy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'K'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subok</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Return an array copy of the given object.</p>
+<p>This docstring was copied from numpy.copy.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Input data.</p></li>
+<li><p><strong>order</strong> (<em>{'C'</em><em>, </em><em>'F'</em><em>, </em><em>'A'</em><em>, </em><em>'K'}</em><em>, </em><em>optional</em>) – Controls the memory layout of the copy. ‘C’ means C-order,
+‘F’ means F-order, ‘A’ means ‘F’ if <cite>a</cite> is Fortran contiguous,
+‘C’ otherwise. ‘K’ means match the layout of <cite>a</cite> as closely
+as possible. (Note that this function and <code class="xref py py-meth docutils literal notranslate"><span class="pre">BlockArray.copy()</span></code> are very
+similar, but have different default values for their order=
+arguments.)</p></li>
+<li><p><strong>subok</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, then sub-classes will be passed-through, otherwise the
+returned array will be forced to be a base-class array (defaults to False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>arr</strong> – Array interpretation of <cite>a</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.creation.copy" title="nums.numpy.api.creation.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a></dt><dd><p>Preferred method for creating an array copy</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>This is equivalent to:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+</pre></div>
+</div>
+<p>Only default args supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<p>Create an array x, with a reference y and a copy z:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">z</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  
+</pre></div>
+</div>
+<p>Note that, when we modify x, y changes, but not z:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array(True)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.diag">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">diag</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#diag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.diag" title="Permalink to this definition"></a></dt>
+<dd><p>Extract a diagonal or construct a diagonal array.</p>
+<p>This docstring was copied from numpy.diag.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>See the more detailed documentation for <code class="docutils literal notranslate"><span class="pre">numpy.diagonal</span></code> if you use this
+function to extract a diagonal and wish to write to the resulting array;
+whether it returns a copy or a view depends on what version of numpy you
+are using.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – If <cite>v</cite> is a 2-D array, return a copy of its <cite>k</cite>-th diagonal.
+If <cite>v</cite> is a 1-D array, return a 2-D array with <cite>v</cite> on the <cite>k</cite>-th
+diagonal.</p></li>
+<li><p><strong>k</strong> (<em>int</em><em>, </em><em>optional</em>) – Diagonal in question. The default is 0. Use <cite>k&gt;0</cite> for diagonals
+above the main diagonal, and <cite>k&lt;0</cite> for diagonals below the main
+diagonal.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – The extracted diagonal or constructed diagonal array.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">diagonal</span></code></dt><dd><p>Return specified diagonals.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">trace</span></code></dt><dd><p>Sum along diagonals.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">triu</span></code></dt><dd><p>Upper triangle of an array.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>offset != 0 is currently not supported.</p>
+<p>out is currently not supported.</p>
+<p>axis1 != 0 or axis2 != 1 is currently not supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0, 1, 2],</span>
+<span class="go">       [3, 4, 5],</span>
+<span class="go">       [6, 7, 8]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([0, 4, 8])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">nps</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0, 0, 0],</span>
+<span class="go">       [0, 4, 0],</span>
+<span class="go">       [0, 0, 8]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.empty">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">empty</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">shape</span></em>, <em class="sig-param"><span class="pre">dtype=&lt;class</span> <span class="pre">'float'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.empty" title="Permalink to this definition"></a></dt>
+<dd><p>Return a new array of given shape and type, without initializing entries.</p>
+<p>This docstring was copied from numpy.empty.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> (<em>int</em><em> or </em><em>tuple of int</em>) – Shape of the empty array, e.g., <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">3)</span></code> or <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – Desired output data-type for the array, e.g, <cite>int</cite>. Default is
+<cite>float</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of uninitialized (arbitrary) data of the given shape and dtype.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.creation.empty_like" title="nums.numpy.api.creation.empty_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_like</span></code></a></dt><dd><p>Return an empty array with shape and type of input.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.ones" title="nums.numpy.api.creation.ones"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ones</span></code></a></dt><dd><p>Return a new array setting values to one.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.zeros" title="nums.numpy.api.creation.zeros"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros</span></code></a></dt><dd><p>Return a new array setting values to zero.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">full</span></code></dt><dd><p>Return a new array of given shape filled with value.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p><cite>empty</cite>, unlike <cite>zeros</cite>, does not set the array values to zero,
+and may therefore be marginally faster.  On the other hand, it requires
+the user to manually set all the values in the array, and should be
+used with caution.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[ -9.74499359e+001,   6.69583040e-309],</span>
+<span class="go">       [  2.13182611e-314,   3.06959433e-309]])         #uninitialized</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[-1073741821, -1067949133],</span>
+<span class="go">       [  496041986,    19249760]])                     #uninitialized</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.empty_like">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">empty_like</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prototype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'K'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#empty_like"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.empty_like" title="Permalink to this definition"></a></dt>
+<dd><p>Return a new array with the same shape and type as a given array.</p>
+<p>This docstring was copied from numpy.empty_like.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prototype</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – The shape and data-type of <cite>prototype</cite> define these same attributes
+of the returned array.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – Overrides the data type of the result.</p></li>
+<li><p><strong>order</strong> (<em>{'C'</em><em>, </em><em>'F'</em><em>, </em><em>'A'</em><em>, or </em><em>'K'}</em><em>, </em><em>optional</em>) – Overrides the memory layout of the result. ‘C’ means C-order,
+‘F’ means F-order, ‘A’ means ‘F’ if <code class="docutils literal notranslate"><span class="pre">prototype</span></code> is Fortran
+contiguous, ‘C’ otherwise. ‘K’ means match the layout of <code class="docutils literal notranslate"><span class="pre">prototype</span></code>
+as closely as possible.</p></li>
+<li><p><strong>shape</strong> (<em>int</em><em> or </em><em>sequence of ints</em><em>, </em><em>optional.</em>) – Overrides the shape of the result. If order=’K’ and the number of
+dimensions is unchanged, will try to keep order, otherwise,
+order=’C’ is implied.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of uninitialized (arbitrary) data with the same
+shape and type as <cite>prototype</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.creation.ones_like" title="nums.numpy.api.creation.ones_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ones_like</span></code></a></dt><dd><p>Return an array of ones with shape and type of input.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.zeros_like" title="nums.numpy.api.creation.zeros_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros_like</span></code></a></dt><dd><p>Return an array of zeros with shape and type of input.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">full_like</span></code></dt><dd><p>Return a new array with shape of input filled with value.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.empty" title="nums.numpy.api.creation.empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty</span></code></a></dt><dd><p>Return a new uninitialized array.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>This function does <em>not</em> initialize the returned array; to do that use
+<cite>zeros_like</cite> or <cite>ones_like</cite> instead.  It may be marginally faster than
+the functions that do set the array values.</p>
+<p>Only order=’K’ is supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>                         <span class="c1"># a is array-like  </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[-1073741821, -1073741821,           3],    # uninitialized</span>
+<span class="go">       [          0,           0, -1073741821]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">],[</span><span class="mf">4.</span><span class="p">,</span><span class="mf">5.</span><span class="p">,</span><span class="mf">6.</span><span class="p">]])</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[ -2.00000715e+000,   1.48219694e-323,  -2.00000572e+000], # uninitialized</span>
+<span class="go">       [  4.38791518e-305,  -2.00000715e+000,   4.17269252e-309]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.eye">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">eye</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">N</span></em>, <em class="sig-param"><span class="pre">M=None</span></em>, <em class="sig-param"><span class="pre">k=0</span></em>, <em class="sig-param"><span class="pre">dtype=&lt;class</span> <span class="pre">'float'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#eye"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.eye" title="Permalink to this definition"></a></dt>
+<dd><p>Return a 2-D array with ones on the diagonal and zeros elsewhere.</p>
+<p>This docstring was copied from numpy.eye.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) – Number of rows in the output.</p></li>
+<li><p><strong>M</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of columns in the output. If None, defaults to <cite>N</cite>.</p></li>
+<li><p><strong>k</strong> (<em>int</em><em>, </em><em>optional</em>) – Index of the diagonal: 0 (the default) refers to the main diagonal,
+a positive value refers to an upper diagonal, and a negative value
+to a lower diagonal.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – Data-type of the returned array.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>I</strong> – An array where all elements are equal to zero, except for the <cite>k</cite>-th
+diagonal, whose values are equal to one.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>BlockArray of shape (N,M)</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.creation.identity" title="nums.numpy.api.creation.identity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">identity</span></code></a></dt><dd><p>(almost) equivalent function</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.diag" title="nums.numpy.api.creation.diag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diag</span></code></a></dt><dd><p>diagonal 2-D array from a 1-D array specified by the user.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Only k==0 is currently supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1, 0],</span>
+<span class="go">       [0, 1]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0.,  1.,  0.],</span>
+<span class="go">       [0.,  0.,  1.],</span>
+<span class="go">       [0.,  0.,  0.]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.identity">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">identity</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">n</span></em>, <em class="sig-param"><span class="pre">dtype=&lt;class</span> <span class="pre">'float'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#identity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.identity" title="Permalink to this definition"></a></dt>
+<dd><p>Return the identity array.</p>
+<p>This docstring was copied from numpy.identity.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>The identity array is a square array with ones on
+the main diagonal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>int</em>) – Number of rows (and columns) in <cite>n</cite> x <cite>n</cite> output.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – Data-type of the output.  Defaults to <code class="docutils literal notranslate"><span class="pre">float</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – <cite>n</cite> x <cite>n</cite> array with its main diagonal set to one,
+and all other elements 0.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1.,  0.,  0.],</span>
+<span class="go">       [0.,  1.,  0.],</span>
+<span class="go">       [0.,  0.,  1.]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.linspace">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">linspace</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retstep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#linspace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.linspace" title="Permalink to this definition"></a></dt>
+<dd><p>Return evenly spaced numbers over a specified interval.</p>
+<p>This docstring was copied from numpy.linspace.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Returns <cite>num</cite> evenly spaced samples, calculated over the
+interval [<cite>start</cite>, <cite>stop</cite>].</p>
+<p>The endpoint of the interval can optionally be excluded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – The starting value of the sequence.</p></li>
+<li><p><strong>stop</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – The end value of the sequence, unless <cite>endpoint</cite> is set to False.
+In that case, the sequence consists of all but the last of <code class="docutils literal notranslate"><span class="pre">num</span> <span class="pre">+</span> <span class="pre">1</span></code>
+evenly spaced samples, so that <cite>stop</cite> is excluded.  Note that the step
+size changes when <cite>endpoint</cite> is False.</p></li>
+<li><p><strong>num</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of samples to generate. Default is 50. Must be non-negative.</p></li>
+<li><p><strong>endpoint</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, <cite>stop</cite> is the last sample. Otherwise, it is not included.
+Default is True.</p></li>
+<li><p><strong>retstep</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, return (<cite>samples</cite>, <cite>step</cite>), where <cite>step</cite> is the spacing
+between samples.</p></li>
+<li><p><strong>dtype</strong> (<em>dtype</em><em>, </em><em>optional</em>) – The type of the output array.  If <cite>dtype</cite> is not given, infer the data
+type from the other input arguments.</p></li>
+<li><p><strong>axis</strong> (<em>int</em><em>, </em><em>optional</em>) – The axis in the result to store the samples.  Relevant only if start
+or stop are array-like.  By default (0), the samples will be along a
+new axis inserted at the beginning. Use -1 to get an axis at the end.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul>
+<li><p><strong>samples</strong> (<em>BlockArray</em>) – There are <cite>num</cite> equally spaced samples in the closed interval
+<code class="docutils literal notranslate"><span class="pre">[start,</span> <span class="pre">stop]</span></code> or the half-open interval <code class="docutils literal notranslate"><span class="pre">[start,</span> <span class="pre">stop)</span></code>
+(depending on whether <cite>endpoint</cite> is True or False).</p></li>
+<li><p><strong>step</strong> (<em>float, optional</em>) – Only returned if <cite>retstep</cite> is True</p>
+<p>Size of spacing between samples.</p>
+</li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.creation.arange" title="nums.numpy.api.creation.arange"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arange</span></code></a></dt><dd><p>Similar to <cite>linspace</cite>, but uses a step size (instead of the number of samples).</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">geomspace</span></code></dt><dd><p>Similar to <cite>linspace</cite>, but with numbers spaced evenly on a log scale (a geometric progression).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.logspace" title="nums.numpy.api.creation.logspace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logspace</span></code></a></dt><dd><p>Similar to <cite>geomspace</cite>, but with the end points specified as logarithms.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([2.  , 2.25, 2.5 , 2.75, 3.  ])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.loadtxt">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">loadtxt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fname</span></em>, <em class="sig-param"><span class="pre">dtype=&lt;class</span> <span class="pre">'float'&gt;</span></em>, <em class="sig-param"><span class="pre">comments='#</span> <span class="pre">'</span></em>, <em class="sig-param"><span class="pre">delimiter='</span> <span class="pre">'</span></em>, <em class="sig-param"><span class="pre">converters=None</span></em>, <em class="sig-param"><span class="pre">skiprows=0</span></em>, <em class="sig-param"><span class="pre">usecols=None</span></em>, <em class="sig-param"><span class="pre">unpack=False</span></em>, <em class="sig-param"><span class="pre">ndmin=0</span></em>, <em class="sig-param"><span class="pre">encoding='bytes'</span></em>, <em class="sig-param"><span class="pre">max_rows=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#loadtxt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.loadtxt" title="Permalink to this definition"></a></dt>
+<dd><p>Load data from a text file.</p>
+<p>This docstring was copied from numpy.loadtxt.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Each row in the text file must have the same number of values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fname</strong> (<em>file</em><em>, </em><em>str</em><em>, or </em><em>pathlib.Path</em>) – File, filename, or generator to read.  If the filename extension is
+<code class="docutils literal notranslate"><span class="pre">.gz</span></code> or <code class="docutils literal notranslate"><span class="pre">.bz2</span></code>, the file is first decompressed. Note that
+generators should return byte strings.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – Data-type of the resulting array; default: float.  If this is a
+structured data-type, the resulting array will be 1-dimensional, and
+each row will be interpreted as an element of the array.  In this
+case, the number of columns used must match the number of fields in
+the data-type.</p></li>
+<li><p><strong>comments</strong> (<em>str</em><em> or </em><em>sequence of str</em><em>, </em><em>optional</em>) – The characters or list of characters used to indicate the start of a
+comment. None implies no comments. For backwards compatibility, byte
+strings will be decoded as ‘latin1’. The default is ‘#’.</p></li>
+<li><p><strong>delimiter</strong> (<em>str</em><em>, </em><em>optional</em>) – The string used to separate values. For backwards compatibility, byte
+strings will be decoded as ‘latin1’. The default is whitespace.</p></li>
+<li><p><strong>converters</strong> (<em>dict</em><em>, </em><em>optional</em>) – A dictionary mapping column number to a function that will parse the
+column string into the desired value.  E.g., if column 0 is a date
+string: <code class="docutils literal notranslate"><span class="pre">converters</span> <span class="pre">=</span> <span class="pre">{0:</span> <span class="pre">datestr2num}</span></code>.  Converters can also be
+used to provide a default value for missing data (but see also
+<cite>genfromtxt</cite>): <code class="docutils literal notranslate"><span class="pre">converters</span> <span class="pre">=</span> <span class="pre">{3:</span> <span class="pre">lambda</span> <span class="pre">s:</span> <span class="pre">float(s.strip()</span> <span class="pre">or</span> <span class="pre">0)}</span></code>.
+Default: None.</p></li>
+<li><p><strong>skiprows</strong> (<em>int</em><em>, </em><em>optional</em>) – Skip the first <cite>skiprows</cite> lines, including comments; default: 0.</p></li>
+<li><p><strong>usecols</strong> (<em>int</em><em> or </em><em>sequence</em><em>, </em><em>optional</em>) – <p>Which columns to read, with 0 being the first. For example,
+<code class="docutils literal notranslate"><span class="pre">usecols</span> <span class="pre">=</span> <span class="pre">(1,4,5)</span></code> will extract the 2nd, 5th and 6th columns.
+The default, None, results in all columns being read.</p>
+<blockquote>
+<div><p>When a single column has to be read it is possible to use
+an integer instead of a tuple. E.g <code class="docutils literal notranslate"><span class="pre">usecols</span> <span class="pre">=</span> <span class="pre">3</span></code> reads the
+fourth column the same way as <code class="docutils literal notranslate"><span class="pre">usecols</span> <span class="pre">=</span> <span class="pre">(3,)</span></code> would.</p>
+</div></blockquote>
+</p></li>
+<li><p><strong>unpack</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the returned array is transposed, so that arguments may be
+unpacked using <code class="docutils literal notranslate"><span class="pre">x,</span> <span class="pre">y,</span> <span class="pre">z</span> <span class="pre">=</span> <span class="pre">loadtxt(...)</span></code>.  When used with a structured
+data-type, arrays are returned for each field.  Default is False.</p></li>
+<li><p><strong>ndmin</strong> (<em>int</em><em>, </em><em>optional</em>) – The returned array will have at least <cite>ndmin</cite> dimensions.
+Otherwise mono-dimensional axes will be squeezed.
+Legal values: 0 (default), 1 or 2.</p></li>
+<li><p><strong>encoding</strong> (<em>str</em><em>, </em><em>optional</em>) – Encoding used to decode the inputfile. Does not apply to input streams.
+The special value ‘bytes’ enables backward compatibility workarounds
+that ensures you receive byte arrays as results if possible and passes
+‘latin1’ encoded strings to converters. Override this value to receive
+unicode arrays and pass strings as input to converters.  If set to None
+the system default is used. The default value is ‘bytes’.</p></li>
+<li><p><strong>max_rows</strong> (<em>int</em><em>, </em><em>optional</em>) – Read <cite>max_rows</cite> lines of content after <cite>skiprows</cite> lines. The default
+is to read all the lines.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Data read from the text file.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function aims to be a fast reader for simply formatted files.  The
+<cite>genfromtxt</cite> function provides more sophisticated handling of, e.g.,
+lines with missing values.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="s2">&quot;0 1</span><span class="se">\n</span><span class="s2">2 3&quot;</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0., 1.],</span>
+<span class="go">       [2., 3.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="s2">&quot;1,0,2</span><span class="se">\n</span><span class="s2">3,0,4&quot;</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">usecols</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([1., 3.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([2., 4.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.logspace">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">logspace</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#logspace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.logspace" title="Permalink to this definition"></a></dt>
+<dd><p>Return numbers spaced evenly on a log scale.</p>
+<p>This docstring was copied from numpy.logspace.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>In linear space, the sequence starts at <code class="docutils literal notranslate"><span class="pre">base</span> <span class="pre">**</span> <span class="pre">start</span></code>
+(<cite>base</cite> to the power of <cite>start</cite>) and ends with <code class="docutils literal notranslate"><span class="pre">base</span> <span class="pre">**</span> <span class="pre">stop</span></code>
+(see <cite>endpoint</cite> below).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – <code class="docutils literal notranslate"><span class="pre">base</span> <span class="pre">**</span> <span class="pre">start</span></code> is the starting value of the sequence.</p></li>
+<li><p><strong>stop</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – <code class="docutils literal notranslate"><span class="pre">base</span> <span class="pre">**</span> <span class="pre">stop</span></code> is the final value of the sequence, unless <cite>endpoint</cite>
+is False.  In that case, <code class="docutils literal notranslate"><span class="pre">num</span> <span class="pre">+</span> <span class="pre">1</span></code> values are spaced over the
+interval in log-space, of which all but the last (a sequence of
+length <cite>num</cite>) are returned.</p></li>
+<li><p><strong>num</strong> (<em>integer</em><em>, </em><em>optional</em>) – Number of samples to generate.  Default is 50.</p></li>
+<li><p><strong>endpoint</strong> (<em>boolean</em><em>, </em><em>optional</em>) – If true, <cite>stop</cite> is the last sample. Otherwise, it is not included.
+Default is True.</p></li>
+<li><p><strong>base</strong> (<em>float</em><em>, </em><em>optional</em>) – The base of the log space. The step size between the elements in
+<code class="docutils literal notranslate"><span class="pre">ln(samples)</span> <span class="pre">/</span> <span class="pre">ln(base)</span></code> (or <code class="docutils literal notranslate"><span class="pre">log_base(samples)</span></code>) is uniform.
+Default is 10.0.</p></li>
+<li><p><strong>dtype</strong> (<em>dtype</em>) – The type of the output array.  If <cite>dtype</cite> is not given, infer the data
+type from the other input arguments.</p></li>
+<li><p><strong>axis</strong> (<em>int</em><em>, </em><em>optional</em>) – <p>The axis in the result to store the samples.  Relevant only if start
+or stop are array-like.  By default (0), the samples will be along a
+new axis inserted at the beginning. Use -1 to get an axis at the end.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.16.0.</span></p>
+</div>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>samples</strong> – <cite>num</cite> samples, equally spaced on a log scale.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.creation.arange" title="nums.numpy.api.creation.arange"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arange</span></code></a></dt><dd><p>Similar to linspace, with the step size specified instead of the number of samples. Note that, when used with a float endpoint, the endpoint may or may not be included.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.linspace" title="nums.numpy.api.creation.linspace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">linspace</span></code></a></dt><dd><p>Similar to logspace, but with the samples uniformly distributed in linear space, instead of log space.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Logspace is equivalent to the code</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">num</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">)</span>  
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">power</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span><span class="p">)</span>  
+<span class="gp">... </span>
+</pre></div>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([ 100.        ,  215.443469  ,  464.15888336, 1000.        ])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([4.        ,  5.0396842 ,  6.34960421,  8.        ])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.ones">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">ones</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">shape</span></em>, <em class="sig-param"><span class="pre">dtype=&lt;class</span> <span class="pre">'float'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#ones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.ones" title="Permalink to this definition"></a></dt>
+<dd><p>Return a new array of given shape and type, filled with ones.</p>
+<p>This docstring was copied from numpy.ones.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> (<em>int</em><em> or </em><em>sequence of ints</em>) – Shape of the new array, e.g., <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">3)</span></code> or <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – The desired data-type for the array, e.g., <cite>int</cite>.  Default is
+<cite>float</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of ones with the given shape and dtype.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.creation.ones_like" title="nums.numpy.api.creation.ones_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ones_like</span></code></a></dt><dd><p>Return an array of ones with shape and type of input.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.empty" title="nums.numpy.api.creation.empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty</span></code></a></dt><dd><p>Return a new uninitialized array.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.zeros" title="nums.numpy.api.creation.zeros"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros</span></code></a></dt><dd><p>Return a new array setting values to zero.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">full</span></code></dt><dd><p>Return a new array of given shape filled with value.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([1., 1., 1., 1., 1.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">5</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([1, 1, 1, 1, 1])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1.],</span>
+<span class="go">       [1.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1.,  1.],</span>
+<span class="go">       [1.,  1.]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.ones_like">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">ones_like</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prototype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'K'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#ones_like"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.ones_like" title="Permalink to this definition"></a></dt>
+<dd><p>Return an array of ones with the same shape and type as a given array.</p>
+<p>This docstring was copied from numpy.ones_like.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prototype</strong> (<em>array_like</em>) – The shape and data-type of <cite>a</cite> define these same attributes of
+the returned array.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – Overrides the data type of the result.</p></li>
+<li><p><strong>order</strong> (<em>{'C'</em><em>, </em><em>'F'</em><em>, </em><em>'A'</em><em>, or </em><em>'K'}</em><em>, </em><em>optional</em>) – Overrides the memory layout of the result. ‘C’ means C-order,
+‘F’ means F-order, ‘A’ means ‘F’ if <cite>a</cite> is Fortran contiguous,
+‘C’ otherwise. ‘K’ means match the layout of <cite>a</cite> as closely
+as possible.</p></li>
+<li><p><strong>shape</strong> (<em>int</em><em> or </em><em>sequence of ints</em><em>, </em><em>optional.</em>) – Overrides the shape of the result. If order=’K’ and the number of
+dimensions is unchanged, will try to keep order, otherwise,
+order=’C’ is implied.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of ones with the same shape and type as <cite>a</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.creation.empty_like" title="nums.numpy.api.creation.empty_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_like</span></code></a></dt><dd><p>Return an empty array with shape and type of input.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.zeros_like" title="nums.numpy.api.creation.zeros_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros_like</span></code></a></dt><dd><p>Return an array of zeros with shape and type of input.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">full_like</span></code></dt><dd><p>Return a new array with shape of input filled with value.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.ones" title="nums.numpy.api.creation.ones"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ones</span></code></a></dt><dd><p>Return a new array setting values to one.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Only order=’K’ is supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0, 1, 2],</span>
+<span class="go">       [3, 4, 5]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1, 1, 1],</span>
+<span class="go">       [1, 1, 1]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([0., 1., 2.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([1.,  1.,  1.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.zeros">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">zeros</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">shape</span></em>, <em class="sig-param"><span class="pre">dtype=&lt;class</span> <span class="pre">'float'&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#zeros"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.zeros" title="Permalink to this definition"></a></dt>
+<dd><p>Return a new array of given shape and type, without initializing entries.</p>
+<p>This docstring was copied from numpy.zeros.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Return a new array of given shape and type, filled with zeros.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> (<em>int</em><em> or </em><em>tuple of ints</em>) – Shape of the new array, e.g., <code class="docutils literal notranslate"><span class="pre">(2,</span> <span class="pre">3)</span></code> or <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – The desired data-type for the array, e.g., <cite>int</cite>.  Default is
+<cite>float</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of zeros with the given shape and dtype.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.creation.zeros_like" title="nums.numpy.api.creation.zeros_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros_like</span></code></a></dt><dd><p>Return an array of zeros with shape and type of input.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.empty" title="nums.numpy.api.creation.empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty</span></code></a></dt><dd><p>Return a new uninitialized array.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.ones" title="nums.numpy.api.creation.ones"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ones</span></code></a></dt><dd><p>Return a new array setting values to one.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">full</span></code></dt><dd><p>Return a new array of given shape filled with value.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([ 0.,  0.,  0.,  0.,  0.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([0, 0, 0, 0, 0])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[ 0.],</span>
+<span class="go">       [ 0.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[ 0.,  0.],</span>
+<span class="go">       [ 0.,  0.]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.creation.zeros_like">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.creation.</span></code><code class="sig-name descname"><span class="pre">zeros_like</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prototype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'K'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/creation.html#zeros_like"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.creation.zeros_like" title="Permalink to this definition"></a></dt>
+<dd><p>Return an array of zeros with the same shape and type as a given array.</p>
+<p>This docstring was copied from numpy.zeros_like.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prototype</strong> (<em>array_like</em>) – The shape and data-type of <cite>prototype</cite> define these same attributes of
+the returned array.</p></li>
+<li><p><strong>dtype</strong> (<em>data-type</em><em>, </em><em>optional</em>) – Overrides the data type of the result.</p></li>
+<li><p><strong>order</strong> (<em>{'C'</em><em>, </em><em>'F'</em><em>, </em><em>'A'</em><em>, or </em><em>'K'}</em><em>, </em><em>optional</em>) – Overrides the memory layout of the result. ‘C’ means C-order,
+‘F’ means F-order, ‘A’ means ‘F’ if <cite>a</cite> is Fortran contiguous,
+‘C’ otherwise. ‘K’ means match the layout of <cite>a</cite> as closely
+as possible.</p></li>
+<li><p><strong>shape</strong> (<em>int</em><em> or </em><em>sequence of ints</em><em>, </em><em>optional.</em>) – Overrides the shape of the result. If order=’K’ and the number of
+dimensions is unchanged, will try to keep order, otherwise,
+order=’C’ is implied.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>out</strong> – Array of zeros with the same shape and type as <cite>prototype</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.creation.empty_like" title="nums.numpy.api.creation.empty_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">empty_like</span></code></a></dt><dd><p>Return an empty array with shape and type of input.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.ones_like" title="nums.numpy.api.creation.ones_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ones_like</span></code></a></dt><dd><p>Return an array of ones with shape and type of input.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">full_like</span></code></dt><dd><p>Return a new array with shape of input filled with value.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.creation.zeros" title="nums.numpy.api.creation.zeros"><code class="xref py py-obj docutils literal notranslate"><span class="pre">zeros</span></code></a></dt><dd><p>Return a new array setting values to zero.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Only order=’K’ is supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0, 1, 2],</span>
+<span class="go">       [3, 4, 5]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0, 0, 0],</span>
+<span class="go">       [0, 0, 0]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([0., 1., 2.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([0.,  0.,  0.])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

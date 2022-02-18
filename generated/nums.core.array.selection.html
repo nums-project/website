@@ -1,0 +1,694 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.core.array.selection module &#8212; NumS  documentation</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="nums.core.array.html">
+   nums.core.array package
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.application.html">
+     nums.core.array.application module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.base.html">
+     nums.core.array.base module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.blockarray.html">
+     nums.core.array.blockarray module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.errors.html">
+     nums.core.array.errors module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.random.html">
+     nums.core.array.random module
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     nums.core.array.selection module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.utils.html">
+     nums.core.array.utils module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.view.html">
+     nums.core.array.view module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.cmds.html">
+   nums.core.cmds package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.cmds.api_coverage.html">
+     nums.core.cmds.api_coverage module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.compute.html">
+   nums.core.compute package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.compute.compute_interface.html">
+     nums.core.compute.compute_interface module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.compute.compute_manager.html">
+     nums.core.compute.compute_manager module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.compute.numpy_compute.html">
+     nums.core.compute.numpy_compute module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.grid.html">
+   nums.core.grid package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.grid.grid.html">
+     nums.core.grid.grid module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.storage.html">
+   nums.core.storage package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.storage.storage.html">
+     nums.core.storage.storage module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.storage.utils.html">
+     nums.core.storage.utils module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.systems.html">
+   nums.core.systems package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.systems.filesystem.html">
+     nums.core.systems.filesystem module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.systems.system_interface.html">
+     nums.core.systems.system_interface module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.systems.systems.html">
+     nums.core.systems.systems module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.systems.utils.html">
+     nums.core.systems.utils module
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.application_manager.html">
+   nums.core.application_manager module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.linalg.html">
+   nums.core.linalg module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.settings.html">
+   nums.core.settings module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.utils.html">
+   nums.core.utils module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.version.html">
+   nums.core.version module
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-nums.core.array.selection">
+<span id="nums-core-array-selection-module"></span><h1>nums.core.array.selection module<a class="headerlink" href="#module-nums.core.array.selection" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt id="nums.core.array.selection.AdvancedSelection">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">AdvancedSelection</span></code><a class="reference internal" href="../_modules/nums/core/array/selection.html#AdvancedSelection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AdvancedSelection" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.core.array.selection.AxisArray">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">AxisArray</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array_like</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisArray" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.core.array.selection.AxisSelection" title="nums.core.array.selection.AxisSelection"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.core.array.selection.AxisSelection</span></code></a></p>
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisArray.is_empty">
+<code class="sig-name descname"><span class="pre">is_empty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisArray.is_empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisArray.is_empty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisArray.order">
+<code class="sig-name descname"><span class="pre">order</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisArray.order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisArray.order" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisArray.selector">
+<code class="sig-name descname"><span class="pre">selector</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisArray.selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisArray.selector" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisArray.shape">
+<code class="sig-name descname"><span class="pre">shape</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisArray.shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisArray.shape" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.core.array.selection.AxisEmpty">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">AxisEmpty</span></code><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisEmpty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisEmpty" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.core.array.selection.AxisSelection" title="nums.core.array.selection.AxisSelection"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.core.array.selection.AxisSelection</span></code></a></p>
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisEmpty.is_empty">
+<code class="sig-name descname"><span class="pre">is_empty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisEmpty.is_empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisEmpty.is_empty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisEmpty.order">
+<code class="sig-name descname"><span class="pre">order</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisEmpty.order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisEmpty.order" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisEmpty.selector">
+<code class="sig-name descname"><span class="pre">selector</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisEmpty.selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisEmpty.selector" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisEmpty.shape">
+<code class="sig-name descname"><span class="pre">shape</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisEmpty.shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisEmpty.shape" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.core.array.selection.AxisIndex">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">AxisIndex</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisIndex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisIndex" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.core.array.selection.AxisSelection" title="nums.core.array.selection.AxisSelection"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.core.array.selection.AxisSelection</span></code></a></p>
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisIndex.from_index">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_index</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisIndex.from_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisIndex.from_index" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisIndex.is_empty">
+<code class="sig-name descname"><span class="pre">is_empty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisIndex.is_empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisIndex.is_empty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisIndex.order">
+<code class="sig-name descname"><span class="pre">order</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisIndex.order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisIndex.order" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisIndex.selector">
+<code class="sig-name descname"><span class="pre">selector</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisIndex.selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisIndex.selector" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisIndex.shape">
+<code class="sig-name descname"><span class="pre">shape</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisIndex.shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisIndex.shape" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisIndex.to_index">
+<code class="sig-name descname"><span class="pre">to_index</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisIndex.to_index"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisIndex.to_index" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.core.array.selection.AxisSelection">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">AxisSelection</span></code><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisSelection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisSelection" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisSelection.is_empty">
+<code class="sig-name descname"><span class="pre">is_empty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisSelection.is_empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisSelection.is_empty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisSelection.order">
+<code class="sig-name descname"><span class="pre">order</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisSelection.order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisSelection.order" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisSelection.selector">
+<code class="sig-name descname"><span class="pre">selector</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisSelection.selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisSelection.selector" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisSelection.shape">
+<code class="sig-name descname"><span class="pre">shape</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisSelection.shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisSelection.shape" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.core.array.selection.AxisSlice">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">AxisSlice</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisSlice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisSlice" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.core.array.selection.AxisSelection" title="nums.core.array.selection.AxisSelection"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.core.array.selection.AxisSelection</span></code></a></p>
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisSlice.from_size">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_size</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisSlice.from_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisSlice.from_size" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisSlice.is_empty">
+<code class="sig-name descname"><span class="pre">is_empty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisSlice.is_empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisSlice.is_empty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisSlice.order">
+<code class="sig-name descname"><span class="pre">order</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisSlice.order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisSlice.order" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisSlice.selector">
+<code class="sig-name descname"><span class="pre">selector</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisSlice.selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisSlice.selector" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisSlice.shape">
+<code class="sig-name descname"><span class="pre">shape</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisSlice.shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisSlice.shape" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.AxisSlice.to_slice">
+<code class="sig-name descname"><span class="pre">to_slice</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#AxisSlice.to_slice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.AxisSlice.to_slice" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.core.array.selection.BasicSelection">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">BasicSelection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="nums.core.array.selection.BasicSelection.basic_steps">
+<code class="sig-name descname"><span class="pre">basic_steps</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection.basic_steps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection.basic_steps" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.BasicSelection.block_selection">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">block_selection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection.block_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection.block_selection" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.BasicSelection.from_shape">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_shape</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection.from_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection.from_shape" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.BasicSelection.from_subscript">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_subscript</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subscript</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection.from_subscript"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection.from_subscript" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.BasicSelection.get_broadcastable_block_shape">
+<code class="sig-name descname"><span class="pre">get_broadcastable_block_shape</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">partial_block_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection.get_broadcastable_block_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection.get_broadcastable_block_shape" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.BasicSelection.get_broadcastable_shape">
+<code class="sig-name descname"><span class="pre">get_broadcastable_shape</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection.get_broadcastable_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection.get_broadcastable_shape" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.BasicSelection.get_output_shape">
+<code class="sig-name descname"><span class="pre">get_output_shape</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_indexes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection.get_output_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection.get_output_shape" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.BasicSelection.is_aligned">
+<code class="sig-name descname"><span class="pre">is_aligned</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">block_shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection.is_aligned"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection.is_aligned" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.BasicSelection.is_empty">
+<code class="sig-name descname"><span class="pre">is_empty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection.is_empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection.is_empty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.BasicSelection.order">
+<code class="sig-name descname"><span class="pre">order</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection.order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection.order" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.BasicSelection.position">
+<code class="sig-name descname"><span class="pre">position</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">compute_stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection.position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection.position" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.BasicSelection.selector">
+<code class="sig-name descname"><span class="pre">selector</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#BasicSelection.selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.BasicSelection.selector" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.core.array.selection.Position">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">Position</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#Position"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.Position" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="nums.core.array.selection.Position.bop">
+<code class="sig-name descname"><span class="pre">bop</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bop</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#Position.bop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.Position.bop" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.Position.from_dim">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_dim</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#Position.from_dim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.Position.from_dim" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.selection.Position.from_selection">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">from_selection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#Position.from_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.Position.from_selection" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.core.array.selection.get_array_order">
+<code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">get_array_order</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#get_array_order"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.get_array_order" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="nums.core.array.selection.is_advanced_selection">
+<code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">is_advanced_selection</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">subscript</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#is_advanced_selection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.is_advanced_selection" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="nums.core.array.selection.neg_step_slice_to_range">
+<code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">neg_step_slice_to_range</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_bound</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_bound</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#neg_step_slice_to_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.neg_step_slice_to_range" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="nums.core.array.selection.pos_step_slice_to_range">
+<code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">pos_step_slice_to_range</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_bound</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_bound</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#pos_step_slice_to_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.pos_step_slice_to_range" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="nums.core.array.selection.slice_to_range">
+<code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">slice_to_range</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#slice_to_range"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.slice_to_range" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="nums.core.array.selection.trim_slice_bounds">
+<code class="sig-prename descclassname"><span class="pre">nums.core.array.selection.</span></code><code class="sig-name descname"><span class="pre">trim_slice_bounds</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/selection.html#trim_slice_bounds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.selection.trim_slice_bounds" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

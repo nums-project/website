@@ -1,0 +1,907 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.core.array.application module &#8212; NumS  documentation</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="nums.core.array.html">
+   nums.core.array package
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     nums.core.array.application module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.base.html">
+     nums.core.array.base module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.blockarray.html">
+     nums.core.array.blockarray module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.errors.html">
+     nums.core.array.errors module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.random.html">
+     nums.core.array.random module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.selection.html">
+     nums.core.array.selection module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.utils.html">
+     nums.core.array.utils module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.array.view.html">
+     nums.core.array.view module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.cmds.html">
+   nums.core.cmds package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.cmds.api_coverage.html">
+     nums.core.cmds.api_coverage module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.compute.html">
+   nums.core.compute package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.compute.compute_interface.html">
+     nums.core.compute.compute_interface module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.compute.compute_manager.html">
+     nums.core.compute.compute_manager module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.compute.numpy_compute.html">
+     nums.core.compute.numpy_compute module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.grid.html">
+   nums.core.grid package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.grid.grid.html">
+     nums.core.grid.grid module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.storage.html">
+   nums.core.storage package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+  <label for="toctree-checkbox-5">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.storage.storage.html">
+     nums.core.storage.storage module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.storage.utils.html">
+     nums.core.storage.utils module
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="nums.core.systems.html">
+   nums.core.systems package
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
+  <label for="toctree-checkbox-6">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.systems.filesystem.html">
+     nums.core.systems.filesystem module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.systems.system_interface.html">
+     nums.core.systems.system_interface module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.systems.systems.html">
+     nums.core.systems.systems module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.systems.utils.html">
+     nums.core.systems.utils module
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.application_manager.html">
+   nums.core.application_manager module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.linalg.html">
+   nums.core.linalg module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.settings.html">
+   nums.core.settings module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.utils.html">
+   nums.core.utils module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.core.version.html">
+   nums.core.version module
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-nums.core.array.application">
+<span id="nums-core-array-application-module"></span><h1>nums.core.array.application module<a class="headerlink" href="#module-nums.core.array.application" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt id="nums.core.array.application.ArrayApplication">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.core.array.application.</span></code><code class="sig-name descname"><span class="pre">ArrayApplication</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.abs">
+<code class="sig-name descname"><span class="pre">abs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.abs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.abs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.allclose">
+<code class="sig-name descname"><span class="pre">allclose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.allclose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.allclose" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.arange">
+<code class="sig-name descname"><span class="pre">arange</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_in</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.arange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.arange" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.argop">
+<code class="sig-name descname"><span class="pre">argop</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.argop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.argop" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.array">
+<code class="sig-name descname"><span class="pre">array</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.array" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.array_compare">
+<code class="sig-name descname"><span class="pre">array_compare</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.array_compare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.array_compare" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.array_equal">
+<code class="sig-name descname"><span class="pre">array_equal</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.array_equal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.array_equal" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.array_equiv">
+<code class="sig-name descname"><span class="pre">array_equiv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.array_equiv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.array_equiv" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.atleast_1d">
+<code class="sig-name descname"><span class="pre">atleast_1d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.atleast_1d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.atleast_1d" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.atleast_2d">
+<code class="sig-name descname"><span class="pre">atleast_2d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.atleast_2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.atleast_2d" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.atleast_3d">
+<code class="sig-name descname"><span class="pre">atleast_3d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.atleast_3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.atleast_3d" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.column_stack">
+<code class="sig-name descname"><span class="pre">column_stack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_block_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.column_stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.column_stack" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.compute_block_shape">
+<code class="sig-name descname"><span class="pre">compute_block_shape</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.compute_block_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.compute_block_shape" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.concatenate">
+<code class="sig-name descname"><span class="pre">concatenate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arrays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_block_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.concatenate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.concatenate" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.cov">
+<code class="sig-name descname"><span class="pre">cov</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rowvar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.cov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.cov" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.delete_fs">
+<code class="sig-name descname"><span class="pre">delete_fs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.delete_fs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.delete_fs" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.delete_s3">
+<code class="sig-name descname"><span class="pre">delete_s3</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.delete_s3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.delete_s3" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.diag">
+<code class="sig-name descname"><span class="pre">diag</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.diag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.diag" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.dstack">
+<code class="sig-name descname"><span class="pre">dstack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_block_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.dstack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.dstack" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.empty">
+<code class="sig-name descname"><span class="pre">empty</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.empty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.empty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.exp">
+<code class="sig-name descname"><span class="pre">exp</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.exp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.exp" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.eye">
+<code class="sig-name descname"><span class="pre">eye</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.eye"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.eye" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.get">
+<code class="sig-name descname"><span class="pre">get</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arrs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.get" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.get_block_shape">
+<code class="sig-name descname"><span class="pre">get_block_shape</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.get_block_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.get_block_shape" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.hstack">
+<code class="sig-name descname"><span class="pre">hstack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_block_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.hstack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.hstack" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.isnan">
+<code class="sig-name descname"><span class="pre">isnan</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.isnan"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.isnan" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.linspace">
+<code class="sig-name descname"><span class="pre">linspace</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">retstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.linspace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.linspace" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.loadtxt">
+<code class="sig-name descname"><span class="pre">loadtxt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">fname</span></em>, <em class="sig-param"><span class="pre">dtype=&lt;class</span> <span class="pre">'float'&gt;</span></em>, <em class="sig-param"><span class="pre">comments='#</span> <span class="pre">'</span></em>, <em class="sig-param"><span class="pre">delimiter='</span> <span class="pre">'</span></em>, <em class="sig-param"><span class="pre">converters=None</span></em>, <em class="sig-param"><span class="pre">skiprows=0</span></em>, <em class="sig-param"><span class="pre">usecols=None</span></em>, <em class="sig-param"><span class="pre">unpack=False</span></em>, <em class="sig-param"><span class="pre">ndmin=0</span></em>, <em class="sig-param"><span class="pre">encoding='bytes'</span></em>, <em class="sig-param"><span class="pre">max_rows=None</span></em>, <em class="sig-param"><span class="pre">num_workers=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.loadtxt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.loadtxt" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.log">
+<code class="sig-name descname"><span class="pre">log</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.log" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.map_bop">
+<code class="sig-name descname"><span class="pre">map_bop</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arr_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arr_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.map_bop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.map_bop" title="Permalink to this definition"></a></dt>
+<dd><p>A map for binary operators that applies element-wise to every entry of the input arrays.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>op_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – An element-wise binary operator.</p></li>
+<li><p><strong>arr_1</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a>) – A BlockArray.</p></li>
+<li><p><strong>arr_2</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a>) – A BlockArray.</p></li>
+<li><p><strong>out</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a>]) – A BlockArray to which the result is written.</p></li>
+<li><p><strong>where</strong> – An indicator specifying the indices to which op is applied.</p></li>
+<li><p><strong>args</strong> – Args provided to op.</p></li>
+<li><p><strong>kwargs</strong> – Keyword args provided to op.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A BlockArray.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.map_uop">
+<code class="sig-name descname"><span class="pre">map_uop</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">where</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.map_uop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.map_uop" title="Permalink to this definition"></a></dt>
+<dd><p>A map, for unary operators, that applies to every entry of an array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>op_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – An element-wise unary operator.</p></li>
+<li><p><strong>arr</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a>) – A BlockArray.</p></li>
+<li><p><strong>out</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a>]) – A BlockArray to which the result is written.</p></li>
+<li><p><strong>where</strong> – An indicator specifying the indices to which op is applied.</p></li>
+<li><p><strong>args</strong> – Args provided to op.</p></li>
+<li><p><strong>kwargs</strong> – Keyword args provided to op.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A BlockArray.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.matmul">
+<code class="sig-name descname"><span class="pre">matmul</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arr_2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.matmul"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.matmul" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.max">
+<code class="sig-name descname"><span class="pre">max</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.max"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.max" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.mean">
+<code class="sig-name descname"><span class="pre">mean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.mean" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.median">
+<code class="sig-name descname"><span class="pre">median</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.median" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the median of a BlockArray.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>a</strong> – A BlockArray.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The median value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.min">
+<code class="sig-name descname"><span class="pre">min</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.min"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.min" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.nanmean">
+<code class="sig-name descname"><span class="pre">nanmean</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.nanmean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.nanmean" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.nanstd">
+<code class="sig-name descname"><span class="pre">nanstd</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.nanstd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.nanstd" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.nanvar">
+<code class="sig-name descname"><span class="pre">nanvar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.nanvar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.nanvar" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.norm">
+<code class="sig-name descname"><span class="pre">norm</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.norm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.norm" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.ones">
+<code class="sig-name descname"><span class="pre">ones</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.ones"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.ones" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.percentile">
+<code class="sig-name descname"><span class="pre">percentile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tdigest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.percentile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.percentile" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the q-th percentile of the array elements.
+:type arr: <a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a>
+:param arr: BlockArray.
+:type q: <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>
+:param q: Percentile to compute, which must be between 0 and 100 inclusive.
+:type interpolation: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>
+:param interpolation: interpolation method to use when the desired percentile lies between two
+:param data points i &lt; j.:
+:param also see https: //numpy.org/doc/1.20/reference/generated/numpy.percentile.html.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns the q-th percentile of the array elements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.quantile">
+<code class="sig-name descname"><span class="pre">quantile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'linear'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'tdigest'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.quantile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.quantile" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the q-th quantile of the array elements.
+:type arr: <a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a>
+:param arr: BlockArray.
+:type q: <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>
+:param q: quantile to compute, which must be between 0 and 1 inclusive.
+:param interpolation: interpolation method to use when the desired quantile lies between two
+:param data points i &lt; j.:
+:param also see https: //numpy.org/doc/1.20/reference/generated/numpy.quantile.html.
+:param also see https: //docs.dask.org/en/latest/_modules/dask/array/percentile.html.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Returns the q-th quantile of the array elements.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.random_state">
+<code class="sig-name descname"><span class="pre">random_state</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.random_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.random_state" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.read_csv">
+<code class="sig-name descname"><span class="pre">read_csv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">filename</span></em>, <em class="sig-param"><span class="pre">dtype=&lt;class</span> <span class="pre">'float'&gt;</span></em>, <em class="sig-param"><span class="pre">delimiter='</span></em>, <em class="sig-param"><span class="pre">'</span></em>, <em class="sig-param"><span class="pre">has_header=False</span></em>, <em class="sig-param"><span class="pre">num_workers=None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.read_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.read_csv" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.read_fs">
+<code class="sig-name descname"><span class="pre">read_fs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.read_fs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.read_fs" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.read_s3">
+<code class="sig-name descname"><span class="pre">read_s3</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.read_s3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.read_s3" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.reduce">
+<code class="sig-name descname"><span class="pre">reduce</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.reduce"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.reduce" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.row_stack">
+<code class="sig-name descname"><span class="pre">row_stack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_block_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.row_stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.row_stack" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.scalar">
+<code class="sig-name descname"><span class="pre">scalar</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.scalar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.scalar" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.sqrt">
+<code class="sig-name descname"><span class="pre">sqrt</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.sqrt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.sqrt" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.std">
+<code class="sig-name descname"><span class="pre">std</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.std" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.sum">
+<code class="sig-name descname"><span class="pre">sum</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.sum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.sum" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.tensordot">
+<code class="sig-name descname"><span class="pre">tensordot</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arr_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.tensordot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.tensordot" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.top_k">
+<code class="sig-name descname"><span class="pre">top_k</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">largest</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.top_k"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.top_k" title="Permalink to this definition"></a></dt>
+<dd><p>Find the <cite>k</cite> largest or smallest elements of a BlockArray.</p>
+<p>If there are multiple kth elements that are equal in value, then no guarantees are made as
+to which ones are included in the top k.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arr</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a>) – A BlockArray.</p></li>
+<li><p><strong>k</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of top elements to return.</p></li>
+<li><p><strong>largest</strong> – Whether to return largest or smallest elements.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a>, <a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A tuple containing two BlockArrays, (<cite>values</cite>, <cite>indices</cite>).
+values: Values of the top k elements, unsorted.
+indices: Indices of the top k elements, ordered by their corresponding values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.var">
+<code class="sig-name descname"><span class="pre">var</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.var" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.vec_from_oids">
+<code class="sig-name descname"><span class="pre">vec_from_oids</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">oids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.vec_from_oids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.vec_from_oids" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.vstack">
+<code class="sig-name descname"><span class="pre">vstack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis_block_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.vstack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.vstack" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.where">
+<code class="sig-name descname"><span class="pre">where</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">condition</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.where"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.where" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.write_fs">
+<code class="sig-name descname"><span class="pre">write_fs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ba</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.write_fs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.write_fs" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.write_s3">
+<code class="sig-name descname"><span class="pre">write_s3</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ba</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.write_s3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.write_s3" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.xlogy">
+<code class="sig-name descname"><span class="pre">xlogy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.xlogy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.xlogy" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.core.array.application.ArrayApplication.zeros">
+<code class="sig-name descname"><span class="pre">zeros</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/array/application.html#ArrayApplication.zeros"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.array.application.ArrayApplication.zeros" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

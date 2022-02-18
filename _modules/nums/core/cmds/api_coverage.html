@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nums.core.cmds.api_coverage &mdash; NumS  documentation</title><link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> NumS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">nums.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../numpy.html">nums.numpy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">NumS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>nums.core.cmds.api_coverage</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nums.core.cmds.api_coverage</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="kn">from</span> <span class="nn">nums.core</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">nums.core.systems</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">systems_utils</span>
+
+
+<span class="c1"># pylint: disable = import-outside-toplevel</span>
+
+
+<div class="viewcode-block" id="execute"><a class="viewcode-back" href="../../../../generated/nums.core.cmds.api_coverage.html#nums.core.cmds.api_coverage.execute">[docs]</a><span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">print_missing</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">module_name</span> <span class="o">==</span> <span class="s2">&quot;api&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">api_coverage</span><span class="p">(</span><span class="n">print_missing</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">module_name</span> <span class="o">==</span> <span class="s2">&quot;random&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">random_coverage</span><span class="p">(</span><span class="n">print_missing</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">module_name</span> <span class="o">==</span> <span class="s2">&quot;linalg&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">linalg_coverage</span><span class="p">(</span><span class="n">print_missing</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">module_name</span> <span class="o">==</span> <span class="s2">&quot;fft&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">fft_coverage</span><span class="p">(</span><span class="n">print_missing</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown module </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">module_name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="module_coverage"><a class="viewcode-back" href="../../../../generated/nums.core.cmds.api_coverage.html#nums.core.cmds.api_coverage.module_coverage">[docs]</a><span class="k">def</span> <span class="nf">module_coverage</span><span class="p">(</span>
+    <span class="n">module_name</span><span class="p">,</span> <span class="n">print_missing</span><span class="p">,</span> <span class="n">numpy_module</span><span class="p">,</span> <span class="n">nums_module</span><span class="p">,</span> <span class="n">ignore</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">75</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">75</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">systems_utils</span><span class="o">.</span><span class="n">get_module_functions</span><span class="p">(</span><span class="n">nums_module</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;_not_implemented&quot;</span><span class="p">,</span> <span class="s2">&quot;_instance&quot;</span><span class="p">,</span> <span class="s2">&quot;_default_to_numpy&quot;</span><span class="p">,</span> <span class="s2">&quot;reset&quot;</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">numpy_module</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Implemented method that does not exist! </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+
+    <span class="n">ignore</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">ignore</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">ignore</span>
+    <span class="n">fallback</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">fallback</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">fallback</span>
+    <span class="n">coverage</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">fallback_coverage</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">missing</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">systems_utils</span><span class="o">.</span><span class="n">get_module_functions</span><span class="p">(</span><span class="n">numpy_module</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ignore</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">total</span> <span class="o">+=</span> <span class="mf">1.0</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">fallback</span><span class="p">:</span>
+            <span class="n">fallback_coverage</span> <span class="o">+=</span> <span class="mf">1.0</span>
+            <span class="k">continue</span>
+        <span class="n">print_tuple</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span> <span class="s2">&quot;Unavailable&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">doc_lines</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">descr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">doc_lines</span><span class="p">:</span>
+                <span class="n">descr</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">descr</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">break</span>
+            <span class="n">print_tuple</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span> <span class="n">descr</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">print_tuple</span> <span class="o">=</span> <span class="n">name</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">nums_module</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Missing </span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">print_tuple</span><span class="p">)</span>
+            <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">coverage</span> <span class="o">+=</span> <span class="mf">1.0</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">75</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">75</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scalable coverage&quot;</span><span class="p">,</span> <span class="n">coverage</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fallback coverage&quot;</span><span class="p">,</span> <span class="n">fallback_coverage</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;total coverage&quot;</span><span class="p">,</span> <span class="n">coverage</span> <span class="o">+</span> <span class="n">fallback_coverage</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;total functions&quot;</span><span class="p">,</span> <span class="n">total</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scalable percent covered&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">coverage</span> <span class="o">/</span> <span class="n">total</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;fallback percent covered&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fallback_coverage</span> <span class="o">/</span> <span class="n">total</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="s2">&quot;total percent covered&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%.1f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">((</span><span class="n">coverage</span> <span class="o">+</span> <span class="n">fallback_coverage</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">print_missing</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">missing</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="api_coverage"><a class="viewcode-back" href="../../../../generated/nums.core.cmds.api_coverage.html#nums.core.cmds.api_coverage.api_coverage">[docs]</a><span class="k">def</span> <span class="nf">api_coverage</span><span class="p">(</span><span class="n">print_missing</span><span class="p">):</span>
+    <span class="c1"># pylint: disable = unused-variable</span>
+
+    <span class="c1"># Functions ignored for various reasons.</span>
+    <span class="n">ignore</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;_add_newdoc_ufunc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;add_docstring&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;add_newdoc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;add_newdoc_ufunc&quot;</span><span class="p">,</span>
+        <span class="c1"># Deprecated</span>
+        <span class="s2">&quot;alen&quot;</span><span class="p">,</span>
+        <span class="c1"># Order is generally not applicable w/ GPU backend.</span>
+        <span class="s2">&quot;asanyarray&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ascontiguousarray&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;asfarray&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;asfortranarray&quot;</span><span class="p">,</span>
+        <span class="c1"># There are no plans to provide a matrix type.</span>
+        <span class="s2">&quot;asmatrix&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;array2string&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;base_repr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;binary_repr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;block&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bmat&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;broadcast_arrays&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;broadcast_to&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;busday_count&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;busday_offset&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;byte_bounds&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;compare_chararrays&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;datetime_as_string&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;datetime_data&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;deprecate&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;deprecate_with_doc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;disp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fastCopyAndTranspose&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;format_float_positional&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;format_float_scientific&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;get_array_wrap&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;get_include&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;get_printoptions&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;getbufsize&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geterr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geterrcall&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;geterrobj&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;info&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;is_busday&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;isfortran&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;isnat&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;issctype&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;issubclass_&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;issubdtype&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;issubsctype&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;iterable&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lookfor&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mat&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;may_share_memory&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ndfromtxt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;nested_iters&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;printoptions&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;recfromcsv&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;recfromtxt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;safe_eval&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;set_numeric_ops&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;set_printoptions&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;set_string_function&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;setbufsize&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;seterr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;seterrcall&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;seterrobj&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;show_config&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;typename&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mafromtxt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;mask_indices&quot;</span><span class="p">,</span>
+        <span class="c1"># unclear whether we&#39;ll ever support these I/O operations.</span>
+        <span class="s2">&quot;loads&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;load&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;save&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;savez&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;savez_compressed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;genfromtxt&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fromregex&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fromstring&quot;</span><span class="p">,</span>
+        <span class="c1"># Memory ops that can&#39;t be supported.</span>
+        <span class="s2">&quot;copyto&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">numpy_module</span>
+    <span class="kn">import</span> <span class="nn">nums.numpy.api</span> <span class="k">as</span> <span class="nn">nums_module</span>
+
+    <span class="n">module_coverage</span><span class="p">(</span>
+        <span class="s2">&quot;api&quot;</span><span class="p">,</span>
+        <span class="n">print_missing</span><span class="p">,</span>
+        <span class="n">numpy_module</span><span class="p">,</span>
+        <span class="n">nums_module</span><span class="p">,</span>
+        <span class="n">ignore</span><span class="o">=</span><span class="n">ignore</span><span class="p">,</span>
+        <span class="n">fallback</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">fallback</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="random_coverage"><a class="viewcode-back" href="../../../../generated/nums.core.cmds.api_coverage.html#nums.core.cmds.api_coverage.random_coverage">[docs]</a><span class="k">def</span> <span class="nf">random_coverage</span><span class="p">(</span><span class="n">print_missing</span><span class="p">):</span>
+    <span class="n">ignore</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;__RandomState_ctor&quot;</span><span class="p">]</span>
+
+    <span class="kn">import</span> <span class="nn">numpy.random</span> <span class="k">as</span> <span class="nn">numpy_module</span>
+    <span class="kn">import</span> <span class="nn">nums.numpy.random</span> <span class="k">as</span> <span class="nn">nums_module</span>
+
+    <span class="n">module_coverage</span><span class="p">(</span>
+        <span class="s2">&quot;api&quot;</span><span class="p">,</span>
+        <span class="n">print_missing</span><span class="p">,</span>
+        <span class="n">numpy_module</span><span class="p">,</span>
+        <span class="n">nums_module</span><span class="p">,</span>
+        <span class="n">ignore</span><span class="o">=</span><span class="n">ignore</span><span class="p">,</span>
+        <span class="n">fallback</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">fallback</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="linalg_coverage"><a class="viewcode-back" href="../../../../generated/nums.core.cmds.api_coverage.html#nums.core.cmds.api_coverage.linalg_coverage">[docs]</a><span class="k">def</span> <span class="nf">linalg_coverage</span><span class="p">(</span><span class="n">print_missing</span><span class="p">):</span>
+    <span class="n">ignore</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">numpy_module</span>
+    <span class="kn">import</span> <span class="nn">nums.numpy.linalg</span> <span class="k">as</span> <span class="nn">nums_module</span>
+
+    <span class="n">module_coverage</span><span class="p">(</span>
+        <span class="s2">&quot;api&quot;</span><span class="p">,</span>
+        <span class="n">print_missing</span><span class="p">,</span>
+        <span class="n">numpy_module</span><span class="p">,</span>
+        <span class="n">nums_module</span><span class="p">,</span>
+        <span class="n">ignore</span><span class="o">=</span><span class="n">ignore</span><span class="p">,</span>
+        <span class="n">fallback</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">fallback</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fft_coverage"><a class="viewcode-back" href="../../../../generated/nums.core.cmds.api_coverage.html#nums.core.cmds.api_coverage.fft_coverage">[docs]</a><span class="k">def</span> <span class="nf">fft_coverage</span><span class="p">(</span><span class="n">print_missing</span><span class="p">):</span>
+    <span class="n">ignore</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="kn">import</span> <span class="nn">numpy.fft</span> <span class="k">as</span> <span class="nn">numpy_module</span>
+    <span class="kn">import</span> <span class="nn">nums.numpy.fft</span> <span class="k">as</span> <span class="nn">nums_module</span>
+
+    <span class="n">module_coverage</span><span class="p">(</span>
+        <span class="s2">&quot;api&quot;</span><span class="p">,</span>
+        <span class="n">print_missing</span><span class="p">,</span>
+        <span class="n">numpy_module</span><span class="p">,</span>
+        <span class="n">nums_module</span><span class="p">,</span>
+        <span class="n">ignore</span><span class="o">=</span><span class="n">ignore</span><span class="p">,</span>
+        <span class="n">fallback</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">fallback</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../generated/nums.core.cmds.api_coverage.html#nums.core.cmds.api_coverage.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">()</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--module-name&quot;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;api&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Which module to test.&quot;</span><span class="p">,</span>
+        <span class="n">choices</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;api&quot;</span><span class="p">,</span> <span class="s2">&quot;random&quot;</span><span class="p">,</span> <span class="s2">&quot;linalg&quot;</span><span class="p">,</span> <span class="s2">&quot;fft&quot;</span><span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s2">&quot;--print-missing&quot;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s2">&quot;store_true&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output array of missing &quot;</span> <span class="s2">&quot;values.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">args_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">vars</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="n">execute</span><span class="p">(</span><span class="o">**</span><span class="n">args_dict</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The NumS Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nums.sklearn &mdash; NumS  documentation</title><link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> NumS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">nums.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../numpy.html">nums.numpy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">NumS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>nums.sklearn</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nums.sklearn</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">nums.core.array.blockarray</span> <span class="kn">import</span> <span class="n">BlockArray</span>
+<span class="kn">from</span> <span class="nn">nums.core.array.random</span> <span class="kn">import</span> <span class="n">NumsRandomState</span>
+<span class="kn">from</span> <span class="nn">nums.core.application_manager</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">instance</span><span class="p">,</span>
+    <span class="n">call_on_create</span><span class="p">,</span>
+    <span class="n">ArrayApplication</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<span class="c1"># pylint: disable = import-outside-toplevel</span>
+
+
+<span class="k">def</span> <span class="nf">_register_train_test_split</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">model_selection</span>
+    <span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">Generator</span><span class="p">,</span> <span class="n">RandomState</span>
+
+    <span class="kn">from</span> <span class="nn">nums.core.compute.numpy_compute</span> <span class="kn">import</span> <span class="n">block_rng</span>
+
+    <span class="k">def</span> <span class="nf">train_test_split_wrapper</span><span class="p">(</span>
+        <span class="o">*</span><span class="n">arrays</span><span class="p">,</span>
+        <span class="n">rng_params</span><span class="p">,</span>
+        <span class="n">test_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">train_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">stratify</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">rng_params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">random_state</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rng</span><span class="p">:</span> <span class="n">Generator</span> <span class="o">=</span> <span class="n">block_rng</span><span class="p">(</span><span class="o">*</span><span class="n">rng_params</span><span class="p">)</span>
+            <span class="c1"># TODO:  Because train_test_split doesn&#39;t support Generator,</span>
+            <span class="c1">#  we need a way to obtain RandomState from Generator instance.</span>
+            <span class="c1">#  Need to ensure this provides same guarantees on collisions that Generator provides.</span>
+            <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">iinfo</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+            <span class="n">random_state</span> <span class="o">=</span> <span class="n">RandomState</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">arrays</span><span class="p">,</span>
+            <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span>
+            <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+            <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">,</span>
+            <span class="n">stratify</span><span class="o">=</span><span class="n">stratify</span>
+        <span class="p">)</span>
+
+    <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;train_test_split&quot;</span><span class="p">,</span> <span class="n">train_test_split_wrapper</span><span class="p">,</span> <span class="p">{})</span>
+
+
+<span class="n">call_on_create</span><span class="p">(</span><span class="n">_register_train_test_split</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_check_array</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">BlockArray</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">strict</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Input array is not a BlockArray.&quot;</span><span class="p">)</span>
+        <span class="c1"># These arrays should be a single block.</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">array</span><span class="o">.</span><span class="n">is_single_block</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">strict</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input array is not a single block.&quot;</span><span class="p">)</span>
+        <span class="n">array_size_gb</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">nbytes</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">9</span>
+        <span class="k">if</span> <span class="n">array_size_gb</span> <span class="o">&gt;</span> <span class="mf">100.0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">MemoryError</span><span class="p">(</span>
+                <span class="s2">&quot;Operating on an &quot;</span>
+                <span class="s2">&quot;array of size </span><span class="si">%s</span><span class="s2">GB is not supported.&quot;</span> <span class="o">%</span> <span class="n">array_size_gb</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">array_size_gb</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="p">:</span>
+            <span class="c1"># This is a large array of size 10GB.</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s2">&quot;Attempting to convert an array &quot;</span>
+                <span class="s2">&quot;of size </span><span class="si">%s</span><span class="s2">GB to a single block.&quot;</span> <span class="o">%</span> <span class="n">array_size_gb</span>
+            <span class="p">)</span>
+        <span class="n">array</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">to_single_block</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">array</span>
+
+
+<div class="viewcode-block" id="train_test_split"><a class="viewcode-back" href="../../generated/nums.sklearn.html#nums.sklearn.train_test_split">[docs]</a><span class="k">def</span> <span class="nf">train_test_split</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">arrays</span><span class="p">,</span>
+    <span class="n">test_size</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">train_size</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">NumsRandomState</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">shuffle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">stratify</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">):</span>
+    <span class="c1"># pylint: disable = protected-access</span>
+    <span class="n">updated_arrays</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">:</span>
+        <span class="n">updated_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_check_array</span><span class="p">(</span><span class="n">array</span><span class="p">))</span>
+    <span class="n">syskwargs</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;num_returns&quot;</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">updated_arrays</span><span class="p">)},</span>
+        <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span>
+        <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="n">random_state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">rng_params</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">random_state</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="c1"># It&#39;s a seed.</span>
+            <span class="n">random_state</span><span class="p">:</span> <span class="n">NumsRandomState</span> <span class="o">=</span> <span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">random_state</span><span class="p">(</span><span class="n">random_state</span><span class="p">)</span>
+        <span class="n">rng_params</span> <span class="o">=</span> <span class="n">random_state</span><span class="o">.</span><span class="n">_rng</span><span class="o">.</span><span class="n">new_block_rng_params</span><span class="p">()</span>
+
+    <span class="n">array_oids</span> <span class="o">=</span> <span class="p">[</span><span class="n">array</span><span class="o">.</span><span class="n">flattened_oids</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">updated_arrays</span><span class="p">]</span>
+    <span class="n">result_oids</span> <span class="o">=</span> <span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call</span><span class="p">(</span>
+        <span class="s2">&quot;train_test_split&quot;</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">array_oids</span><span class="p">,</span>
+        <span class="n">rng_params</span><span class="o">=</span><span class="n">rng_params</span><span class="p">,</span>
+        <span class="n">test_size</span><span class="o">=</span><span class="n">test_size</span><span class="p">,</span>
+        <span class="n">train_size</span><span class="o">=</span><span class="n">train_size</span><span class="p">,</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="n">shuffle</span><span class="p">,</span>
+        <span class="n">stratify</span><span class="o">=</span><span class="n">stratify</span><span class="p">,</span>
+        <span class="n">syskwargs</span><span class="o">=</span><span class="n">syskwargs</span>
+    <span class="p">)</span>
+    <span class="c1"># Optimize by computing this directly.</span>
+    <span class="n">shape_dtype_oids</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">shape_dtype</span><span class="p">(</span>
+            <span class="n">r_oid</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,)}</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">r_oid</span> <span class="ow">in</span> <span class="n">result_oids</span>
+    <span class="p">]</span>
+    <span class="n">shape_dtypes</span> <span class="o">=</span> <span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">shape_dtype_oids</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">r_oid</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">result_oids</span><span class="p">):</span>
+        <span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">shape_dtypes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">BlockArray</span><span class="o">.</span><span class="n">from_oid</span><span class="p">(</span><span class="n">r_oid</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">cm</span><span class="o">=</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">results</span></div>
+
+
+<div class="viewcode-block" id="build_sklearn_actor"><a class="viewcode-back" href="../../generated/nums.sklearn.html#nums.sklearn.build_sklearn_actor">[docs]</a><span class="k">def</span> <span class="nf">build_sklearn_actor</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="kn">import</span> <span class="n">ClassifierMixin</span><span class="p">,</span> <span class="n">RegressorMixin</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">predict_dtype</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">ClassifierMixin</span><span class="p">):</span>
+        <span class="n">predict_dtype</span> <span class="o">=</span> <span class="nb">int</span>
+    <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">RegressorMixin</span><span class="p">):</span>
+        <span class="n">predict_dtype</span> <span class="o">=</span> <span class="nb">float</span>
+
+    <span class="c1"># NOTE:</span>
+    <span class="c1"># A possibly cleaner way of building actor classes is to check all the superclasses, then</span>
+    <span class="c1"># procedurally add the methods inherited from those classes. Many superclasses can be found in</span>
+    <span class="c1"># sklearn/base.py, and some in other subpackages. For example,</span>
+    <span class="c1"># TransformerMixin: add fit_transform(), transform() (fit_transform calls transform)</span>
+    <span class="c1"># ClusterMixin: add fit_predict()</span>
+    <span class="c1"># LinearClassifierMixin: add decision_function()</span>
+    <span class="c1"># BaseEstimator: add get_params(), set_params()</span>
+
+    <span class="k">class</span> <span class="nc">ModelActor</span><span class="p">:</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sample_weight</span><span class="p">))</span>
+
+    <span class="k">class</span> <span class="nc">NumsModel</span><span class="p">:</span>
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">device_id</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="ow">in</span> <span class="n">_place_on_node_0</span><span class="p">:</span>
+                <span class="n">device_id</span> <span class="o">=</span> <span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">devices</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actor</span> <span class="o">=</span> <span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">make_actor</span><span class="p">(</span>
+                <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="n">device_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+
+        <span class="c1"># TODO: (all functions) test inputs are single block, if not warn about performance</span>
+        <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+            <span class="n">_check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">_check_array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call_actor_method</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="p">,</span> <span class="s2">&quot;fit&quot;</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">flattened_oids</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">.</span><span class="n">flattened_oids</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">fit_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">_check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">_check_array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">flattened_oids</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">r_oid</span> <span class="o">=</span> <span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call_actor_method</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="p">,</span> <span class="s2">&quot;fit_transform&quot;</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">flattened_oids</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">BlockArray</span><span class="o">.</span><span class="n">from_oid</span><span class="p">(</span>
+                <span class="n">r_oid</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">cm</span><span class="o">=</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span>
+            <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+            <span class="n">_check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">r_oid</span> <span class="o">=</span> <span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call_actor_method</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="p">,</span> <span class="s2">&quot;predict&quot;</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">flattened_oids</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">BlockArray</span><span class="o">.</span><span class="n">from_oid</span><span class="p">(</span>
+                <span class="n">r_oid</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">predict_dtype</span><span class="p">,</span> <span class="n">cm</span><span class="o">=</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span>
+            <span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">sample_weight</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">_check_array</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">_check_array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">sample_weight</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">_check_array</span><span class="p">(</span><span class="n">sample_weight</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="n">sample_weight</span> <span class="o">=</span> <span class="n">sample_weight</span><span class="o">.</span><span class="n">flattened_oids</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">r_oid</span> <span class="o">=</span> <span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">call_actor_method</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="p">,</span>
+                <span class="s2">&quot;score&quot;</span><span class="p">,</span>
+                <span class="n">X</span><span class="o">.</span><span class="n">flattened_oids</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">y</span><span class="o">.</span><span class="n">flattened_oids</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="n">sample_weight</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">BlockArray</span><span class="o">.</span><span class="n">from_oid</span><span class="p">(</span><span class="n">r_oid</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">cm</span><span class="o">=</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">cm</span><span class="p">)</span>
+
+    <span class="n">NumsModel</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s2">&quot;Nums&quot;</span> <span class="o">+</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">ModelActor</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;Actor&quot;</span>
+    <span class="n">call_on_create</span><span class="p">(</span><span class="k">lambda</span> <span class="n">app</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">register_actor</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ModelActor</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">NumsModel</span></div>
+
+
+<div class="viewcode-block" id="build_supervised_actors"><a class="viewcode-back" href="../../generated/nums.sklearn.html#nums.sklearn.build_supervised_actors">[docs]</a><span class="k">def</span> <span class="nf">build_supervised_actors</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">sklearn.neural_network</span> <span class="kn">import</span> <span class="n">MLPClassifier</span><span class="p">,</span> <span class="n">MLPRegressor</span>
+    <span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsClassifier</span><span class="p">,</span> <span class="n">KNeighborsRegressor</span>
+    <span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span><span class="p">,</span> <span class="n">SVR</span>
+    <span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">GaussianProcessClassifier</span><span class="p">,</span>
+        <span class="n">GaussianProcessRegressor</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">DecisionTreeRegressor</span>
+    <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">RandomForestClassifier</span><span class="p">,</span>
+        <span class="n">AdaBoostClassifier</span><span class="p">,</span>
+        <span class="n">GradientBoostingClassifier</span><span class="p">,</span>
+        <span class="n">RandomForestRegressor</span><span class="p">,</span>
+        <span class="n">AdaBoostRegressor</span><span class="p">,</span>
+        <span class="n">GradientBoostingRegressor</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">GaussianNB</span><span class="p">,</span> <span class="n">BernoulliNB</span>
+    <span class="kn">from</span> <span class="nn">sklearn.discriminant_analysis</span> <span class="kn">import</span> <span class="n">QuadraticDiscriminantAnalysis</span>
+    <span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="p">(</span>
+        <span class="n">LogisticRegression</span><span class="p">,</span>
+        <span class="n">LinearRegression</span><span class="p">,</span>
+        <span class="n">Ridge</span><span class="p">,</span>
+        <span class="n">Lasso</span><span class="p">,</span>
+        <span class="n">ElasticNet</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">skl_models</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">MLPClassifier</span><span class="p">,</span>
+        <span class="n">MLPRegressor</span><span class="p">,</span>
+        <span class="n">KNeighborsClassifier</span><span class="p">,</span>
+        <span class="n">KNeighborsRegressor</span><span class="p">,</span>
+        <span class="n">SVC</span><span class="p">,</span>
+        <span class="n">SVR</span><span class="p">,</span>
+        <span class="n">GaussianProcessClassifier</span><span class="p">,</span>
+        <span class="n">GaussianProcessRegressor</span><span class="p">,</span>
+        <span class="n">DecisionTreeClassifier</span><span class="p">,</span>
+        <span class="n">DecisionTreeRegressor</span><span class="p">,</span>
+        <span class="n">RandomForestClassifier</span><span class="p">,</span>
+        <span class="n">RandomForestRegressor</span><span class="p">,</span>
+        <span class="n">AdaBoostClassifier</span><span class="p">,</span>
+        <span class="n">AdaBoostRegressor</span><span class="p">,</span>
+        <span class="n">GradientBoostingClassifier</span><span class="p">,</span>
+        <span class="n">GradientBoostingRegressor</span><span class="p">,</span>
+        <span class="n">GaussianNB</span><span class="p">,</span>
+        <span class="n">BernoulliNB</span><span class="p">,</span>
+        <span class="n">QuadraticDiscriminantAnalysis</span><span class="p">,</span>
+        <span class="n">LogisticRegression</span><span class="p">,</span>
+        <span class="n">LinearRegression</span><span class="p">,</span>
+        <span class="n">Ridge</span><span class="p">,</span>
+        <span class="n">Lasso</span><span class="p">,</span>
+        <span class="n">ElasticNet</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">build_sklearn_actor</span><span class="p">(</span><span class="n">skl_model</span><span class="p">)</span> <span class="k">for</span> <span class="n">skl_model</span> <span class="ow">in</span> <span class="n">skl_models</span><span class="p">)</span></div>
+
+
+<span class="p">(</span>
+    <span class="n">MLPClassifier</span><span class="p">,</span>
+    <span class="n">MLPRegressor</span><span class="p">,</span>
+    <span class="n">KNeighborsClassifier</span><span class="p">,</span>
+    <span class="n">KNeighborsRegressor</span><span class="p">,</span>
+    <span class="n">SVC</span><span class="p">,</span>
+    <span class="n">SVR</span><span class="p">,</span>
+    <span class="n">GaussianProcessClassifier</span><span class="p">,</span>
+    <span class="n">GaussianProcessRegressor</span><span class="p">,</span>
+    <span class="n">DecisionTreeClassifier</span><span class="p">,</span>
+    <span class="n">DecisionTreeRegressor</span><span class="p">,</span>
+    <span class="n">RandomForestClassifier</span><span class="p">,</span>
+    <span class="n">RandomForestRegressor</span><span class="p">,</span>
+    <span class="n">AdaBoostClassifier</span><span class="p">,</span>
+    <span class="n">AdaBoostRegressor</span><span class="p">,</span>
+    <span class="n">GradientBoostingClassifier</span><span class="p">,</span>
+    <span class="n">GradientBoostingRegressor</span><span class="p">,</span>
+    <span class="n">GaussianNB</span><span class="p">,</span>
+    <span class="n">BernoulliNB</span><span class="p">,</span>
+    <span class="n">QuadraticDiscriminantAnalysis</span><span class="p">,</span>
+    <span class="n">LogisticRegression</span><span class="p">,</span>
+    <span class="n">LinearRegression</span><span class="p">,</span>
+    <span class="n">Ridge</span><span class="p">,</span>
+    <span class="n">Lasso</span><span class="p">,</span>
+    <span class="n">ElasticNet</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">=</span> <span class="n">build_supervised_actors</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="build_preprocessors"><a class="viewcode-back" href="../../generated/nums.sklearn.html#nums.sklearn.build_preprocessors">[docs]</a><span class="k">def</span> <span class="nf">build_preprocessors</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">RobustScaler</span>
+
+    <span class="n">sklearn_clses</span> <span class="o">=</span> <span class="p">[</span><span class="n">StandardScaler</span><span class="p">,</span> <span class="n">RobustScaler</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">build_sklearn_actor</span><span class="p">(</span><span class="n">sklearn_cls</span><span class="p">)</span> <span class="k">for</span> <span class="n">sklearn_cls</span> <span class="ow">in</span> <span class="n">sklearn_clses</span><span class="p">)</span></div>
+
+
+<span class="p">(</span><span class="n">StandardScaler</span><span class="p">,</span> <span class="n">RobustScaler</span><span class="p">)</span> <span class="o">=</span> <span class="n">build_preprocessors</span><span class="p">()</span>
+<span class="n">_place_on_node_0</span> <span class="o">=</span> <span class="p">(</span><span class="n">StandardScaler</span><span class="p">,</span> <span class="n">RobustScaler</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="expose_sklearn_objects"><a class="viewcode-back" href="../../generated/nums.sklearn.html#nums.sklearn.expose_sklearn_objects">[docs]</a><span class="k">def</span> <span class="nf">expose_sklearn_objects</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">sklearn.gaussian_process.kernels</span> <span class="kn">import</span> <span class="n">RBF</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">RBF</span><span class="p">,)</span></div>
+
+
+<span class="p">(</span><span class="n">RBF</span><span class="p">,)</span> <span class="o">=</span> <span class="n">expose_sklearn_objects</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The NumS Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

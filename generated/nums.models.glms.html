@@ -1,0 +1,944 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.models.glms module &#8212; NumS  documentation</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   nums.models.glms module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.models.lbfgs.html">
+   nums.models.lbfgs module
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-nums.models.glms">
+<span id="nums-models-glms-module"></span><h1>nums.models.glms module<a class="headerlink" href="#module-nums.models.glms" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt id="nums.models.glms.ElasticNet">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">ElasticNet</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#ElasticNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.ElasticNet" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.models.glms.LinearRegressionBase" title="nums.models.glms.LinearRegressionBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.models.glms.LinearRegressionBase</span></code></a></p>
+<p>Linear regression with combined L1 and L2 priors as regularizer.</p>
+<blockquote>
+<div><p>Minimizes the objective function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n_samples</span><span class="p">)</span> <span class="o">*</span> <span class="o">||</span><span class="n">y</span> <span class="o">-</span> <span class="n">Xw</span><span class="o">||^</span><span class="mi">2_2</span>
+<span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">l1_ratio</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||</span><span class="n">_1</span>
+<span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">l1_ratio</span><span class="p">)</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||^</span><span class="mi">2_2</span>
+</pre></div>
+</div>
+<p>If you are interested in controlling the L1 and L2 penalty
+separately, keep in mind that this is equivalent to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||</span><span class="n">_1</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">b</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||</span><span class="n">_2</span><span class="o">^</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>where:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="ow">and</span> <span class="n">l1_ratio</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The parameter l1_ratio corresponds to alpha in the glmnet R package while
+alpha corresponds to the lambda parameter in glmnet. Specifically, l1_ratio
+= 1 is the lasso penalty. Currently, l1_ratio &lt;= 0.01 is not reliable,
+unless you supply your own sequence of alpha.</p>
+<p>This docstring was copied from sklearn.linear_model.ElasticNet.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<em>float</em><em> or </em><em>array-like of shape</em><em> (</em><em>n_targets</em><em>,</em><em>)</em>) – Regularization strength; must be a positive float. Regularization
+improves the conditioning of the problem and reduces the variance of
+the estimates. Larger values specify stronger regularization.
+Alpha corresponds to <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(2C)</span></code> in other linear models such as
+<code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">LinearSVC</span></code>. If an array is passed, penalties are
+assumed to be specific to the targets. Hence they must correspond in
+number.</p></li>
+<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>default=0.0001</em>) – Tolerance for stopping criteria.</p></li>
+<li><p><strong>max_iter</strong> (<em>int</em><em>, </em><em>default=100</em>) – Maximum number of iterations taken for the solvers to converge.</p></li>
+<li><p><strong>solver</strong> (<em>{'newton'}</em><em>, </em><em>default='newton'</em>) – Algorithm to use in the optimization problem. Default is ‘newton’.</p></li>
+<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>default=0.01</em>) – Learning Rate. Used in the optimization of the model.</p></li>
+<li><p><strong>random_state</strong> (<a class="reference internal" href="nums.core.array.random.html#nums.core.array.random.NumsRandomState" title="nums.core.array.random.NumsRandomState"><em>NumsRandomState</em></a><em>, </em><em>default=None</em>) – Seeds for randomness in model.</p></li>
+<li><p><strong>fit_intercept</strong> (<em>bool</em><em>, </em><em>default=True</em>) – The intercept of regression is calculated for this model.
+When data is centered, the intercept is calculated to 0.
+Setting this option to False is unsupported.</p></li>
+<li><p><strong>normalize</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Normalizes the regressors before regression.
+Setting this option to True is not yet supported.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._penalty">
+<code class="sig-name descname"><span class="pre">_penalty</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._penalty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._lambda">
+<code class="sig-name descname"><span class="pre">_lambda</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._lambda" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._l1penalty">
+<code class="sig-name descname"><span class="pre">_l1penalty</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._l1penalty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._l1penalty_vec">
+<code class="sig-name descname"><span class="pre">_l1penalty_vec</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._l1penalty_vec" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._l2penalty">
+<code class="sig-name descname"><span class="pre">_l2penalty</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._l2penalty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._l2penalty_vec">
+<code class="sig-name descname"><span class="pre">_l2penalty_vec</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._l2penalty_vec" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._l2penalty_diag">
+<code class="sig-name descname"><span class="pre">_l2penalty_diag</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._l2penalty_diag" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet.alpha">
+<code class="sig-name descname"><span class="pre">alpha</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet.alpha" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._tol">
+<code class="sig-name descname"><span class="pre">_tol</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._tol" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>corresponds to the parameter tol</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._max_iter">
+<code class="sig-name descname"><span class="pre">_max_iter</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._max_iter" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>corresponds to the parameter max_iter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._opt">
+<code class="sig-name descname"><span class="pre">_opt</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._opt" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>corresponds to the parameter solver</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._lr">
+<code class="sig-name descname"><span class="pre">_lr</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._lr" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>corresponds to the parameter lr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._beta">
+<code class="sig-name descname"><span class="pre">_beta</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._beta" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>BlockArray used internally for the optimizer to solve for the beta coefficients of the model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.ElasticNet._beta0">
+<code class="sig-name descname"><span class="pre">_beta0</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._beta0" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.models.glms.ExponentialRegression">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">ExponentialRegression</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#ExponentialRegression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.ExponentialRegression" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.models.glms.GLM" title="nums.models.glms.GLM"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.models.glms.GLM</span></code></a></p>
+<dl class="py method">
+<dt id="nums.models.glms.ExponentialRegression.gradient">
+<code class="sig-name descname"><span class="pre">gradient</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#ExponentialRegression.gradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.ExponentialRegression.gradient" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.ExponentialRegression.hessian">
+<code class="sig-name descname"><span class="pre">hessian</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#ExponentialRegression.hessian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.ExponentialRegression.hessian" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.ExponentialRegression.link_inv">
+<code class="sig-name descname"><span class="pre">link_inv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#ExponentialRegression.link_inv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.ExponentialRegression.link_inv" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.ExponentialRegression.objective">
+<code class="sig-name descname"><span class="pre">objective</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#ExponentialRegression.objective"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.ExponentialRegression.objective" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.models.glms.GLM">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">GLM</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="nums.models.glms.GLM.deviance">
+<code class="sig-name descname"><span class="pre">deviance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.deviance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.deviance" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.GLM.deviance_sqr">
+<code class="sig-name descname"><span class="pre">deviance_sqr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.deviance_sqr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.deviance_sqr" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.GLM.fit">
+<code class="sig-name descname"><span class="pre">fit</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.fit" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.GLM.forward">
+<code class="sig-name descname"><span class="pre">forward</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.forward" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.GLM.grad_norm_sq">
+<code class="sig-name descname"><span class="pre">grad_norm_sq</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.grad_norm_sq"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.grad_norm_sq" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.GLM.grad_penalty">
+<code class="sig-name descname"><span class="pre">grad_penalty</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.grad_penalty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.grad_penalty" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the penalty for the gradient used in regularization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.GLM.gradient">
+<code class="sig-name descname"><span class="pre">gradient</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.gradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.gradient" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.GLM.hessian">
+<code class="sig-name descname"><span class="pre">hessian</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.hessian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.hessian" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.GLM.hessian_penalty">
+<code class="sig-name descname"><span class="pre">hessian_penalty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.hessian_penalty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.hessian_penalty" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the norm penalty for the hessian used in regularization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.GLM.link_inv">
+<code class="sig-name descname"><span class="pre">link_inv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.link_inv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.link_inv" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.GLM.obj_penalty">
+<code class="sig-name descname"><span class="pre">obj_penalty</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.obj_penalty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.obj_penalty" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the penalty term for the object function used in regularization.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.GLM.objective">
+<code class="sig-name descname"><span class="pre">objective</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.objective"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.objective" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.GLM.predict">
+<code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.predict" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.models.glms.Lasso">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">Lasso</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#Lasso"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.Lasso" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.models.glms.LinearRegressionBase" title="nums.models.glms.LinearRegressionBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.models.glms.LinearRegressionBase</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.models.glms.LinearRegression">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">LinearRegression</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegression" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.models.glms.LinearRegressionBase" title="nums.models.glms.LinearRegressionBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.models.glms.LinearRegressionBase</span></code></a></p>
+<p>Ordinary least squares Linear Regression.</p>
+<p>LinearRegression fits a linear model with coefficients w = (w1, …, wp)
+to minimize the residual sum of squares between the observed targets in
+the dataset, and the targets predicted by the linear approximation.</p>
+<p>This docstring was copied from sklearn.linear_model.LinearRegression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>default=0.0001</em>) – Tolerance for stopping criteria.</p></li>
+<li><p><strong>max_iter</strong> (<em>int</em><em>, </em><em>default=100</em>) – Maximum number of iterations taken for the solvers to converge.</p></li>
+<li><p><strong>solver</strong> (<em>{'newton'}</em><em>, </em><em>default='newton'</em>) – Algorithm to use in the optimization problem. Default is ‘newton’.</p></li>
+<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>default=0.01</em>) – Learning Rate. Used in the optimization of the model.</p></li>
+<li><p><strong>random_state</strong> (<a class="reference internal" href="nums.core.array.random.html#nums.core.array.random.NumsRandomState" title="nums.core.array.random.NumsRandomState"><em>NumsRandomState</em></a><em>, </em><em>default=None</em>) – Seeds for randomness in model.</p></li>
+<li><p><strong>fit_intercept</strong> (<em>bool</em><em>, </em><em>default=True</em>) – The intercept of regression is calculated for this model.
+When data is centered, the intercept is calculated to 0.
+Setting this option to False is unsupported.</p></li>
+<li><p><strong>normalize</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Normalizes the regressors before regression.
+Setting this option to True is not yet supported.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._penalty">
+<code class="sig-name descname"><span class="pre">_penalty</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._penalty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._lambda">
+<code class="sig-name descname"><span class="pre">_lambda</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._lambda" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._l1penalty">
+<code class="sig-name descname"><span class="pre">_l1penalty</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._l1penalty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._l1penalty_vec">
+<code class="sig-name descname"><span class="pre">_l1penalty_vec</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._l1penalty_vec" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._l2penalty">
+<code class="sig-name descname"><span class="pre">_l2penalty</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._l2penalty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._l2penalty_vec">
+<code class="sig-name descname"><span class="pre">_l2penalty_vec</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._l2penalty_vec" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._l2penalty_diag">
+<code class="sig-name descname"><span class="pre">_l2penalty_diag</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._l2penalty_diag" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression.alpha">
+<code class="sig-name descname"><span class="pre">alpha</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression.alpha" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._tol">
+<code class="sig-name descname"><span class="pre">_tol</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._tol" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>corresponds to the parameter tol</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._max_iter">
+<code class="sig-name descname"><span class="pre">_max_iter</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._max_iter" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>corresponds to the parameter max_iter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._opt">
+<code class="sig-name descname"><span class="pre">_opt</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._opt" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>corresponds to the parameter solver</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._lr">
+<code class="sig-name descname"><span class="pre">_lr</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._lr" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>corresponds to the parameter lr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._beta">
+<code class="sig-name descname"><span class="pre">_beta</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._beta" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>BlockArray used internally for the optimizer to solve for the beta coefficients of the model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.LinearRegression._beta0">
+<code class="sig-name descname"><span class="pre">_beta0</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._beta0" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.models.glms.Ridge" title="nums.models.glms.Ridge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ridge</span></code></a></dt><dd><p>Ridge regression addresses some of the problems of Ordinary Least Squares by imposing a penalty on the size of the coefficients with l2 regularization.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.models.glms.Lasso" title="nums.models.glms.Lasso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Lasso</span></code></a></dt><dd><p>The Lasso is a linear model that estimates sparse coefficients with l1 regularization.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.models.glms.ElasticNet" title="nums.models.glms.ElasticNet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ElasticNet</span></code></a></dt><dd><p>Elastic-Net is a linear regression model trained with both l1 and l2 -norm regularization of the coefficients.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.models.glms.LinearRegressionBase">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">LinearRegressionBase</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegressionBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegressionBase" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.models.glms.GLM" title="nums.models.glms.GLM"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.models.glms.GLM</span></code></a></p>
+<dl class="py method">
+<dt id="nums.models.glms.LinearRegressionBase.deviance">
+<code class="sig-name descname"><span class="pre">deviance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegressionBase.deviance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegressionBase.deviance" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the deviance of the model with regards to y_pred.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.LinearRegressionBase.gradient">
+<code class="sig-name descname"><span class="pre">gradient</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegressionBase.gradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegressionBase.gradient" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the gradient with regards to beta.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.LinearRegressionBase.hessian">
+<code class="sig-name descname"><span class="pre">hessian</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegressionBase.hessian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegressionBase.hessian" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the hessian with regards to the hessian penalty.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.LinearRegressionBase.link_inv">
+<code class="sig-name descname"><span class="pre">link_inv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegressionBase.link_inv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegressionBase.link_inv" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.LinearRegressionBase.objective">
+<code class="sig-name descname"><span class="pre">objective</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegressionBase.objective"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegressionBase.objective" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.LinearRegressionBase.predict">
+<code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegressionBase.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegressionBase.predict" title="Permalink to this definition"></a></dt>
+<dd><p>Predict using the Linear Regression model. Calls foward internally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.models.glms.LogisticRegression">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">LogisticRegression</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">C</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LogisticRegression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LogisticRegression" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.models.glms.GLM" title="nums.models.glms.GLM"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.models.glms.GLM</span></code></a></p>
+<dl class="py method">
+<dt id="nums.models.glms.LogisticRegression.deviance">
+<code class="sig-name descname"><span class="pre">deviance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LogisticRegression.deviance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LogisticRegression.deviance" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.LogisticRegression.gradient">
+<code class="sig-name descname"><span class="pre">gradient</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LogisticRegression.gradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LogisticRegression.gradient" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.LogisticRegression.hessian">
+<code class="sig-name descname"><span class="pre">hessian</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LogisticRegression.hessian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LogisticRegression.hessian" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.LogisticRegression.link_inv">
+<code class="sig-name descname"><span class="pre">link_inv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LogisticRegression.link_inv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LogisticRegression.link_inv" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.LogisticRegression.objective">
+<code class="sig-name descname"><span class="pre">objective</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LogisticRegression.objective"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LogisticRegression.objective" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.LogisticRegression.predict">
+<code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LogisticRegression.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LogisticRegression.predict" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.LogisticRegression.predict_proba">
+<code class="sig-name descname"><span class="pre">predict_proba</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LogisticRegression.predict_proba"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LogisticRegression.predict_proba" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.models.glms.PoissonRegression">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">PoissonRegression</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'none'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#PoissonRegression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.PoissonRegression" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.models.glms.GLM" title="nums.models.glms.GLM"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.models.glms.GLM</span></code></a></p>
+<dl class="py method">
+<dt id="nums.models.glms.PoissonRegression.deviance">
+<code class="sig-name descname"><span class="pre">deviance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#PoissonRegression.deviance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.PoissonRegression.deviance" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.PoissonRegression.gradient">
+<code class="sig-name descname"><span class="pre">gradient</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#PoissonRegression.gradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.PoissonRegression.gradient" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.PoissonRegression.hessian">
+<code class="sig-name descname"><span class="pre">hessian</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#PoissonRegression.hessian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.PoissonRegression.hessian" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.PoissonRegression.link_inv">
+<code class="sig-name descname"><span class="pre">link_inv</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#PoissonRegression.link_inv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.PoissonRegression.link_inv" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.PoissonRegression.objective">
+<code class="sig-name descname"><span class="pre">objective</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#PoissonRegression.objective"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.PoissonRegression.objective" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="nums.models.glms.PoissonRegression.predict">
+<code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#PoissonRegression.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.PoissonRegression.predict" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.PoissonRegressor">
+<code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">PoissonRegressor</span></code><a class="headerlink" href="#nums.models.glms.PoissonRegressor" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference internal" href="#nums.models.glms.PoissonRegression" title="nums.models.glms.PoissonRegression"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.models.glms.PoissonRegression</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="nums.models.glms.Ridge">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">Ridge</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#Ridge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.Ridge" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nums.models.glms.LinearRegressionBase" title="nums.models.glms.LinearRegressionBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.models.glms.LinearRegressionBase</span></code></a></p>
+<p>Linear least squares with l2 regularization.</p>
+<p>Minimizes the objective function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">||</span><span class="n">y</span> <span class="o">-</span> <span class="n">Xw</span><span class="o">||^</span><span class="mi">2_2</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||^</span><span class="mi">2_2</span>
+</pre></div>
+</div>
+<p>This model solves a regression model where the loss function is
+the linear least squares function and regularization is given by
+the l2-norm. Also known as Ridge Regression or Tikhonov regularization.
+This estimator has built-in support for multi-variate regression
+(i.e., when y is a 2d BlockArray of shape (n_samples, n_targets)).</p>
+<p>This docstring was copied from sklearn.linear_model.ridge_regression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<em>float</em><em> or </em><em>array-like of shape</em><em> (</em><em>n_targets</em><em>,</em><em>)</em>) – Regularization strength; must be a positive float. Regularization
+improves the conditioning of the problem and reduces the variance of
+the estimates. Larger values specify stronger regularization.
+Alpha corresponds to <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(2C)</span></code> in other linear models such as
+<code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code> or
+<code class="xref py py-class docutils literal notranslate"><span class="pre">LinearSVC</span></code>. If an array is passed, penalties are
+assumed to be specific to the targets. Hence they must correspond in
+number.</p></li>
+<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>default=0.0001</em>) – Tolerance for stopping criteria.</p></li>
+<li><p><strong>max_iter</strong> (<em>int</em><em>, </em><em>default=100</em>) – Maximum number of iterations taken for the solvers to converge.</p></li>
+<li><p><strong>solver</strong> (<em>{'newton'}</em><em>, </em><em>default='newton'</em>) – Algorithm to use in the optimization problem. Default is ‘newton’.</p></li>
+<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>default=0.01</em>) – Learning Rate. Used in the optimization of the model.</p></li>
+<li><p><strong>random_state</strong> (<a class="reference internal" href="nums.core.array.random.html#nums.core.array.random.NumsRandomState" title="nums.core.array.random.NumsRandomState"><em>NumsRandomState</em></a><em>, </em><em>default=None</em>) – Seeds for randomness in model.</p></li>
+<li><p><strong>fit_intercept</strong> (<em>bool</em><em>, </em><em>default=True</em>) – The intercept of regression is calculated for this model.
+When data is centered, the intercept is calculated to 0.
+Setting this option to False is unsupported.</p></li>
+<li><p><strong>normalize</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Normalizes the regressors before regression.
+Setting this option to True is not yet supported.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._penalty">
+<code class="sig-name descname"><span class="pre">_penalty</span></code><a class="headerlink" href="#nums.models.glms.Ridge._penalty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._lambda">
+<code class="sig-name descname"><span class="pre">_lambda</span></code><a class="headerlink" href="#nums.models.glms.Ridge._lambda" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._l1penalty">
+<code class="sig-name descname"><span class="pre">_l1penalty</span></code><a class="headerlink" href="#nums.models.glms.Ridge._l1penalty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._l1penalty_vec">
+<code class="sig-name descname"><span class="pre">_l1penalty_vec</span></code><a class="headerlink" href="#nums.models.glms.Ridge._l1penalty_vec" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._l2penalty">
+<code class="sig-name descname"><span class="pre">_l2penalty</span></code><a class="headerlink" href="#nums.models.glms.Ridge._l2penalty" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._l2penalty_vec">
+<code class="sig-name descname"><span class="pre">_l2penalty_vec</span></code><a class="headerlink" href="#nums.models.glms.Ridge._l2penalty_vec" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._l2penalty_diag">
+<code class="sig-name descname"><span class="pre">_l2penalty_diag</span></code><a class="headerlink" href="#nums.models.glms.Ridge._l2penalty_diag" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge.alpha">
+<code class="sig-name descname"><span class="pre">alpha</span></code><a class="headerlink" href="#nums.models.glms.Ridge.alpha" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._tol">
+<code class="sig-name descname"><span class="pre">_tol</span></code><a class="headerlink" href="#nums.models.glms.Ridge._tol" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>corresponds to the parameter tol</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._max_iter">
+<code class="sig-name descname"><span class="pre">_max_iter</span></code><a class="headerlink" href="#nums.models.glms.Ridge._max_iter" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>corresponds to the parameter max_iter</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._opt">
+<code class="sig-name descname"><span class="pre">_opt</span></code><a class="headerlink" href="#nums.models.glms.Ridge._opt" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>corresponds to the parameter solver</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._lr">
+<code class="sig-name descname"><span class="pre">_lr</span></code><a class="headerlink" href="#nums.models.glms.Ridge._lr" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>corresponds to the parameter lr</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._beta">
+<code class="sig-name descname"><span class="pre">_beta</span></code><a class="headerlink" href="#nums.models.glms.Ridge._beta" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>BlockArray used internally for the optimizer to solve for the beta coefficients of the model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="nums.models.glms.Ridge._beta0">
+<code class="sig-name descname"><span class="pre">_beta0</span></code><a class="headerlink" href="#nums.models.glms.Ridge._beta0" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.models.glms.admm">
+<code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">admm</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#admm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.admm" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="nums.models.glms.block_sgd">
+<code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">block_sgd</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#block_sgd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.block_sgd" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="nums.models.glms.gd">
+<code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">gd</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#gd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.gd" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="nums.models.glms.irls">
+<code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">irls</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#irls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.irls" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="nums.models.glms.lbfgs">
+<code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">lbfgs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#lbfgs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.lbfgs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="nums.models.glms.newton">
+<code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">newton</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#newton"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.newton" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="nums.models.glms.sgd">
+<code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">sgd</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#sgd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.sgd" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

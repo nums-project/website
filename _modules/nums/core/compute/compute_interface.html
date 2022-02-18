@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.core.compute.compute_interface &#8212; NumS  documentation</title>
+    
+    <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../../../../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../../../../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../../../../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../../../../index.html">
+  <img src="../../../../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for nums.core.compute.compute_interface</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="kn">from</span> <span class="nn">nums.core.systems.utils</span> <span class="kn">import</span> <span class="n">method_meta</span>
+
+
+<div class="viewcode-block" id="ComputeInterface"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface">[docs]</a><span class="k">class</span> <span class="nc">ComputeInterface</span><span class="p">:</span>
+<div class="viewcode-block" id="ComputeInterface.touch"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.touch">[docs]</a>    <span class="k">def</span> <span class="nf">touch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;Touch&quot; the given array. This returns nothing and can be used to wait for</span>
+<span class="sd">        a computation without pulling data to the head node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.new_block"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.new_block">[docs]</a>    <span class="k">def</span> <span class="nf">new_block</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">op_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">grid_entry</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">grid_meta</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.random_block"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.random_block">[docs]</a>    <span class="k">def</span> <span class="nf">random_block</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">rng_params</span><span class="p">,</span> <span class="n">rfunc_name</span><span class="p">,</span> <span class="n">rfunc_args</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.permutation"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.permutation">[docs]</a>    <span class="k">def</span> <span class="nf">permutation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rng_params</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.diag"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.diag">[docs]</a>    <span class="k">def</span> <span class="nf">diag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.arange"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.arange">[docs]</a>    <span class="k">def</span> <span class="nf">arange</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">dtype</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.sum_reduce"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.sum_reduce">[docs]</a>    <span class="k">def</span> <span class="nf">sum_reduce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">arrs</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.transpose"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.transpose">[docs]</a>    <span class="k">def</span> <span class="nf">transpose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.swapaxes"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.swapaxes">[docs]</a>    <span class="k">def</span> <span class="nf">swapaxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">axis1</span><span class="p">,</span> <span class="n">axis2</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.create_block"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.create_block">[docs]</a>    <span class="k">def</span> <span class="nf">create_block</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">src_arrs</span><span class="p">,</span>
+        <span class="n">src_params</span><span class="p">,</span>
+        <span class="n">dst_params</span><span class="p">,</span>
+        <span class="n">dst_shape</span><span class="p">,</span>
+        <span class="n">dst_shape_bc</span><span class="p">,</span>
+        <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.update_block"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.update_block">[docs]</a>    <span class="k">def</span> <span class="nf">update_block</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dst_arr</span><span class="p">,</span> <span class="o">*</span><span class="n">src_arrs</span><span class="p">,</span> <span class="n">src_params</span><span class="p">,</span> <span class="n">dst_params</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.update_block_by_index"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.update_block_by_index">[docs]</a>    <span class="k">def</span> <span class="nf">update_block_by_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dst_arr</span><span class="p">,</span> <span class="n">src_arr</span><span class="p">,</span> <span class="n">index_pairs</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.advanced_assign_block_along_axis"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.advanced_assign_block_along_axis">[docs]</a>    <span class="k">def</span> <span class="nf">advanced_assign_block_along_axis</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dst_arr</span><span class="p">,</span>
+        <span class="n">src_arr</span><span class="p">,</span>
+        <span class="n">ss</span><span class="p">,</span>
+        <span class="n">axis</span><span class="p">,</span>
+        <span class="n">dst_coord</span><span class="p">,</span>
+        <span class="n">src_coord</span><span class="p">,</span>
+        <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.advanced_select_block_along_axis"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.advanced_select_block_along_axis">[docs]</a>    <span class="k">def</span> <span class="nf">advanced_select_block_along_axis</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dst_arr</span><span class="p">,</span>
+        <span class="n">src_arr</span><span class="p">,</span>
+        <span class="n">ss</span><span class="p">,</span>
+        <span class="n">dst_axis</span><span class="p">,</span>
+        <span class="n">src_axis</span><span class="p">,</span>
+        <span class="n">dst_coord</span><span class="p">,</span>
+        <span class="n">src_coord</span><span class="p">,</span>
+        <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.bop"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.bop">[docs]</a>    <span class="k">def</span> <span class="nf">bop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">a1_T</span><span class="p">,</span> <span class="n">a2_T</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.bop_reduce"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.bop_reduce">[docs]</a>    <span class="k">def</span> <span class="nf">bop_reduce</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="n">a1_T</span><span class="p">,</span> <span class="n">a2_T</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.split"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.split">[docs]</a>    <span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">indices_or_sections</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">transposed</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.shape_dtype"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.shape_dtype">[docs]</a>    <span class="k">def</span> <span class="nf">shape_dtype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.size"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.size">[docs]</a>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.tdigest_chunk"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.tdigest_chunk">[docs]</a>    <span class="k">def</span> <span class="nf">tdigest_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.percentiles_from_tdigest"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.percentiles_from_tdigest">[docs]</a>    <span class="k">def</span> <span class="nf">percentiles_from_tdigest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="o">*</span><span class="n">digests</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.select_median"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.select_median">[docs]</a>    <span class="k">def</span> <span class="nf">select_median</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.weighted_median"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.weighted_median">[docs]</a>    <span class="k">def</span> <span class="nf">weighted_median</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">arr_and_weights</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.pivot_partition"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.pivot_partition">[docs]</a>    <span class="k">def</span> <span class="nf">pivot_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">pivot</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.qr"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.qr">[docs]</a>    <span class="nd">@method_meta</span><span class="p">(</span><span class="n">num_returns</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">qr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">arrays</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;reduced&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.cholesky"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.cholesky">[docs]</a>    <span class="k">def</span> <span class="nf">cholesky</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.svd"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.svd">[docs]</a>    <span class="nd">@method_meta</span><span class="p">(</span><span class="n">num_returns</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">svd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.inv"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.inv">[docs]</a>    <span class="k">def</span> <span class="nf">inv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.array_compare"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.array_compare">[docs]</a>    <span class="k">def</span> <span class="nf">array_compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func_name</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.map_uop"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.map_uop">[docs]</a>    <span class="k">def</span> <span class="nf">map_uop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_name</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.where"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.where">[docs]</a>    <span class="k">def</span> <span class="nf">where</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">block_slice_tuples</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.reduce_axis"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.reduce_axis">[docs]</a>    <span class="k">def</span> <span class="nf">reduce_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">op_name</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">keepdims</span><span class="p">,</span> <span class="n">transposed</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+    <span class="c1"># Scipy</span>
+
+<div class="viewcode-block" id="ComputeInterface.xlogy"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.xlogy">[docs]</a>    <span class="k">def</span> <span class="nf">xlogy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr_x</span><span class="p">,</span> <span class="n">arr_y</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.logical_and"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.logical_and">[docs]</a>    <span class="k">def</span> <span class="nf">logical_and</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">bool_list</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.astype"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.astype">[docs]</a>    <span class="k">def</span> <span class="nf">astype</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">dtype_str</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.arg_op"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.arg_op">[docs]</a>    <span class="k">def</span> <span class="nf">arg_op</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">op_name</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">block_slice</span><span class="p">,</span> <span class="n">other_argoptima</span><span class="p">,</span> <span class="n">other_optima</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.reshape"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.reshape">[docs]</a>    <span class="k">def</span> <span class="nf">reshape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">syskwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ComputeInterface.identity"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeInterface.identity">[docs]</a>    <span class="k">def</span> <span class="nf">identity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="ComputeImp"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.ComputeImp">[docs]</a><span class="k">class</span> <span class="nc">ComputeImp</span><span class="p">:</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="RNGInterface"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.RNGInterface">[docs]</a><span class="k">class</span> <span class="nc">RNGInterface</span><span class="p">:</span>
+<div class="viewcode-block" id="RNGInterface.new_block_rng_params"><a class="viewcode-back" href="../../../../generated/nums.core.compute.compute_interface.html#nums.core.compute.compute_interface.RNGInterface.new_block_rng_params">[docs]</a>    <span class="k">def</span> <span class="nf">new_block_rng_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div></div>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

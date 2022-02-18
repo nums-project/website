@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nums.core.linalg &mdash; NumS  documentation</title><link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> NumS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">nums.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../numpy.html">nums.numpy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NumS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>nums.core.linalg</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nums.core.linalg</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">nums.core.array.application</span> <span class="kn">import</span> <span class="n">ArrayApplication</span>
+<span class="kn">from</span> <span class="nn">nums.core.array.blockarray</span> <span class="kn">import</span> <span class="n">BlockArray</span>
+<span class="kn">from</span> <span class="nn">nums.core.grid.grid</span> <span class="kn">import</span> <span class="n">ArrayGrid</span>
+
+
+<div class="viewcode-block" id="qr"><a class="viewcode-back" href="../../../generated/nums.core.linalg.html#nums.core.linalg.qr">[docs]</a><span class="k">def</span> <span class="nf">qr</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">indirect_tsqr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_qr_tree_reduce</span><span class="p">(</span>
+    <span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">oid_list</span><span class="p">,</span> <span class="n">result_grid_entry</span><span class="p">,</span> <span class="n">result_grid_shape</span>
+<span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">oid_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">oid_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">oid_list</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">a_oid</span><span class="p">,</span> <span class="n">a_ge</span><span class="p">,</span> <span class="n">a_gs</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">b_oid</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ge</span><span class="p">,</span> <span class="n">gs</span> <span class="o">=</span> <span class="p">(</span><span class="n">result_grid_entry</span><span class="p">,</span> <span class="n">result_grid_shape</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="n">a_ge</span><span class="p">,</span> <span class="n">a_gs</span><span class="p">)</span>
+        <span class="n">c_oid</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span>
+            <span class="n">a_oid</span><span class="p">,</span>
+            <span class="n">b_oid</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">ge</span><span class="p">,</span>
+                <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">gs</span><span class="p">,</span>
+                <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;num_returns&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+        <span class="n">q</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">c_oid</span><span class="p">,</span> <span class="n">ge</span><span class="p">,</span> <span class="n">gs</span><span class="p">))</span>
+    <span class="n">r_oid</span><span class="p">,</span> <span class="n">r_ge</span><span class="p">,</span> <span class="n">r_gs</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">r_ge</span> <span class="o">==</span> <span class="n">result_grid_entry</span>
+    <span class="k">assert</span> <span class="n">r_gs</span> <span class="o">==</span> <span class="n">result_grid_shape</span>
+    <span class="k">return</span> <span class="n">r_oid</span>
+
+
+<div class="viewcode-block" id="indirect_tsr"><a class="viewcode-back" href="../../../generated/nums.core.linalg.html#nums.core.linalg.indirect_tsr">[docs]</a><span class="k">def</span> <span class="nf">indirect_tsr</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">reshape_output</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="c1"># TODO (hme): This assertion is temporary and ensures returned</span>
+    <span class="c1">#  shape of qr of block is correct.</span>
+    <span class="k">assert</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># Compute R for each block.</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">grid</span>
+    <span class="n">grid_shape</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span>
+    <span class="n">R_oids</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Assume no blocking along second dim.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="c1"># Select a row according to block_shape.</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span><span class="p">)</span>
+        <span class="n">ge</span><span class="p">,</span> <span class="n">gs</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">grid_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">oid</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">row</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">ge</span><span class="p">,</span>
+                <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">gs</span><span class="p">,</span>
+                <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;num_returns&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">R_oids</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">oid</span><span class="p">,</span> <span class="n">ge</span><span class="p">,</span> <span class="n">gs</span><span class="p">))</span>
+
+    <span class="c1"># Construct R by summing over R blocks.</span>
+    <span class="c1"># TODO (hme): Communication may be inefficient due to redundancy of data.</span>
+    <span class="n">R_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">R_block_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">tsR</span> <span class="o">=</span> <span class="n">BlockArray</span><span class="p">(</span>
+        <span class="n">ArrayGrid</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">R_shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">R_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="vm">__name__</span><span class="p">),</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span>
+    <span class="p">)</span>
+    <span class="n">tsR</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="n">_qr_tree_reduce</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">R_oids</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># If blocking is &quot;tall-skinny,&quot; then we&#39;re done.</span>
+    <span class="k">if</span> <span class="n">R_shape</span> <span class="o">!=</span> <span class="n">R_block_shape</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">reshape_output</span><span class="p">:</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">tsR</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">R_shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">R_block_shape</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">tsR</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">tsR</span>
+    <span class="k">return</span> <span class="n">R</span></div>
+
+
+<div class="viewcode-block" id="indirect_tsqr"><a class="viewcode-back" href="../../../generated/nums.core.linalg.html#nums.core.linalg.indirect_tsqr">[docs]</a><span class="k">def</span> <span class="nf">indirect_tsqr</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">reshape_output</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span>
+    <span class="n">R_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">R_block_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">tsR</span> <span class="o">=</span> <span class="n">indirect_tsr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">reshape_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># Compute inverse of R.</span>
+    <span class="n">tsR_inverse</span> <span class="o">=</span> <span class="n">inv</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">tsR</span><span class="p">)</span>
+    <span class="c1"># If blocking is &quot;tall-skinny,&quot; then we&#39;re done.</span>
+    <span class="k">if</span> <span class="n">R_shape</span> <span class="o">!=</span> <span class="n">R_block_shape</span><span class="p">:</span>
+        <span class="n">R_inverse</span> <span class="o">=</span> <span class="n">tsR_inverse</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">R_shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">R_block_shape</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reshape_output</span><span class="p">:</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">tsR</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">R_shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">R_block_shape</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">tsR</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">R_inverse</span> <span class="o">=</span> <span class="n">tsR_inverse</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">tsR</span>
+
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">R_inverse</span>
+    <span class="k">return</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span></div>
+
+
+<div class="viewcode-block" id="direct_tsqr"><a class="viewcode-back" href="../../../generated/nums.core.linalg.html#nums.core.linalg.direct_tsqr">[docs]</a><span class="k">def</span> <span class="nf">direct_tsqr</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">reshape_output</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+
+    <span class="c1"># Compute R for each block.</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">grid</span>
+    <span class="n">grid_shape</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span>
+    <span class="n">Q_oids</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">R_oids</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">QR_dims</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Q2_shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="c1"># Select a row according to block_shape.</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">grid_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span><span class="p">)</span>
+        <span class="c1"># We invoke &quot;reduced&quot;, so q, r is returned with dimensions (M, K), (K, N), K = min(M, N)</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">get_block_shape</span><span class="p">((</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="n">QR_dims</span><span class="o">.</span><span class="n">append</span><span class="p">(((</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="p">),</span> <span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">N</span><span class="p">)))</span>
+        <span class="n">Q2_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">K</span>
+        <span class="c1"># Run each row on separate nodes along first axis.</span>
+        <span class="c1"># This maintains some data locality.</span>
+        <span class="n">Q_oid</span><span class="p">,</span> <span class="n">R_oid</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span>
+            <span class="o">*</span><span class="n">row</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;reduced&quot;</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">grid_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span>
+                <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;num_returns&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+        <span class="n">R_oids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">R_oid</span><span class="p">)</span>
+        <span class="n">Q_oids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Q_oid</span><span class="p">)</span>
+
+    <span class="c1"># TODO (hme): This pulls several order N^2 R matrices on a single node.</span>
+    <span class="c1">#  A solution is the recursive extension to direct TSQR.</span>
+    <span class="n">Q2_oid</span><span class="p">,</span> <span class="n">R2_oid</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">qr</span><span class="p">(</span>
+        <span class="o">*</span><span class="n">R_oids</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;reduced&quot;</span><span class="p">,</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="s2">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;num_returns&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+    <span class="n">Q2_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">Q2_shape</span><span class="p">)</span>
+    <span class="n">Q2_block_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">QR_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">Q2</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">vec_from_oids</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">Q2_oid</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="n">Q2_shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">Q2_block_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="p">)</span>
+    <span class="c1"># The resulting Q&#39;s from this operation are N^2 (same size as above R&#39;s).</span>
+    <span class="n">Q2_oids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">block</span><span class="p">:</span> <span class="n">block</span><span class="o">.</span><span class="n">oid</span><span class="p">,</span> <span class="n">Q2</span><span class="o">.</span><span class="n">blocks</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))</span>
+
+    <span class="c1"># Construct Q.</span>
+    <span class="n">Q</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="p">(</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">grid_entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">get_entry_iterator</span><span class="p">()):</span>
+        <span class="n">Q</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">grid_entry</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span>
+            <span class="s2">&quot;tensordot&quot;</span><span class="p">,</span>
+            <span class="n">Q_oids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">Q2_oids</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+            <span class="n">a1_T</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">a2_T</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">axes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">grid_entry</span><span class="p">,</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">Q</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span><span class="p">},</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Construct R.</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">R_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">R_block_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">tsR</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">vec_from_oids</span><span class="p">([</span><span class="n">R2_oid</span><span class="p">],</span> <span class="n">shape</span><span class="o">=</span><span class="n">R_shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">R_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="c1"># If blocking is &quot;tall-skinny,&quot; then we&#39;re done.</span>
+    <span class="k">if</span> <span class="n">R_shape</span> <span class="o">==</span> <span class="n">R_block_shape</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">reshape_output</span><span class="p">:</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">tsR</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">tsR</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">R_shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">R_block_shape</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">Q</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">block_shape</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">reshape_output</span><span class="p">:</span>
+        <span class="n">Q</span> <span class="o">=</span> <span class="n">Q</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">block_shape</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Q</span><span class="p">,</span> <span class="n">R</span></div>
+
+
+<div class="viewcode-block" id="svd"><a class="viewcode-back" href="../../../generated/nums.core.linalg.html#nums.core.linalg.svd">[docs]</a><span class="k">def</span> <span class="nf">svd</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+    <span class="c1"># TODO(hme): Optimize by merging with direct qr to compute U directly,</span>
+    <span class="c1">#  to avoid wasting space storing intermediate Q.</span>
+    <span class="c1">#  This may not really help until we have operator fusion.</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">R_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">R_block_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">direct_tsqr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">reshape_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">R</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">R</span><span class="o">.</span><span class="n">block_shape</span>
+    <span class="n">R_U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span>
+        <span class="n">R</span><span class="o">.</span><span class="n">blocks</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">oid</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)}</span>
+    <span class="p">)</span>
+    <span class="n">R_U</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">vec_from_oids</span><span class="p">([</span><span class="n">R_U</span><span class="p">],</span> <span class="n">R_shape</span><span class="p">,</span> <span class="n">R_block_shape</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">S</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">vec_from_oids</span><span class="p">([</span><span class="n">S</span><span class="p">],</span> <span class="n">R_shape</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">R_block_shape</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">VT</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">vec_from_oids</span><span class="p">([</span><span class="n">VT</span><span class="p">],</span> <span class="n">R_shape</span><span class="p">,</span> <span class="n">R_block_shape</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">Q</span> <span class="o">@</span> <span class="n">R_U</span>
+
+    <span class="k">return</span> <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">VT</span></div>
+
+
+<div class="viewcode-block" id="pca"><a class="viewcode-back" href="../../../generated/nums.core.linalg.html#nums.core.linalg.pca">[docs]</a><span class="k">def</span> <span class="nf">pca</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">U</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">svd</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">X</span> <span class="o">@</span> <span class="n">U</span></div>
+
+
+<div class="viewcode-block" id="inv"><a class="viewcode-back" href="../../../generated/nums.core.linalg.html#nums.core.linalg.inv">[docs]</a><span class="k">def</span> <span class="nf">inv</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+    <span class="c1"># TODO (hme): Implement scalable version.</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="k">assert</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">single_block</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">single_block</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">block_shape</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)}</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">single_block</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">block_shape</span><span class="o">=</span><span class="n">block_shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="inv_uppertri"><a class="viewcode-back" href="../../../generated/nums.core.linalg.html#nums.core.linalg.inv_uppertri">[docs]</a><span class="k">def</span> <span class="nf">inv_uppertri</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Distributed algorithm for the inversion of an Upper Triangular Matrix.</span>
+<span class="sd">    We use the method and notation described in -</span>
+<span class="sd">    https://www.cs.utexas.edu/users/flame/pubs/siam_spd.pdf.</span>
+
+<span class="sd">    The upper-triangular matrix X is partitioned as follows:</span>
+
+<span class="sd">                                    ____________________________</span>
+<span class="sd">             _________________      |  R_00  ‖  R_01  |  R_02  |</span>
+<span class="sd">             | R_TL  |  R_TR |      |==========================|</span>
+<span class="sd">    X = R -&gt; |---------------|   -&gt; |   0    ‖  R_11  |  R_12  |</span>
+<span class="sd">             |  0    |  R_BR |      |--------------------------|</span>
+<span class="sd">             ⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻      |   0    ‖   0    |  R_22  |</span>
+<span class="sd">                                    ⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻</span>
+
+<span class="sd">    where the double lines represent the boundaries between R_TL, R_TR, and R_BR.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Check if X is a square matrix and if it is backed by a single block.</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="k">assert</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;This function only accepts square matrices&quot;</span>
+    <span class="n">single_block</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">nonsquare_block</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># If X is represented by a single block or its block size is non-square,</span>
+    <span class="c1"># then perform a naive inversion.</span>
+    <span class="k">if</span> <span class="n">single_block</span> <span class="ow">or</span> <span class="n">nonsquare_block</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">inv</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+
+    <span class="c1"># Setup the metadata.</span>
+    <span class="n">full_shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">grid_shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_shape</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span>
+
+    <span class="n">R</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">Zs</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">full_shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># Calculate the inverse for block R_11.</span>
+    <span class="n">r11_oid</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">blocks</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">oid</span>
+    <span class="n">r11_inv_oid</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span>
+        <span class="n">r11_oid</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">grid_shape</span><span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">R</span><span class="o">.</span><span class="n">blocks</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="n">r11_inv_oid</span>
+    <span class="n">R_tl_shape</span> <span class="o">=</span> <span class="n">block_shape</span>
+
+    <span class="c1"># This iterative algorithm continues until shape(X) == shape(R_TL)</span>
+    <span class="k">while</span> <span class="n">R_tl_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">full_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">R_tl_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">full_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+
+        <span class="c1"># Calculate the block index for R_11.</span>
+        <span class="n">R11_block</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">R_tl_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">block_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">R_tl_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">R11_oid</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">R11_block</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span>
+        <span class="n">R11_shape</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">R11_block</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="c1"># Calculate the inverse for block R_11.</span>
+        <span class="n">R11_inv_oid</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span>
+            <span class="n">R11_oid</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">R11_block</span><span class="p">,</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">grid_shape</span><span class="p">}</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Replace R_11 with its inverse in R inplace.</span>
+        <span class="n">R</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">R11_block</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="n">R11_inv_oid</span>
+
+        <span class="c1"># Calculate the blocks within R_01.</span>
+        <span class="n">R01_oids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">R01_shapes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">R01_grid_entries</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">R01_sb_row</span><span class="p">,</span> <span class="n">R01_sb_col</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">R11_block</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># sb -- start_block</span>
+        <span class="n">R01_num_blocks</span> <span class="o">=</span> <span class="n">R11_block</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="c1"># Collect the block metadata.</span>
+        <span class="k">for</span> <span class="n">inc</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">R01_num_blocks</span><span class="p">):</span>
+            <span class="n">R01_oids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">blocks</span><span class="p">[(</span><span class="n">R01_sb_row</span> <span class="o">+</span> <span class="n">inc</span><span class="p">,</span> <span class="n">R01_sb_col</span><span class="p">)]</span><span class="o">.</span><span class="n">oid</span><span class="p">)</span>
+            <span class="n">R01_shapes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">blocks</span><span class="p">[(</span><span class="n">R01_sb_row</span> <span class="o">+</span> <span class="n">inc</span><span class="p">,</span> <span class="n">R01_sb_col</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">R01_grid_entries</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">R01_sb_row</span> <span class="o">+</span> <span class="n">inc</span><span class="p">,</span> <span class="n">R01_sb_col</span><span class="p">))</span>
+
+        <span class="c1"># Perform blocked matrix multiplication: R_01 = -R_00 @ R_01.</span>
+        <span class="n">R01_1_oids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">row_block</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">R01_num_blocks</span><span class="p">):</span>
+            <span class="n">sub_oids</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">for</span> <span class="n">col_block</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">R01_num_blocks</span><span class="p">):</span>
+
+                <span class="c1"># Get the data for the next block in R_00.</span>
+                <span class="n">R00_oid</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">blocks</span><span class="p">[(</span><span class="n">row_block</span><span class="p">,</span> <span class="n">col_block</span><span class="p">)]</span><span class="o">.</span><span class="n">oid</span>
+                <span class="n">Z_oid</span> <span class="o">=</span> <span class="n">Zs</span><span class="o">.</span><span class="n">blocks</span><span class="p">[(</span><span class="n">row_block</span><span class="p">,</span> <span class="n">col_block</span><span class="p">)]</span><span class="o">.</span><span class="n">oid</span>
+
+                <span class="c1"># Calculate -R_00 by subtracting R_00 from zero.</span>
+                <span class="n">neg_R00_oid</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span>
+                    <span class="s2">&quot;subtract&quot;</span><span class="p">,</span>
+                    <span class="n">Z_oid</span><span class="p">,</span>
+                    <span class="n">R00_oid</span><span class="p">,</span>
+                    <span class="kc">False</span><span class="p">,</span>
+                    <span class="kc">False</span><span class="p">,</span>
+                    <span class="n">axes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">row_block</span><span class="p">,</span> <span class="n">col_block</span><span class="p">),</span>
+                        <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">grid_shape</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">)</span>
+
+                <span class="c1"># Calculate -R00 @ R01.</span>
+                <span class="n">sub_oids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span>
+                        <span class="s2">&quot;tensordot&quot;</span><span class="p">,</span>
+                        <span class="n">neg_R00_oid</span><span class="p">,</span>
+                        <span class="n">R01_oids</span><span class="p">[</span><span class="n">col_block</span><span class="p">],</span>
+                        <span class="kc">False</span><span class="p">,</span>
+                        <span class="kc">False</span><span class="p">,</span>
+                        <span class="n">axes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span>
+                            <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">R01_grid_entries</span><span class="p">[</span><span class="n">col_block</span><span class="p">],</span>
+                            <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">grid_shape</span><span class="p">,</span>
+                        <span class="p">},</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Perform the summation step over all column blocks.</span>
+            <span class="n">R01_1_oids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">sum_reduce</span><span class="p">(</span>
+                    <span class="o">*</span><span class="n">sub_oids</span><span class="p">,</span>
+                    <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">R01_grid_entries</span><span class="p">[</span><span class="n">row_block</span><span class="p">],</span>
+                        <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">grid_shape</span><span class="p">,</span>
+                    <span class="p">}</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Perform a second blocked matrix multiplication: R_01 = R_01 @ inv(R_11).</span>
+        <span class="n">R01_2_oids</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">row_block</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">R01_num_blocks</span><span class="p">):</span>
+            <span class="n">R01_2_oids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">bop</span><span class="p">(</span>
+                    <span class="s2">&quot;tensordot&quot;</span><span class="p">,</span>
+                    <span class="n">R01_1_oids</span><span class="p">[</span><span class="n">row_block</span><span class="p">],</span>
+                    <span class="n">R11_inv_oid</span><span class="p">,</span>
+                    <span class="kc">False</span><span class="p">,</span>
+                    <span class="kc">False</span><span class="p">,</span>
+                    <span class="n">axes</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                    <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span>
+                        <span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="n">R01_grid_entries</span><span class="p">[</span><span class="n">row_block</span><span class="p">],</span>
+                        <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="n">grid_shape</span><span class="p">,</span>
+                    <span class="p">},</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Replace the entries in R with the new object IDs.</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">entry</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">R01_grid_entries</span><span class="p">):</span>
+            <span class="n">R</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="n">entry</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="n">R01_2_oids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="c1"># Recompute shape(R_TL).</span>
+        <span class="n">r11_r</span><span class="p">,</span> <span class="n">r11_c</span> <span class="o">=</span> <span class="n">R11_shape</span>
+        <span class="n">old_r</span><span class="p">,</span> <span class="n">old_c</span> <span class="o">=</span> <span class="n">R_tl_shape</span>
+
+        <span class="n">R_tl_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">old_r</span> <span class="o">+</span> <span class="n">r11_r</span><span class="p">,</span> <span class="n">old_c</span> <span class="o">+</span> <span class="n">r11_c</span><span class="p">)</span>
+
+    <span class="c1"># By the time we finish the algorithm, R is now an inverse of X.</span>
+    <span class="k">return</span> <span class="n">R</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">block_shape</span><span class="o">=</span><span class="n">block_shape</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cholesky"><a class="viewcode-back" href="../../../generated/nums.core.linalg.html#nums.core.linalg.cholesky">[docs]</a><span class="k">def</span> <span class="nf">cholesky</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+    <span class="c1"># TODO (hme): Implement scalable version.</span>
+    <span class="c1"># Note:</span>
+    <span class="c1"># A = Q, R</span>
+    <span class="c1"># A.T @ A = R.T @ R</span>
+    <span class="c1"># A.T @ A = L @ L.T</span>
+    <span class="c1"># =&gt; R == L.T</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="k">assert</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">single_block</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">and</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">single_block</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">block_shape</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">blocks</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">oid</span><span class="p">,</span> <span class="n">syskwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;grid_entry&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;grid_shape&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)}</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">single_block</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">block_shape</span><span class="o">=</span><span class="n">block_shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="fast_linear_regression"><a class="viewcode-back" href="../../../generated/nums.core.linalg.html#nums.core.linalg.fast_linear_regression">[docs]</a><span class="k">def</span> <span class="nf">fast_linear_regression</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">R_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">R_block_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">indirect_tsqr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">reshape_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">R_inv</span> <span class="o">=</span> <span class="n">inv</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">R_shape</span> <span class="o">!=</span> <span class="n">R_block_shape</span><span class="p">:</span>
+        <span class="n">R_inv</span> <span class="o">=</span> <span class="n">R_inv</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">R_shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">R_block_shape</span><span class="p">)</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">R_inv</span> <span class="o">@</span> <span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">theta</span></div>
+
+
+<div class="viewcode-block" id="linear_regression"><a class="viewcode-back" href="../../../generated/nums.core.linalg.html#nums.core.linalg.linear_regression">[docs]</a><span class="k">def</span> <span class="nf">linear_regression</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">R_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">R_block_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">Q</span><span class="p">,</span> <span class="n">R</span> <span class="o">=</span> <span class="n">direct_tsqr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">reshape_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="c1"># Invert R.</span>
+    <span class="n">R_inv</span> <span class="o">=</span> <span class="n">inv</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">R_shape</span> <span class="o">!=</span> <span class="n">R_block_shape</span><span class="p">:</span>
+        <span class="n">R_inv</span> <span class="o">=</span> <span class="n">R_inv</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">R_shape</span><span class="p">,</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">R_block_shape</span><span class="p">)</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">R_inv</span> <span class="o">@</span> <span class="p">(</span><span class="n">Q</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">theta</span></div>
+
+
+<div class="viewcode-block" id="ridge_regression"><a class="viewcode-back" href="../../../generated/nums.core.linalg.html#nums.core.linalg.ridge_regression">[docs]</a><span class="k">def</span> <span class="nf">ridge_regression</span><span class="p">(</span><span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">lamb</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="n">lamb</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+    <span class="n">block_shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">block_shape</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">R_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">R_block_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">indirect_tsr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+    <span class="n">lamb_vec</span> <span class="o">=</span> <span class="n">app</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">lamb</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">R_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">block_shape</span><span class="o">=</span><span class="n">R_block_shape</span><span class="p">)</span>
+    <span class="c1"># TODO (hme): A better solution exists, which inverts R by augmenting X and y.</span>
+    <span class="c1">#  See Murphy 7.5.2.</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">inv</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">lamb_vec</span> <span class="o">+</span> <span class="n">R</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="n">R</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span>
+        <span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="n">y</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">theta</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The NumS Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

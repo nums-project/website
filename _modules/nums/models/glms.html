@@ -1,0 +1,1123 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.models.glms &#8212; NumS  documentation</title>
+    
+    <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../../../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../../../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../../../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../../../index.html">
+  <img src="../../../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for nums.models.glms</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">nums.core.application_manager</span> <span class="kn">import</span> <span class="n">instance</span> <span class="k">as</span> <span class="n">_instance</span>
+<span class="kn">from</span> <span class="nn">nums.core.array</span> <span class="kn">import</span> <span class="n">utils</span> <span class="k">as</span> <span class="n">array_utils</span>
+<span class="kn">from</span> <span class="nn">nums.core.array.application</span> <span class="kn">import</span> <span class="n">ArrayApplication</span>
+<span class="kn">from</span> <span class="nn">nums.core.array.blockarray</span> <span class="kn">import</span> <span class="n">BlockArray</span>
+<span class="kn">from</span> <span class="nn">nums.core.array.random</span> <span class="kn">import</span> <span class="n">NumsRandomState</span>
+<span class="kn">from</span> <span class="nn">nums.core</span> <span class="kn">import</span> <span class="n">linalg</span>
+
+
+<div class="viewcode-block" id="GLM"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM">[docs]</a><span class="k">class</span> <span class="nc">GLM</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">l1_ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">tol</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;newton&quot;</span><span class="p">,</span>
+        <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">fit_intercept</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;fit_incercept=False currently not supported.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">normalize</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;normalize=True currently not supported.&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">random_state</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="p">:</span> <span class="n">NumsRandomState</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">random</span>
+        <span class="k">elif</span> <span class="n">array_utils</span><span class="o">.</span><span class="n">is_int</span><span class="p">(</span><span class="n">random_state</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="p">:</span> <span class="n">NumsRandomState</span> <span class="o">=</span> <span class="n">NumsRandomState</span><span class="p">(</span>
+                <span class="n">cm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">cm</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="n">random_state</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">random_state</span><span class="p">,</span> <span class="n">NumsRandomState</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="p">:</span> <span class="n">NumsRandomState</span> <span class="o">=</span> <span class="n">random_state</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                <span class="s2">&quot;Unexpected type for random_state </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">random_state</span><span class="p">))</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">penalty</span> <span class="o">==</span> <span class="s2">&quot;none&quot;</span> <span class="k">else</span> <span class="n">penalty</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;l1&quot;</span><span class="p">,</span> <span class="s2">&quot;l2&quot;</span><span class="p">,</span> <span class="s2">&quot;elasticnet&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> penalty not supported&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span><span class="p">)</span>
+        <span class="c1"># All sources use lambda as regularization term, and alpha l1/l2 ratio.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lambda</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty_vec</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_vec</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_diag</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">l1_ratio</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tol</span> <span class="o">=</span> <span class="n">tol</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_iter</span> <span class="o">=</span> <span class="n">max_iter</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_opt</span> <span class="o">=</span> <span class="n">solver</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lr</span> <span class="o">=</span> <span class="n">lr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_beta</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_beta0</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="GLM.fit"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+        <span class="c1"># Note, it&#39;s critically important from a performance point-of-view</span>
+        <span class="c1"># to maintain the original block shape of X below, along axis 1.</span>
+        <span class="c1"># Otherwise, the concatenation operation will not construct the new X</span>
+        <span class="c1"># by referencing X&#39;s existing blocks.</span>
+        <span class="c1"># TODO: Option to do concat.</span>
+        <span class="c1"># TODO: Provide support for batching.</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
+            <span class="n">X</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">X</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span>
+                    <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span>
+                    <span class="n">block_shape</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+            <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">axis_block_size</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+        <span class="n">beta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],),</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span>
+        <span class="p">)</span>
+        <span class="n">tol</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tol</span><span class="p">)</span>
+        <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_iter</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;elasticnet&quot;</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="p">),</span> <span class="s2">&quot;l1_ratio must be specified for elastic net penalty.&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lambda</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">beta</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">beta</span><span class="o">.</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">beta</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lambda</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">beta</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">beta</span><span class="o">.</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">beta</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_diag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_vec</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l2&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lambda</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">beta</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">beta</span><span class="o">.</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">beta</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_diag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_vec</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l1&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lambda</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">beta</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">beta</span><span class="o">.</span><span class="n">block_shape</span><span class="p">,</span> <span class="n">beta</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty_vec</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt</span> <span class="o">==</span> <span class="s2">&quot;gd&quot;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt</span> <span class="o">==</span> <span class="s2">&quot;sgd&quot;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt</span> <span class="o">==</span> <span class="s2">&quot;block_sgd&quot;</span><span class="p">:</span>
+            <span class="n">lr</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">scalar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lr</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt</span> <span class="o">==</span> <span class="s2">&quot;gd&quot;</span><span class="p">:</span>
+                <span class="n">beta</span> <span class="o">=</span> <span class="n">gd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">lr</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt</span> <span class="o">==</span> <span class="s2">&quot;sgd&quot;</span><span class="p">:</span>
+                <span class="n">beta</span> <span class="o">=</span> <span class="n">sgd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">lr</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">beta</span> <span class="o">=</span> <span class="n">block_sgd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">,</span> <span class="n">lr</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt</span> <span class="o">==</span> <span class="s2">&quot;newton&quot;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt</span> <span class="o">==</span> <span class="s2">&quot;newton-cg&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt</span> <span class="o">==</span> <span class="s2">&quot;newton-cg&quot;</span><span class="p">:</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Specified newton-cg solver, using newton instead.&quot;</span><span class="p">)</span>
+            <span class="n">beta</span> <span class="o">=</span> <span class="n">newton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt</span> <span class="o">==</span> <span class="s2">&quot;irls&quot;</span><span class="p">:</span>
+            <span class="c1"># TODO (hme): Provide irls for all GLMs.</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">LogisticRegression</span><span class="p">)</span>
+            <span class="n">beta</span> <span class="o">=</span> <span class="n">irls</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt</span> <span class="o">==</span> <span class="s2">&quot;lbfgs&quot;</span><span class="p">:</span>
+            <span class="n">beta</span> <span class="o">=</span> <span class="n">lbfgs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">tol</span><span class="p">,</span> <span class="n">max_iter</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unsupported optimizer specified </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_opt</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_beta0</span> <span class="o">=</span> <span class="n">beta</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_beta</span> <span class="o">=</span> <span class="n">beta</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="GLM.forward"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">beta</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_inv</span><span class="p">(</span><span class="n">X</span> <span class="o">@</span> <span class="n">beta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_beta0</span> <span class="o">+</span> <span class="n">X</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beta</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GLM.grad_norm_sq"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.grad_norm_sq">[docs]</a>    <span class="k">def</span> <span class="nf">grad_norm_sq</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">beta</span><span class="p">),</span> <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">g</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="n">g</span></div>
+
+<div class="viewcode-block" id="GLM.predict"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="GLM.link_inv"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.link_inv">[docs]</a>    <span class="k">def</span> <span class="nf">link_inv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eta</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="GLM.objective"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.objective">[docs]</a>    <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">beta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="GLM.gradient"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.gradient">[docs]</a>    <span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">beta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="c1"># gradient w.r.t. beta.</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="GLM.hessian"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.hessian">[docs]</a>    <span class="k">def</span> <span class="nf">hessian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Hessian w.r.t. beta.</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="GLM.deviance"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.deviance">[docs]</a>    <span class="k">def</span> <span class="nf">deviance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="GLM.deviance_sqr"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.deviance_sqr">[docs]</a>    <span class="k">def</span> <span class="nf">deviance_sqr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">dev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deviance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        <span class="n">y_mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">dev_null</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deviance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_mean</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">dev</span> <span class="o">/</span> <span class="n">dev_null</span></div>
+
+<div class="viewcode-block" id="GLM.obj_penalty"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.obj_penalty">[docs]</a>    <span class="k">def</span> <span class="nf">obj_penalty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the penalty term for the object function used in regularization.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l1&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l2&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;elasticnet&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
+                <span class="n">beta</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span>
+            <span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unexpected call to objective term, penalty=None.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GLM.grad_penalty"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.grad_penalty">[docs]</a>    <span class="k">def</span> <span class="nf">grad_penalty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the penalty for the gradient used in regularization.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l1&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty_vec</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">map_uop</span><span class="p">(</span><span class="s2">&quot;sign&quot;</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l2&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_vec</span> <span class="o">*</span> <span class="n">beta</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;elasticnet&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_vec</span> <span class="o">*</span> <span class="n">beta</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty_vec</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">map_uop</span><span class="p">(</span>
+                <span class="s2">&quot;sign&quot;</span><span class="p">,</span> <span class="n">beta</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unexpected call to objective term, penalty=None.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GLM.hessian_penalty"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.hessian_penalty">[docs]</a>    <span class="k">def</span> <span class="nf">hessian_penalty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the norm penalty for the hessian used in regularization.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l1&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l2&quot;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;elasticnet&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l2penalty_diag</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unexpected call to objective term, penalty=None.&quot;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="LinearRegressionBase"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LinearRegressionBase">[docs]</a><span class="k">class</span> <span class="nc">LinearRegressionBase</span><span class="p">(</span><span class="n">GLM</span><span class="p">):</span>
+
+    <span class="c1"># Assume Sigma = I</span>
+    <span class="c1"># canonical parameter: theta = mu</span>
+    <span class="c1"># b(theta) = theta^2/2</span>
+    <span class="c1"># b&#39;(theta) = theta</span>
+    <span class="c1"># canonical link: g(mu) = mu = theta = eta = X @ beta</span>
+    <span class="c1"># inverse canonical link: mu = b(theta) = b(eta) = eta</span>
+
+<div class="viewcode-block" id="LinearRegressionBase.link_inv"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LinearRegressionBase.link_inv">[docs]</a>    <span class="k">def</span> <span class="nf">link_inv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eta</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">eta</span></div>
+
+<div class="viewcode-block" id="LinearRegressionBase.objective"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LinearRegressionBase.objective">[docs]</a>    <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">beta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">assert</span> <span class="n">beta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span> <span class="k">if</span> <span class="n">mu</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">mu</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">two</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">beta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="n">r</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj_penalty</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">r</span></div>
+
+<div class="viewcode-block" id="LinearRegressionBase.gradient"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LinearRegressionBase.gradient">[docs]</a>    <span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">beta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the gradient with regards to beta.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">mu</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">mu</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">beta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="n">r</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_penalty</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">r</span></div>
+
+<div class="viewcode-block" id="LinearRegressionBase.hessian"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LinearRegressionBase.hessian">[docs]</a>    <span class="k">def</span> <span class="nf">hessian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the hessian with regards to the hessian penalty.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="n">X</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hessian_penalty</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">r</span></div>
+
+<div class="viewcode-block" id="LinearRegressionBase.deviance"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LinearRegressionBase.deviance">[docs]</a>    <span class="k">def</span> <span class="nf">deviance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the deviance of the model with regards to y_pred.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">two</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LinearRegressionBase.predict"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LinearRegressionBase.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict using the Linear Regression model. Calls foward internally.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="LinearRegression"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LinearRegression">[docs]</a><span class="k">class</span> <span class="nc">LinearRegression</span><span class="p">(</span><span class="n">LinearRegressionBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Ordinary least squares Linear Regression.</span>
+
+<span class="sd">    LinearRegression fits a linear model with coefficients w = (w1, ..., wp)</span>
+<span class="sd">    to minimize the residual sum of squares between the observed targets in</span>
+<span class="sd">    the dataset, and the targets predicted by the linear approximation.</span>
+
+<span class="sd">    This docstring was copied from sklearn.linear_model.LinearRegression.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tol : float, default=0.0001</span>
+<span class="sd">        Tolerance for stopping criteria.</span>
+
+<span class="sd">    max_iter : int, default=100</span>
+<span class="sd">        Maximum number of iterations taken for the solvers to converge.</span>
+
+<span class="sd">    solver : {&#39;newton&#39;}, default=&#39;newton&#39;</span>
+<span class="sd">        Algorithm to use in the optimization problem. Default is ‘newton’.</span>
+
+<span class="sd">    lr : float, default=0.01</span>
+<span class="sd">        Learning Rate. Used in the optimization of the model.</span>
+
+<span class="sd">    random_state : NumsRandomState, default=None</span>
+<span class="sd">        Seeds for randomness in model.</span>
+
+<span class="sd">    fit_intercept : bool, default=True</span>
+<span class="sd">        The intercept of regression is calculated for this model.</span>
+<span class="sd">        When data is centered, the intercept is calculated to 0.</span>
+<span class="sd">        Setting this option to False is unsupported.</span>
+
+<span class="sd">    normalize : bool, default=False</span>
+<span class="sd">        Normalizes the regressors before regression.</span>
+<span class="sd">        Setting this option to True is not yet supported.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _penalty</span>
+<span class="sd">    _lambda</span>
+<span class="sd">    _l1penalty</span>
+<span class="sd">    _l1penalty_vec</span>
+<span class="sd">    _l2penalty</span>
+<span class="sd">    _l2penalty_vec</span>
+<span class="sd">    _l2penalty_diag</span>
+<span class="sd">    alpha</span>
+<span class="sd">    _tol : corresponds to the parameter tol</span>
+<span class="sd">    _max_iter: corresponds to the parameter max_iter</span>
+<span class="sd">    _opt: corresponds to the parameter solver</span>
+<span class="sd">    _lr: corresponds to the parameter lr</span>
+<span class="sd">    _beta: BlockArray used internally for the optimizer to solve for the beta coefficients of the model</span>
+<span class="sd">    _beta0</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    Ridge : Ridge regression addresses some of the</span>
+<span class="sd">        problems of Ordinary Least Squares by imposing a penalty on the</span>
+<span class="sd">        size of the coefficients with l2 regularization.</span>
+<span class="sd">    Lasso : The Lasso is a linear model that estimates</span>
+<span class="sd">        sparse coefficients with l1 regularization.</span>
+<span class="sd">    ElasticNet : Elastic-Net is a linear regression</span>
+<span class="sd">        model trained with both l1 and l2 -norm regularization of the</span>
+<span class="sd">        coefficients.</span>
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">tol</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;newton&quot;</span><span class="p">,</span>
+        <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+            <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span>
+            <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span>
+            <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+            <span class="n">fit_intercept</span><span class="o">=</span><span class="n">fit_intercept</span><span class="p">,</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Ridge"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.Ridge">[docs]</a><span class="k">class</span> <span class="nc">Ridge</span><span class="p">(</span><span class="n">LinearRegressionBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Linear least squares with l2 regularization.</span>
+
+<span class="sd">    Minimizes the objective function::</span>
+
+<span class="sd">    ||y - Xw||^2_2 + alpha * ||w||^2_2</span>
+
+<span class="sd">    This model solves a regression model where the loss function is</span>
+<span class="sd">    the linear least squares function and regularization is given by</span>
+<span class="sd">    the l2-norm. Also known as Ridge Regression or Tikhonov regularization.</span>
+<span class="sd">    This estimator has built-in support for multi-variate regression</span>
+<span class="sd">    (i.e., when y is a 2d BlockArray of shape (n_samples, n_targets)).</span>
+
+<span class="sd">    This docstring was copied from sklearn.linear_model.ridge_regression.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    alpha : float or array-like of shape (n_targets,)</span>
+<span class="sd">        Regularization strength; must be a positive float. Regularization</span>
+<span class="sd">        improves the conditioning of the problem and reduces the variance of</span>
+<span class="sd">        the estimates. Larger values specify stronger regularization.</span>
+<span class="sd">        Alpha corresponds to ``1 / (2C)`` in other linear models such as</span>
+<span class="sd">        :class:`~sklearn.linear_model.LogisticRegression` or</span>
+<span class="sd">        :class:`~sklearn.svm.LinearSVC`. If an array is passed, penalties are</span>
+<span class="sd">        assumed to be specific to the targets. Hence they must correspond in</span>
+<span class="sd">        number.</span>
+
+<span class="sd">    tol : float, default=0.0001</span>
+<span class="sd">        Tolerance for stopping criteria.</span>
+
+<span class="sd">    max_iter : int, default=100</span>
+<span class="sd">        Maximum number of iterations taken for the solvers to converge.</span>
+
+<span class="sd">    solver : {&#39;newton&#39;}, default=&#39;newton&#39;</span>
+<span class="sd">        Algorithm to use in the optimization problem. Default is ‘newton’.</span>
+
+<span class="sd">    lr : float, default=0.01</span>
+<span class="sd">        Learning Rate. Used in the optimization of the model.</span>
+
+<span class="sd">    random_state : NumsRandomState, default=None</span>
+<span class="sd">        Seeds for randomness in model.</span>
+
+<span class="sd">    fit_intercept : bool, default=True</span>
+<span class="sd">        The intercept of regression is calculated for this model.</span>
+<span class="sd">        When data is centered, the intercept is calculated to 0.</span>
+<span class="sd">        Setting this option to False is unsupported.</span>
+
+<span class="sd">    normalize : bool, default=False</span>
+<span class="sd">        Normalizes the regressors before regression.</span>
+<span class="sd">        Setting this option to True is not yet supported.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _penalty</span>
+<span class="sd">    _lambda</span>
+<span class="sd">    _l1penalty</span>
+<span class="sd">    _l1penalty_vec</span>
+<span class="sd">    _l2penalty</span>
+<span class="sd">    _l2penalty_vec</span>
+<span class="sd">    _l2penalty_diag</span>
+<span class="sd">    alpha</span>
+<span class="sd">    _tol : corresponds to the parameter tol</span>
+<span class="sd">    _max_iter: corresponds to the parameter max_iter</span>
+<span class="sd">    _opt: corresponds to the parameter solver</span>
+<span class="sd">    _lr: corresponds to the parameter lr</span>
+<span class="sd">    _beta: BlockArray used internally for the optimizer to solve for the beta coefficients of the model</span>
+<span class="sd">    _beta0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">tol</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;newton&quot;</span><span class="p">,</span>
+        <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;l2&quot;</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+            <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span>
+            <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span>
+            <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+            <span class="n">fit_intercept</span><span class="o">=</span><span class="n">fit_intercept</span><span class="p">,</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ElasticNet"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.ElasticNet">[docs]</a><span class="k">class</span> <span class="nc">ElasticNet</span><span class="p">(</span><span class="n">LinearRegressionBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Linear regression with combined L1 and L2 priors as regularizer.</span>
+
+<span class="sd">    Minimizes the objective function::</span>
+
+<span class="sd">            1 / (2 * n_samples) * ||y - Xw||^2_2</span>
+<span class="sd">            + alpha * l1_ratio * ||w||_1</span>
+<span class="sd">            + 0.5 * alpha * (1 - l1_ratio) * ||w||^2_2</span>
+
+<span class="sd">    If you are interested in controlling the L1 and L2 penalty</span>
+<span class="sd">    separately, keep in mind that this is equivalent to::</span>
+
+<span class="sd">            a * ||w||_1 + 0.5 * b * ||w||_2^2</span>
+
+<span class="sd">    where::</span>
+
+<span class="sd">            alpha = a + b and l1_ratio = a / (a + b)</span>
+
+<span class="sd">    The parameter l1_ratio corresponds to alpha in the glmnet R package while</span>
+<span class="sd">    alpha corresponds to the lambda parameter in glmnet. Specifically, l1_ratio</span>
+<span class="sd">    = 1 is the lasso penalty. Currently, l1_ratio &lt;= 0.01 is not reliable,</span>
+<span class="sd">    unless you supply your own sequence of alpha.</span>
+
+<span class="sd">    This docstring was copied from sklearn.linear_model.ElasticNet.</span>
+
+<span class="sd">   Parameters</span>
+<span class="sd">   ----------</span>
+<span class="sd">   alpha : float or array-like of shape (n_targets,)</span>
+<span class="sd">       Regularization strength; must be a positive float. Regularization</span>
+<span class="sd">       improves the conditioning of the problem and reduces the variance of</span>
+<span class="sd">       the estimates. Larger values specify stronger regularization.</span>
+<span class="sd">       Alpha corresponds to ``1 / (2C)`` in other linear models such as</span>
+<span class="sd">       :class:`~sklearn.linear_model.LogisticRegression` or</span>
+<span class="sd">       :class:`~sklearn.svm.LinearSVC`. If an array is passed, penalties are</span>
+<span class="sd">       assumed to be specific to the targets. Hence they must correspond in</span>
+<span class="sd">       number.</span>
+
+<span class="sd">   tol : float, default=0.0001</span>
+<span class="sd">       Tolerance for stopping criteria.</span>
+
+<span class="sd">   max_iter : int, default=100</span>
+<span class="sd">       Maximum number of iterations taken for the solvers to converge.</span>
+
+<span class="sd">   solver : {&#39;newton&#39;}, default=&#39;newton&#39;</span>
+<span class="sd">       Algorithm to use in the optimization problem. Default is ‘newton’.</span>
+
+<span class="sd">   lr : float, default=0.01</span>
+<span class="sd">       Learning Rate. Used in the optimization of the model.</span>
+
+<span class="sd">   random_state : NumsRandomState, default=None</span>
+<span class="sd">       Seeds for randomness in model.</span>
+
+<span class="sd">   fit_intercept : bool, default=True</span>
+<span class="sd">       The intercept of regression is calculated for this model.</span>
+<span class="sd">       When data is centered, the intercept is calculated to 0.</span>
+<span class="sd">       Setting this option to False is unsupported.</span>
+
+<span class="sd">   normalize : bool, default=False</span>
+<span class="sd">       Normalizes the regressors before regression.</span>
+<span class="sd">       Setting this option to True is not yet supported.</span>
+
+<span class="sd">   Attributes</span>
+<span class="sd">   ----------</span>
+<span class="sd">   _penalty</span>
+<span class="sd">   _lambda</span>
+<span class="sd">   _l1penalty</span>
+<span class="sd">   _l1penalty_vec</span>
+<span class="sd">   _l2penalty</span>
+<span class="sd">   _l2penalty_vec</span>
+<span class="sd">   _l2penalty_diag</span>
+<span class="sd">   alpha</span>
+<span class="sd">   _tol : corresponds to the parameter tol</span>
+<span class="sd">   _max_iter: corresponds to the parameter max_iter</span>
+<span class="sd">   _opt: corresponds to the parameter solver</span>
+<span class="sd">   _lr: corresponds to the parameter lr</span>
+<span class="sd">   _beta: BlockArray used internally for the optimizer to solve for the beta coefficients of the model</span>
+<span class="sd">   _beta0</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+    <span class="c1"># Reference: https://glm-tools.github.io/pyglmnet/tutorial.html</span>
+    <span class="c1"># sklearn documentation suggests lasso and elastic net have different coefficients</span>
+    <span class="c1"># than linear regression, but this does not appear to be the case in any other source.</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">l1_ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">tol</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;newton&quot;</span><span class="p">,</span>
+        <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;elasticnet&quot;</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+            <span class="n">l1_ratio</span><span class="o">=</span><span class="n">l1_ratio</span><span class="p">,</span>
+            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+            <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span>
+            <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span>
+            <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+            <span class="n">fit_intercept</span><span class="o">=</span><span class="n">fit_intercept</span><span class="p">,</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Lasso"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.Lasso">[docs]</a><span class="k">class</span> <span class="nc">Lasso</span><span class="p">(</span><span class="n">LinearRegressionBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">tol</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;newton&quot;</span><span class="p">,</span>
+        <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;l1&quot;</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+            <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span>
+            <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span>
+            <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+            <span class="n">fit_intercept</span><span class="o">=</span><span class="n">fit_intercept</span><span class="p">,</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LogisticRegression"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LogisticRegression">[docs]</a><span class="k">class</span> <span class="nc">LogisticRegression</span><span class="p">(</span><span class="n">GLM</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">penalty</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+        <span class="n">C</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">tol</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
+        <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">solver</span><span class="o">=</span><span class="s2">&quot;newton&quot;</span><span class="p">,</span>
+        <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">fit_intercept</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">normalize</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">penalty</span><span class="o">=</span><span class="n">penalty</span><span class="p">,</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">C</span><span class="p">,</span>
+            <span class="n">tol</span><span class="o">=</span><span class="n">tol</span><span class="p">,</span>
+            <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span>
+            <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span>
+            <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
+            <span class="n">fit_intercept</span><span class="o">=</span><span class="n">fit_intercept</span><span class="p">,</span>
+            <span class="n">normalize</span><span class="o">=</span><span class="n">normalize</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="LogisticRegression.link_inv"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LogisticRegression.link_inv">[docs]</a>    <span class="k">def</span> <span class="nf">link_inv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eta</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">one</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">one</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">eta</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LogisticRegression.objective"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LogisticRegression.objective">[docs]</a>    <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">beta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">assert</span> <span class="n">beta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">log</span><span class="p">,</span> <span class="n">one</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">log</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">one</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span> <span class="k">if</span> <span class="n">mu</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">mu</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">mu</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">one</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">log</span><span class="p">(</span><span class="n">one</span> <span class="o">-</span> <span class="n">mu</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">beta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="n">r</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj_penalty</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">r</span></div>
+
+<div class="viewcode-block" id="LogisticRegression.gradient"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LogisticRegression.gradient">[docs]</a>    <span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">beta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">mu</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">mu</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">beta</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="n">r</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grad_penalty</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">r</span></div>
+
+<div class="viewcode-block" id="LogisticRegression.hessian"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LogisticRegression.hessian">[docs]</a>    <span class="k">def</span> <span class="nf">hessian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mu</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">dim</span><span class="p">,</span> <span class="n">block_dim</span> <span class="o">=</span> <span class="n">mu</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mu</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">mu</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">one</span> <span class="o">-</span> <span class="n">mu</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">block_shape</span><span class="o">=</span><span class="p">(</span><span class="n">block_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">s</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hessian_penalty</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">r</span></div>
+
+<div class="viewcode-block" id="LogisticRegression.deviance"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LogisticRegression.deviance">[docs]</a>    <span class="k">def</span> <span class="nf">deviance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="LogisticRegression.predict"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LogisticRegression.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LogisticRegression.predict_proba"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LogisticRegression.predict_proba">[docs]</a>    <span class="k">def</span> <span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+        <span class="n">y_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">),</span> <span class="n">block_shape</span><span class="o">=</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">block_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">y_neg</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">y_pos</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">y_pos</span><span class="p">,</span> <span class="n">y_neg</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">axis_block_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="PoissonRegression"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.PoissonRegression">[docs]</a><span class="k">class</span> <span class="nc">PoissonRegression</span><span class="p">(</span><span class="n">GLM</span><span class="p">):</span>
+<div class="viewcode-block" id="PoissonRegression.link_inv"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.PoissonRegression.link_inv">[docs]</a>    <span class="k">def</span> <span class="nf">link_inv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eta</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">eta</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PoissonRegression.objective"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.PoissonRegression.objective">[docs]</a>    <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">beta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">beta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">eta</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beta</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beta0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">eta</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">beta</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">eta</span><span class="p">)</span> <span class="k">if</span> <span class="n">mu</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">mu</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mu</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">eta</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PoissonRegression.gradient"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.PoissonRegression.gradient">[docs]</a>    <span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">beta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">mu</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">mu</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PoissonRegression.hessian"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.PoissonRegression.hessian">[docs]</a>    <span class="k">def</span> <span class="nf">hessian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mu</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="c1"># TODO (hme): This is sub-optimal as it forces the computation of X.T.</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="n">mu</span><span class="p">)</span> <span class="o">@</span> <span class="n">X</span></div>
+
+<div class="viewcode-block" id="PoissonRegression.deviance"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.PoissonRegression.deviance">[docs]</a>    <span class="k">def</span> <span class="nf">deviance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">two</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">xlogy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span> <span class="o">/</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">-</span> <span class="n">y</span> <span class="o">+</span> <span class="n">y_pred</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="PoissonRegression.predict"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.PoissonRegression.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ExponentialRegression"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.ExponentialRegression">[docs]</a><span class="k">class</span> <span class="nc">ExponentialRegression</span><span class="p">(</span><span class="n">GLM</span><span class="p">):</span>
+    <span class="c1"># canonical parameter: theta = - lambda</span>
+    <span class="c1"># b(theta) = -log(-theta)</span>
+    <span class="c1"># b&#39;(theta) = -1/theta</span>
+    <span class="c1"># canonical link: g(mu) = theta = eta = X @ beta</span>
+    <span class="c1"># inverse canonical link: mu = b&#39;(theta) = -1/theta = -1/eta</span>
+
+<div class="viewcode-block" id="ExponentialRegression.link_inv"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.ExponentialRegression.link_inv">[docs]</a>    <span class="k">def</span> <span class="nf">link_inv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eta</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ExponentialRegression.objective"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.ExponentialRegression.objective">[docs]</a>    <span class="k">def</span> <span class="nf">objective</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">beta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ExponentialRegression.gradient"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.ExponentialRegression.gradient">[docs]</a>    <span class="k">def</span> <span class="nf">gradient</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">beta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ExponentialRegression.hessian"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.ExponentialRegression.hessian">[docs]</a>    <span class="k">def</span> <span class="nf">hessian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div></div>
+
+
+<span class="c1"># Scikit-Learn aliases.</span>
+<span class="n">PoissonRegressor</span> <span class="o">=</span> <span class="n">PoissonRegression</span>
+
+
+<div class="viewcode-block" id="sgd"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.sgd">[docs]</a><span class="k">def</span> <span class="nf">sgd</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">GLM</span><span class="p">,</span>
+    <span class="n">beta</span><span class="p">,</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">tol</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">lr</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="c1"># Classic SGD.</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="c1"># Sample an entry uniformly at random.</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">X_sample</span><span class="p">,</span> <span class="n">y_sample</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">idx</span> <span class="p">:</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">idx</span> <span class="p">:</span> <span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X_sample</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">X_sample</span><span class="p">,</span> <span class="n">y_sample</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+        <span class="n">beta</span> <span class="o">+=</span> <span class="o">-</span><span class="n">lr</span> <span class="o">*</span> <span class="n">g</span>
+        <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="c1"># sklearn uses max instead of l2 norm.</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">beta</span></div>
+
+
+<div class="viewcode-block" id="block_sgd"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.block_sgd">[docs]</a><span class="k">def</span> <span class="nf">block_sgd</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">GLM</span><span class="p">,</span>
+    <span class="n">beta</span><span class="p">,</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">tol</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">lr</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="c1"># SGD with batches equal to block shape along first axis.</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_slices</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">X_batch</span><span class="p">,</span> <span class="n">y_batch</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">stop</span><span class="p">]</span>
+            <span class="n">mu</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X_batch</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+            <span class="n">g</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">X_batch</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+            <span class="n">beta</span> <span class="o">+=</span> <span class="o">-</span><span class="n">lr</span> <span class="o">*</span> <span class="n">g</span>
+            <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="n">tol</span><span class="p">:</span>
+                <span class="k">break</span>
+    <span class="k">return</span> <span class="n">beta</span></div>
+
+
+<div class="viewcode-block" id="gd"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.gd">[docs]</a><span class="k">def</span> <span class="nf">gd</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">GLM</span><span class="p">,</span>
+    <span class="n">beta</span><span class="p">,</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">tol</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">lr</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">_instance</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+        <span class="n">beta</span> <span class="o">+=</span> <span class="o">-</span><span class="n">lr</span> <span class="o">*</span> <span class="n">g</span>
+        <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">beta</span></div>
+
+
+<div class="viewcode-block" id="newton"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.newton">[docs]</a><span class="k">def</span> <span class="nf">newton</span><span class="p">(</span>
+    <span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">GLM</span><span class="p">,</span>
+    <span class="n">beta</span><span class="p">,</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">tol</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span>
+        <span class="c1"># These are PSD, but inv is faster than psd inv.</span>
+        <span class="n">beta</span> <span class="o">+=</span> <span class="o">-</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">hessian</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">mu</span><span class="p">))</span> <span class="o">@</span> <span class="n">g</span>
+        <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">beta</span></div>
+
+
+<div class="viewcode-block" id="irls"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.irls">[docs]</a><span class="k">def</span> <span class="nf">irls</span><span class="p">(</span>
+    <span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">LogisticRegression</span><span class="p">,</span>
+    <span class="n">beta</span><span class="p">,</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">tol</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="n">eta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="n">X</span> <span class="o">@</span> <span class="n">beta</span>
+        <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">link_inv</span><span class="p">(</span><span class="n">eta</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-16</span>
+        <span class="n">XT_s</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">*</span> <span class="n">s</span>
+        <span class="c1"># These are PSD, but inv is faster than psd inv.</span>
+        <span class="n">XTsX_inv</span> <span class="o">=</span> <span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">XT_s</span> <span class="o">@</span> <span class="n">X</span><span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">eta</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span> <span class="o">/</span> <span class="n">s</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="n">XTsX_inv</span> <span class="o">@</span> <span class="n">XT_s</span> <span class="o">@</span> <span class="n">z</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">gradient</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">g</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">beta</span></div>
+
+
+<span class="c1"># pylint: disable = unused-argument</span>
+<div class="viewcode-block" id="lbfgs"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.lbfgs">[docs]</a><span class="k">def</span> <span class="nf">lbfgs</span><span class="p">(</span>
+    <span class="n">app</span><span class="p">:</span> <span class="n">ArrayApplication</span><span class="p">,</span>
+    <span class="n">model</span><span class="p">:</span> <span class="n">GLM</span><span class="p">,</span>
+    <span class="n">beta</span><span class="p">,</span>
+    <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">tol</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="c1"># TODO (hme): Enable a way to provide memory length and line search parameters.</span>
+    <span class="kn">from</span> <span class="nn">nums.models.lbfgs</span> <span class="kn">import</span> <span class="n">LBFGS</span>  <span class="c1"># pylint: disable = import-outside-toplevel</span>
+
+    <span class="n">lbfgs_optimizer</span> <span class="o">=</span> <span class="n">LBFGS</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="n">tol</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lbfgs_optimizer</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="admm"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.admm">[docs]</a><span class="k">def</span> <span class="nf">admm</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,1160 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.numpy.api.manipulation module &#8212; NumS  documentation</title>
+    
+    <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../index.html">
+  <img src="../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="nums.numpy.api.html">
+   nums.numpy.api package
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.algebra.html">
+     nums.numpy.api.algebra module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.arithmetic.html">
+     nums.numpy.api.arithmetic module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.creation.html">
+     nums.numpy.api.creation module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.generated.html">
+     nums.numpy.api.generated module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.logic.html">
+     nums.numpy.api.logic module
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     nums.numpy.api.manipulation module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.nan.html">
+     nums.numpy.api.nan module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.properties.html">
+     nums.numpy.api.properties module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.sort.html">
+     nums.numpy.api.sort module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.numpy.api.stats.html">
+     nums.numpy.api.stats module
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.numpy.fft.html">
+   nums.numpy.fft module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.numpy.linalg.html">
+   nums.numpy.linalg module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.numpy.numpy_utils.html">
+   nums.numpy.numpy_utils module
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="nums.numpy.random.html">
+   nums.numpy.random module
+  </a>
+ </li>
+</ul>
+
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+
+<nav id="bd-toc-nav">
+    
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-nums.numpy.api.manipulation">
+<span id="nums-numpy-api-manipulation-module"></span><h1>nums.numpy.api.manipulation module<a class="headerlink" href="#module-nums.numpy.api.manipulation" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.atleast_1d">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">atleast_1d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#atleast_1d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.atleast_1d" title="Permalink to this definition"></a></dt>
+<dd><p>Convert inputs to arrays with at least one dimension.</p>
+<p>This docstring was copied from numpy.atleast_1d.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Scalar inputs are converted to 1-dimensional arrays, whilst
+higher-dimensional inputs are preserved.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arys1</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – One or more input arrays.</p></li>
+<li><p><strong>arys2</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – One or more input arrays.</p></li>
+<li><p><strong>..</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – One or more input arrays.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>ret</strong> – An array, or list of arrays, each with <code class="docutils literal notranslate"><span class="pre">a.ndim</span> <span class="pre">&gt;=</span> <span class="pre">1</span></code>.
+Copies are made only if necessary.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nums.numpy.api.manipulation.atleast_2d" title="nums.numpy.api.manipulation.atleast_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_2d</span></code></a>, <a class="reference internal" href="#nums.numpy.api.manipulation.atleast_3d" title="nums.numpy.api.manipulation.atleast_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_3d</span></code></a></p>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([1.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">9.0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0., 1., 2.],</span>
+<span class="go">       [3., 4., 5.],</span>
+<span class="go">       [6., 7., 8.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">nps</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])]</span>  
+<span class="go">[array([1]), array([3, 4])]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.atleast_2d">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">atleast_2d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#atleast_2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.atleast_2d" title="Permalink to this definition"></a></dt>
+<dd><p>View inputs as arrays with at least two dimensions.</p>
+<p>This docstring was copied from numpy.atleast_2d.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arys1</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – One or more array-like sequences.  Non-array inputs are converted
+to arrays.  Arrays that already have two or more dimensions are
+preserved.</p></li>
+<li><p><strong>arys2</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – One or more array-like sequences.  Non-array inputs are converted
+to arrays.  Arrays that already have two or more dimensions are
+preserved.</p></li>
+<li><p><strong>..</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – One or more array-like sequences.  Non-array inputs are converted
+to arrays.  Arrays that already have two or more dimensions are
+preserved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>res, res2, …</strong> – An array, or list of arrays, each with <code class="docutils literal notranslate"><span class="pre">a.ndim</span> <span class="pre">&gt;=</span> <span class="pre">2</span></code>.
+Copies are avoided where possible, and views with two or more
+dimensions are returned.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nums.numpy.api.manipulation.atleast_1d" title="nums.numpy.api.manipulation.atleast_1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_1d</span></code></a>, <a class="reference internal" href="#nums.numpy.api.manipulation.atleast_3d" title="nums.numpy.api.manipulation.atleast_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_3d</span></code></a></p>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[3.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0., 1., 2.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">nps</span><span class="o">.</span><span class="n">atleast_2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])]</span>  
+<span class="go">[array([[1]]), array([[1, 2]]), array([[1, 2]])]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.atleast_3d">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">atleast_3d</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arys</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#atleast_3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.atleast_3d" title="Permalink to this definition"></a></dt>
+<dd><p>View inputs as arrays with at least three dimensions.</p>
+<p>This docstring was copied from numpy.atleast_3d.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arys1</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – One or more array-like sequences.  Non-array inputs are converted to
+arrays.  Arrays that already have three or more dimensions are
+preserved.</p></li>
+<li><p><strong>arys2</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – One or more array-like sequences.  Non-array inputs are converted to
+arrays.  Arrays that already have three or more dimensions are
+preserved.</p></li>
+<li><p><strong>..</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – One or more array-like sequences.  Non-array inputs are converted to
+arrays.  Arrays that already have three or more dimensions are
+preserved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>res1, res2, …</strong> – An array, or list of arrays, each with <code class="docutils literal notranslate"><span class="pre">a.ndim</span> <span class="pre">&gt;=</span> <span class="pre">3</span></code>.  Copies are
+avoided where possible, and views with three or more dimensions are
+returned.  For example, a 1-D array of shape <code class="docutils literal notranslate"><span class="pre">(N,)</span></code> becomes a view
+of shape <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">N,</span> <span class="pre">1)</span></code>, and a 2-D array of shape <code class="docutils literal notranslate"><span class="pre">(M,</span> <span class="pre">N)</span></code> becomes a
+view of shape <code class="docutils literal notranslate"><span class="pre">(M,</span> <span class="pre">N,</span> <span class="pre">1)</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#nums.numpy.api.manipulation.atleast_1d" title="nums.numpy.api.manipulation.atleast_1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_1d</span></code></a>, <a class="reference internal" href="#nums.numpy.api.manipulation.atleast_2d" title="nums.numpy.api.manipulation.atleast_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_2d</span></code></a></p>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">atleast_3d</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[[3.]]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">atleast_3d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>  
+<span class="go">(1, 3, 1)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">12.0</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">atleast_3d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>  
+<span class="go">(4, 3, 1)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">arr</span> <span class="ow">in</span> <span class="n">nps</span><span class="o">.</span><span class="n">atleast_3d</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]],</span> <span class="p">[[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]]):</span>  
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span> <span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> 
+<span class="gp">...</span>
+<span class="go">[[[1]</span>
+<span class="go">  [2]]] (1, 2, 1)</span>
+<span class="go">[[[1]</span>
+<span class="go">  [2]]] (1, 2, 1)</span>
+<span class="go">[[[1 2]]] (1, 1, 2)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.column_stack">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">column_stack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tup</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#column_stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.column_stack" title="Permalink to this definition"></a></dt>
+<dd><p>Stack 1-D arrays as columns into a 2-D array.</p>
+<p>This docstring was copied from numpy.column_stack.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Take a sequence of 1-D arrays and stack them as columns
+to make a single 2-D array. 2-D arrays are stacked as-is,
+just like with <cite>hstack</cite>.  1-D arrays are turned into 2-D columns
+first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tup</strong> (<em>sequence of 1-D</em><em> or </em><em>2-D arrays.</em>) – Arrays to stack. All of them must have the same first dimension.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>stacked</strong> – The array formed by stacking the given arrays.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>2-D array</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-obj docutils literal notranslate"><span class="pre">stack</span></code>, <a class="reference internal" href="#nums.numpy.api.manipulation.hstack" title="nums.numpy.api.manipulation.hstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hstack</span></code></a>, <a class="reference internal" href="#nums.numpy.api.manipulation.vstack" title="nums.numpy.api.manipulation.vstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vstack</span></code></a>, <a class="reference internal" href="#nums.numpy.api.manipulation.concatenate" title="nums.numpy.api.manipulation.concatenate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concatenate</span></code></a></p>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1, 2],</span>
+<span class="go">       [2, 3],</span>
+<span class="go">       [3, 4]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.concatenate">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">concatenate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arrays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#concatenate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.concatenate" title="Permalink to this definition"></a></dt>
+<dd><p>Join a sequence of arrays along an existing axis.</p>
+<p>This docstring was copied from numpy.concatenate.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a1</strong> (<em>sequence of array_like</em>) – The arrays must have the same shape, except in the dimension
+corresponding to <cite>axis</cite> (the first, by default).</p></li>
+<li><p><strong>a2</strong> (<em>sequence of array_like</em>) – The arrays must have the same shape, except in the dimension
+corresponding to <cite>axis</cite> (the first, by default).</p></li>
+<li><p><strong>..</strong> (<em>sequence of array_like</em>) – The arrays must have the same shape, except in the dimension
+corresponding to <cite>axis</cite> (the first, by default).</p></li>
+<li><p><strong>axis</strong> (<em>int</em><em>, </em><em>optional</em>) – The axis along which the arrays will be joined.  If axis is None,
+arrays are flattened before use.  Default is 0.</p></li>
+<li><p><strong>out</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a><em>, </em><em>optional</em>) – If provided, the destination to place the result. The shape must be
+correct, matching that of what concatenate would have returned if no
+out argument were specified.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>res</strong> – The concatenated array.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">ma.concatenate</span></code></dt><dd><p>Concatenate function that preserves input masks.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">array_split</span></code></dt><dd><p>Split an array into multiple sub-arrays of equal or near-equal size.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.split" title="nums.numpy.api.manipulation.split"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split</span></code></a></dt><dd><p>Split array into a list of multiple sub-arrays of equal size.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">hsplit</span></code></dt><dd><p>Split array into multiple sub-arrays horizontally (column wise).</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">vsplit</span></code></dt><dd><p>Split array into multiple sub-arrays vertically (row wise).</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">dsplit</span></code></dt><dd><p>Split array into multiple sub-arrays along the 3rd axis (depth).</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">stack</span></code></dt><dd><p>Stack a sequence of arrays along a new axis.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">block</span></code></dt><dd><p>Assemble arrays from blocks.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.hstack" title="nums.numpy.api.manipulation.hstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hstack</span></code></a></dt><dd><p>Stack arrays in sequence horizontally (column wise).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.vstack" title="nums.numpy.api.manipulation.vstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vstack</span></code></a></dt><dd><p>Stack arrays in sequence vertically (row wise).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.dstack" title="nums.numpy.api.manipulation.dstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dstack</span></code></a></dt><dd><p>Stack arrays in sequence depth wise (along third dimension).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.column_stack" title="nums.numpy.api.manipulation.column_stack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">column_stack</span></code></a></dt><dd><p>Stack 1-D arrays as columns into a 2-D array.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>When one or more of the arrays to be concatenated is a MaskedArray,
+this function will return a MaskedArray object instead of an BlockArray,
+but the input masks are <em>not</em> preserved. In cases where a MaskedArray
+is expected as input, use the ma.concatenate function from the masked
+array module instead.</p>
+<p>out is currently not supported for concatenate.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1, 2],</span>
+<span class="go">       [3, 4],</span>
+<span class="go">       [5, 6]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1, 2, 5],</span>
+<span class="go">       [3, 4, 6]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.dstack">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">dstack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tup</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#dstack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.dstack" title="Permalink to this definition"></a></dt>
+<dd><p>Stack arrays in sequence depth wise (along third axis).</p>
+<p>This docstring was copied from numpy.dstack.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>This is equivalent to concatenation along the third axis after 2-D arrays
+of shape <cite>(M,N)</cite> have been reshaped to <cite>(M,N,1)</cite> and 1-D arrays of shape
+<cite>(N,)</cite> have been reshaped to <cite>(1,N,1)</cite>. Rebuilds arrays divided by
+<cite>dsplit</cite>.</p>
+<p>This function makes most sense for arrays with up to 3 dimensions. For
+instance, for pixel-data with a height (first axis), width (second axis),
+and r/g/b channels (third axis). The functions <cite>concatenate</cite>, <cite>stack</cite> and
+<cite>block</cite> provide more general stacking and concatenation operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tup</strong> (<em>sequence of arrays</em>) – The arrays must have the same shape along all but the third axis.
+1-D or 2-D arrays must have the same shape.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>stacked</strong> – The array formed by stacking the given arrays, will be at least 3-D.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.concatenate" title="nums.numpy.api.manipulation.concatenate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concatenate</span></code></a></dt><dd><p>Join a sequence of arrays along an existing axis.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">stack</span></code></dt><dd><p>Join a sequence of arrays along a new axis.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">block</span></code></dt><dd><p>Assemble an nd-array from nested lists of blocks.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.vstack" title="nums.numpy.api.manipulation.vstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vstack</span></code></a></dt><dd><p>Stack arrays in sequence vertically (row wise).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.hstack" title="nums.numpy.api.manipulation.hstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hstack</span></code></a></dt><dd><p>Stack arrays in sequence horizontally (column wise).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.column_stack" title="nums.numpy.api.manipulation.column_stack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">column_stack</span></code></a></dt><dd><p>Stack 1-D arrays as columns into a 2-D array.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">dsplit</span></code></dt><dd><p>Split array along third axis.</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">dstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[[1, 2],</span>
+<span class="go">        [2, 3],</span>
+<span class="go">        [3, 4]]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">dstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[[1, 2]],</span>
+<span class="go">       [[2, 3]],</span>
+<span class="go">       [[3, 4]]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.expand_dims">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">expand_dims</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#expand_dims"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.expand_dims" title="Permalink to this definition"></a></dt>
+<dd><p>Expand the shape of an array.</p>
+<p>This docstring was copied from numpy.expand_dims.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>Insert a new axis that will appear at the <cite>axis</cite> position in the expanded
+array shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Input array.</p></li>
+<li><p><strong>axis</strong> (<em>int</em><em> or </em><em>tuple of ints</em>) – Position in the expanded axes where the new axis (or axes) is placed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong> – View of <cite>a</cite> with the number of dimensions increased.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.squeeze" title="nums.numpy.api.manipulation.squeeze"><code class="xref py py-obj docutils literal notranslate"><span class="pre">squeeze</span></code></a></dt><dd><p>The inverse operation, removing singleton dimensions</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.reshape" title="nums.numpy.api.manipulation.reshape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reshape</span></code></a></dt><dd><p>Insert, remove, and combine dimensions, and resize existing ones</p>
+</dd>
+</dl>
+<p><a class="reference internal" href="#nums.numpy.api.manipulation.atleast_1d" title="nums.numpy.api.manipulation.atleast_1d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_1d</span></code></a>, <a class="reference internal" href="#nums.numpy.api.manipulation.atleast_2d" title="nums.numpy.api.manipulation.atleast_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_2d</span></code></a>, <a class="reference internal" href="#nums.numpy.api.manipulation.atleast_3d" title="nums.numpy.api.manipulation.atleast_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">atleast_3d</span></code></a></p>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">shape</span>  
+<span class="go">(2,)</span>
+</pre></div>
+</div>
+<p>The following is equivalent to <code class="docutils literal notranslate"><span class="pre">x[nps.newaxis,</span> <span class="pre">:]</span></code> or <code class="docutils literal notranslate"><span class="pre">x[nps.newaxis]</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1, 2]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">.</span><span class="n">shape</span>  
+<span class="go">(1, 2)</span>
+</pre></div>
+</div>
+<p>The following is equivalent to <code class="docutils literal notranslate"><span class="pre">x[:,</span> <span class="pre">nps.newaxis]</span></code>:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1],</span>
+<span class="go">       [2]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">.</span><span class="n">shape</span>  
+<span class="go">(2, 1)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">axis</span></code> may also be a tuple:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[[1, 2]]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[[1],</span>
+<span class="go">        [2]]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.hstack">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">hstack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tup</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#hstack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.hstack" title="Permalink to this definition"></a></dt>
+<dd><p>Stack arrays in sequence horizontally (column wise).</p>
+<p>This docstring was copied from numpy.hstack.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>This is equivalent to concatenation along the second axis, except for 1-D
+arrays where it concatenates along the first axis. Rebuilds arrays divided
+by <cite>hsplit</cite>.</p>
+<p>This function makes most sense for arrays with up to 3 dimensions. For
+instance, for pixel-data with a height (first axis), width (second axis),
+and r/g/b channels (third axis). The functions <cite>concatenate</cite>, <cite>stack</cite> and
+<cite>block</cite> provide more general stacking and concatenation operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tup</strong> (<em>sequence of BlockArray</em>) – The arrays must have the same shape along all but the second axis,
+except 1-D arrays which can be any length.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>stacked</strong> – The array formed by stacking the given arrays.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.concatenate" title="nums.numpy.api.manipulation.concatenate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concatenate</span></code></a></dt><dd><p>Join a sequence of arrays along an existing axis.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">stack</span></code></dt><dd><p>Join a sequence of arrays along a new axis.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">block</span></code></dt><dd><p>Assemble an nd-array from nested lists of blocks.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.vstack" title="nums.numpy.api.manipulation.vstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vstack</span></code></a></dt><dd><p>Stack arrays in sequence vertically (row wise).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.dstack" title="nums.numpy.api.manipulation.dstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dstack</span></code></a></dt><dd><p>Stack arrays in sequence depth wise (along third axis).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.column_stack" title="nums.numpy.api.manipulation.column_stack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">column_stack</span></code></a></dt><dd><p>Stack 1-D arrays as columns into a 2-D array.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">hsplit</span></code></dt><dd><p>Split an array into multiple sub-arrays horizontally (column-wise).</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([1, 2, 3, 2, 3, 4])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1, 2],</span>
+<span class="go">       [2, 3],</span>
+<span class="go">       [3, 4]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.reshape">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">reshape</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#reshape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.reshape" title="Permalink to this definition"></a></dt>
+<dd><p>Gives a new shape to an array without changing its data.</p>
+<p>This docstring was copied from numpy.reshape.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Array to be reshaped.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>reshaped_array</strong> – This will be a new view object if possible; otherwise, it will
+be a copy.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.row_stack">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">row_stack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tup</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#row_stack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.row_stack" title="Permalink to this definition"></a></dt>
+<dd><p>Stack arrays in sequence vertically (row wise).</p>
+<p>This docstring was copied from numpy.row_stack.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>This is equivalent to concatenation along the first axis after 1-D arrays
+of shape <cite>(N,)</cite> have been reshaped to <cite>(1,N)</cite>. Rebuilds arrays divided by
+<cite>vsplit</cite>.</p>
+<p>This function makes most sense for arrays with up to 3 dimensions. For
+instance, for pixel-data with a height (first axis), width (second axis),
+and r/g/b channels (third axis). The functions <cite>concatenate</cite>, <cite>stack</cite> and
+<cite>block</cite> provide more general stacking and concatenation operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tup</strong> (<em>sequence of BlockArrays</em>) – The arrays must have the same shape along all but the first axis.
+1-D arrays must have the same length.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>stacked</strong> – The array formed by stacking the given arrays, will be at least 2-D.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.concatenate" title="nums.numpy.api.manipulation.concatenate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concatenate</span></code></a></dt><dd><p>Join a sequence of arrays along an existing axis.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">stack</span></code></dt><dd><p>Join a sequence of arrays along a new axis.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">block</span></code></dt><dd><p>Assemble an nd-array from nested lists of blocks.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.hstack" title="nums.numpy.api.manipulation.hstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hstack</span></code></a></dt><dd><p>Stack arrays in sequence horizontally (column wise).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.dstack" title="nums.numpy.api.manipulation.dstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dstack</span></code></a></dt><dd><p>Stack arrays in sequence depth wise (along third axis).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.column_stack" title="nums.numpy.api.manipulation.column_stack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">column_stack</span></code></a></dt><dd><p>Stack 1-D arrays as columns into a 2-D array.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">vsplit</span></code></dt><dd><p>Split an array into multiple sub-arrays vertically (row-wise).</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1, 2, 3],</span>
+<span class="go">       [2, 3, 4]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1],</span>
+<span class="go">       [2],</span>
+<span class="go">       [3],</span>
+<span class="go">       [2],</span>
+<span class="go">       [3],</span>
+<span class="go">       [4]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.split">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">split</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indices_or_sections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#split"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.split" title="Permalink to this definition"></a></dt>
+<dd><p>Split an array into multiple sub-arrays as views into <cite>ary</cite>.</p>
+<p>This docstring was copied from numpy.split.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ary</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Array to be divided into sub-arrays.</p></li>
+<li><p><strong>indices_or_sections</strong> (<em>int</em><em> or </em><em>1-D array</em>) – <p>If <cite>indices_or_sections</cite> is an integer, N, the array will be divided
+into N equal arrays along <cite>axis</cite>.  If such a split is not possible,
+an error is raised.</p>
+<p>If <cite>indices_or_sections</cite> is a 1-D array of sorted integers, the entries
+indicate where along <cite>axis</cite> the array is split.  For example,
+<code class="docutils literal notranslate"><span class="pre">[2,</span> <span class="pre">3]</span></code> would, for <code class="docutils literal notranslate"><span class="pre">axis=0</span></code>, result in</p>
+<blockquote>
+<div><ul>
+<li><p>ary[:2]</p></li>
+<li><p>ary[2:3]</p></li>
+<li><p>ary[3:]</p></li>
+</ul>
+</div></blockquote>
+<p>If an index exceeds the dimension of the array along <cite>axis</cite>,
+an empty sub-array is returned correspondingly.</p>
+</p></li>
+<li><p><strong>axis</strong> (<em>int</em><em>, </em><em>optional</em>) – The axis along which to split, default is 0.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sub-arrays</strong> – A list of sub-arrays as views into <cite>ary</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of BlockArrays</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If <cite>indices_or_sections</cite> is given as an integer, but
+    a split does not result in equal division.</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">array_split</span></code></dt><dd><p>Split an array into multiple sub-arrays of equal or near-equal size.  Does not raise an exception if an equal division cannot be made.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">hsplit</span></code></dt><dd><p>Split array into multiple sub-arrays horizontally (column-wise).</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">vsplit</span></code></dt><dd><p>Split array into multiple sub-arrays vertically (row wise).</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">dsplit</span></code></dt><dd><p>Split array into multiple sub-arrays along the 3rd axis (depth).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.concatenate" title="nums.numpy.api.manipulation.concatenate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concatenate</span></code></a></dt><dd><p>Join a sequence of arrays along an existing axis.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">stack</span></code></dt><dd><p>Join a sequence of arrays along a new axis.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.hstack" title="nums.numpy.api.manipulation.hstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hstack</span></code></a></dt><dd><p>Stack arrays in sequence horizontally (column wise).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.vstack" title="nums.numpy.api.manipulation.vstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vstack</span></code></a></dt><dd><p>Stack arrays in sequence vertically (row wise).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.dstack" title="nums.numpy.api.manipulation.dstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dstack</span></code></a></dt><dd><p>Stack arrays in sequence depth wise (along third dimension).</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>Split currently supports integers only.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">9.0</span><span class="p">)</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">get</span><span class="p">()</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span>  <span class="n">nps</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>  
+<span class="go">[array([0.,  1.,  2.]), array([3.,  4.,  5.]), array([6.,  7.,  8.])]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.squeeze">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">squeeze</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#squeeze"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.squeeze" title="Permalink to this definition"></a></dt>
+<dd><p>Remove single-dimensional entries from the shape of an array.</p>
+<p>This docstring was copied from numpy.squeeze.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Input data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>squeezed</strong> – The input array, but with all or a subset of the
+dimensions of length 1 removed. This is always <cite>a</cite> itself
+or a view into <cite>a</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.expand_dims" title="nums.numpy.api.manipulation.expand_dims"><code class="xref py py-obj docutils literal notranslate"><span class="pre">expand_dims</span></code></a></dt><dd><p>The inverse operation, adding singleton dimensions</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.reshape" title="nums.numpy.api.manipulation.reshape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reshape</span></code></a></dt><dd><p>Insert, remove, and combine dimensions, and resize existing ones</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Notes</p>
+<p>axis not supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">]]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">shape</span>  
+<span class="go">(1, 3, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>  
+<span class="go">(3,)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1234</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">shape</span>  
+<span class="go">(1, 1)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array(1234)  # 0d array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span>  
+<span class="go">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">x</span><span class="p">)[()]</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array(1234)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.swapaxes">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">swapaxes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#swapaxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.swapaxes" title="Permalink to this definition"></a></dt>
+<dd><p>Interchange two axes of an array.</p>
+<p>This docstring was copied from numpy.swapaxes.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Input array.</p></li>
+<li><p><strong>axis1</strong> (<em>int</em>) – First axis.</p></li>
+<li><p><strong>axis2</strong> (<em>int</em>) – Second axis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>a_swapped</strong> – For NumPy &gt;= 1.10.0, if <cite>a</cite> is an BlockArray, then a view of <cite>a</cite> is
+returned; otherwise a new array is created. For earlier NumPy
+versions a view of <cite>a</cite> is returned only if the order of the
+axes is changed, otherwise the input array is returned.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1],</span>
+<span class="go">       [2],</span>
+<span class="go">       [3]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]],[[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[[0, 1],</span>
+<span class="go">        [2, 3]],</span>
+<span class="go">       [[4, 5],</span>
+<span class="go">        [6, 7]]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[[0, 4],</span>
+<span class="go">        [2, 6]],</span>
+<span class="go">       [[1, 5],</span>
+<span class="go">        [3, 7]]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.transpose">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">transpose</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#transpose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.transpose" title="Permalink to this definition"></a></dt>
+<dd><p>Reverse or permute the axes of an array; returns the modified array.</p>
+<p>This docstring was copied from numpy.transpose.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>For an array a with two axes, transpose(a) gives the matrix transpose.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>a</strong> (<a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><em>BlockArray</em></a>) – Input array.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>p</strong> – <cite>a</cite> with its axes permuted.  A view is returned whenever
+possible.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Transposing a 1-D array returns an unchanged view of the original array.</p>
+<p>axes not supported.</p>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0, 1],</span>
+<span class="go">       [2, 3]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[0, 2],</span>
+<span class="go">       [1, 3]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="nums.numpy.api.manipulation.vstack">
+<code class="sig-prename descclassname"><span class="pre">nums.numpy.api.manipulation.</span></code><code class="sig-name descname"><span class="pre">vstack</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tup</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/numpy/api/manipulation.html#vstack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.numpy.api.manipulation.vstack" title="Permalink to this definition"></a></dt>
+<dd><p>Stack arrays in sequence vertically (row wise).</p>
+<p>This docstring was copied from numpy.vstack.</p>
+<p>Some inconsistencies with the NumS version may exist.</p>
+<p>This is equivalent to concatenation along the first axis after 1-D arrays
+of shape <cite>(N,)</cite> have been reshaped to <cite>(1,N)</cite>. Rebuilds arrays divided by
+<cite>vsplit</cite>.</p>
+<p>This function makes most sense for arrays with up to 3 dimensions. For
+instance, for pixel-data with a height (first axis), width (second axis),
+and r/g/b channels (third axis). The functions <cite>concatenate</cite>, <cite>stack</cite> and
+<cite>block</cite> provide more general stacking and concatenation operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tup</strong> (<em>sequence of BlockArrays</em>) – The arrays must have the same shape along all but the first axis.
+1-D arrays must have the same length.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>stacked</strong> – The array formed by stacking the given arrays, will be at least 2-D.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray">BlockArray</a></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.concatenate" title="nums.numpy.api.manipulation.concatenate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concatenate</span></code></a></dt><dd><p>Join a sequence of arrays along an existing axis.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">stack</span></code></dt><dd><p>Join a sequence of arrays along a new axis.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">block</span></code></dt><dd><p>Assemble an nd-array from nested lists of blocks.</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.hstack" title="nums.numpy.api.manipulation.hstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hstack</span></code></a></dt><dd><p>Stack arrays in sequence horizontally (column wise).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.dstack" title="nums.numpy.api.manipulation.dstack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dstack</span></code></a></dt><dd><p>Stack arrays in sequence depth wise (along third axis).</p>
+</dd>
+<dt><a class="reference internal" href="#nums.numpy.api.manipulation.column_stack" title="nums.numpy.api.manipulation.column_stack"><code class="xref py py-obj docutils literal notranslate"><span class="pre">column_stack</span></code></a></dt><dd><p>Stack 1-D arrays as columns into a 2-D array.</p>
+</dd>
+<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">vsplit</span></code></dt><dd><p>Split an array into multiple sub-arrays vertically (row-wise).</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">Examples</p>
+<p>The doctests shown below are copied from NumPy.
+They won’t show the correct result until you operate <code class="docutils literal notranslate"><span class="pre">get()</span></code>.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1, 2, 3],</span>
+<span class="go">       [2, 3, 4]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">nps</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">]])</span>  
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nps</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>  
+<span class="go">array([[1],</span>
+<span class="go">       [2],</span>
+<span class="go">       [3],</span>
+<span class="go">       [2],</span>
+<span class="go">       [3],</span>
+<span class="go">       [4]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

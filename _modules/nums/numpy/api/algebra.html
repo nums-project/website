@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>nums.numpy.api.algebra &#8212; NumS  documentation</title>
+    
+    <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
+    
+    <link rel="stylesheet"
+      href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+    
+      
+  
+    
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/styles/pydata-sphinx-theme.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/css/nums.css" />
+    
+    <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+      
+      <link rel="icon" sizes="16x16" href="../../../../_static/icon.svg">
+      
+    
+      
+      <link rel="icon" sizes="32x32" href="../../../../_static/icon.svg">
+      
+    
+      
+      <link rel="apple-touch-icon" sizes="180x180" href="../../../../_static/apple-touch-icon-180x180.png">
+      
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+
+<a class="navbar-brand" href="../../../../index.html">
+  <img src="../../../../_static/logo.svg" class="logo" alt="logo">
+</a>
+
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    <li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../get_started/index.html">
+  Get Started
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../user_guide/index.html">
+  User Guide
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../reference/index.html">
+  API Reference
+ </a>
+</li>
+
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="../../../../development/index.html">
+  Development
+ </a>
+</li>
+
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/nums-project/nums" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+            <label class="sr-only">Twitter</label></a>
+        </li>
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <h1>Source code for nums.numpy.api.algebra</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="c1"># pylint: disable = redefined-builtin, too-many-lines, anomalous-backslash-in-string, unused-wildcard-import, wildcard-import</span>
+
+<span class="kn">from</span> <span class="nn">nums.core.application_manager</span> <span class="kn">import</span> <span class="n">instance</span> <span class="k">as</span> <span class="n">_instance</span>
+<span class="kn">from</span> <span class="nn">nums.core.array.blockarray</span> <span class="kn">import</span> <span class="n">BlockArray</span>
+
+<span class="kn">from</span> <span class="nn">nums.numpy.api.creation</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">nums.numpy.api.generated</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">nums.numpy.api.manipulation</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">nums.numpy.api.logic</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1">############################################</span>
+<span class="c1"># Linear Algebra Ops</span>
+<span class="c1">############################################</span>
+
+
+<div class="viewcode-block" id="dot"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.dot.html#nums.numpy.api.algebra.dot">[docs]</a><span class="k">def</span> <span class="nf">dot</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Dot product of two arrays.</span>
+
+<span class="sd">    This docstring was copied from numpy.dot.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    - If both `a` and `b` are 1-D arrays, it is inner product of vectors</span>
+<span class="sd">      (without complex conjugation).</span>
+
+<span class="sd">    - If both `a` and `b` are 2-D arrays, it is matrix multiplication,</span>
+<span class="sd">      but using :func:`matmul` or ``a @ b`` is preferred.</span>
+
+<span class="sd">    - If either `a` or `b` is 0-D (scalar), it is equivalent to :func:`multiply`</span>
+<span class="sd">      and using ``numpy.multiply(a, b)`` or ``a * b`` is preferred.</span>
+
+<span class="sd">    - If `a` is an N-D array and `b` is a 1-D array, it is a sum product over</span>
+<span class="sd">      the last axis of `a` and `b`.</span>
+
+<span class="sd">    - If `a` is an N-D array and `b` is an M-D array (where ``M&gt;=2``), it is a</span>
+<span class="sd">      sum product over the last axis of `a` and the second-to-last axis of `b`::</span>
+
+<span class="sd">        dot(a, b)[i,j,k,m] = sum(a[i,j,:] * b[k,:,m])</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : BlockArray</span>
+<span class="sd">        First argument.</span>
+<span class="sd">    b : BlockArray</span>
+<span class="sd">        Second argument.</span>
+<span class="sd">    out : BlockArray, optional</span>
+<span class="sd">        Output argument. This must have the exact kind that would be returned</span>
+<span class="sd">        if it was not used. In particular, it must have the right type, must be</span>
+<span class="sd">        C-contiguous, and its dtype must be the dtype that would be returned</span>
+<span class="sd">        for `dot(a,b)`. This is a performance feature. Therefore, if these</span>
+<span class="sd">        conditions are not met, an exception is raised, instead of attempting</span>
+<span class="sd">        to be flexible.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    output : BlockArray</span>
+<span class="sd">        Returns the dot product of `a` and `b`.  If `a` and `b` are both</span>
+<span class="sd">        scalars or both 1-D arrays then a scalar is returned; otherwise</span>
+<span class="sd">        an array is returned.</span>
+<span class="sd">        If `out` is given, then it is returned.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the last dimension of `a` is not the same size as</span>
+<span class="sd">        the second-to-last dimension of `b`.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    tensordot : Sum products over arbitrary axes.</span>
+<span class="sd">    matmul : &#39;@&#39; operator as method with out parameter.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    For 2-D arrays it is the matrix product:</span>
+
+<span class="sd">    &gt;&gt;&gt; a = nps.array([[1, 0], [0, 1]])  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; b = nps.array([[4, 1], [2, 2]])  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; nps.dot(a, b).get()  # doctest: +SKIP</span>
+<span class="sd">    array([[4, 1],</span>
+<span class="sd">           [2, 2]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">out</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Specifying an output array is not supported.&quot;</span>
+    <span class="n">a_len</span><span class="p">,</span> <span class="n">b_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">a_len</span> <span class="o">==</span> <span class="n">b_len</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">inner</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">a_len</span> <span class="o">==</span> <span class="n">b_len</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">a_len</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b_len</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">multiply</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot;The dot operation on arbitrary arrays is not yet supported.&quot;</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="inner"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.inner.html#nums.numpy.api.algebra.inner">[docs]</a><span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Inner product of two arrays.</span>
+
+<span class="sd">    This docstring was copied from numpy.inner.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Ordinary inner product of vectors for 1-D arrays (without complex</span>
+<span class="sd">    conjugation), in higher dimensions a sum product over the last axes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a, b : BlockArray</span>
+<span class="sd">        If `a` and `b` are nonscalar, their last dimensions must match.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : BlockArray</span>
+<span class="sd">        `out.shape = a.shape[:-1] + b.shape[:-1]`</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the last dimension of `a` and `b` has different size.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    tensordot : Sum products over arbitrary axes.</span>
+<span class="sd">    dot : Generalised matrix product, using second last dimension of `b`.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Only single-axis inputs supported.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    Ordinary inner product for vectors:</span>
+
+<span class="sd">    &gt;&gt;&gt; a = nps.array([1,2,3])  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; b = nps.array([0,1,0])  # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt; nps.inner(a, b).get() # doctest: +SKIP</span>
+<span class="sd">    array(2)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Only single-axis inputs supported.&quot;</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="n">b</span></div>
+
+
+<div class="viewcode-block" id="matmul"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.matmul.html#nums.numpy.api.algebra.matmul">[docs]</a><span class="k">def</span> <span class="nf">matmul</span><span class="p">(</span><span class="n">x1</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">x2</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Matrix product of two arrays.</span>
+
+<span class="sd">    This docstring was copied from numpy.matmul.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x1, x2 : BlockArray</span>
+<span class="sd">        Input arrays, scalars not allowed.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    y : BlockArray</span>
+<span class="sd">        The matrix product of the inputs.</span>
+<span class="sd">        This is a scalar only when both x1, x2 are 1-d vectors.</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    ValueError</span>
+<span class="sd">        If the last dimension of `a` is not the same size as</span>
+<span class="sd">        the second-to-last dimension of `b`.</span>
+
+<span class="sd">        If a scalar value is passed in.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    tensordot : Sum products over arbitrary axes.</span>
+<span class="sd">    dot : alternative matrix product with different broadcasting rules.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_instance</span><span class="p">()</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">arr_1</span><span class="o">=</span><span class="n">x1</span><span class="p">,</span> <span class="n">arr_2</span><span class="o">=</span><span class="n">x2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="tensordot"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.tensordot.html#nums.numpy.api.algebra.tensordot">[docs]</a><span class="k">def</span> <span class="nf">tensordot</span><span class="p">(</span><span class="n">x1</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">x2</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Compute tensor dot product along specified axes.</span>
+
+<span class="sd">    This docstring was copied from numpy.tensordot.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Given two tensors, `a` and `b`, and an array_like object containing</span>
+<span class="sd">    two array_like objects, ``(a_axes, b_axes)``, sum the products of</span>
+<span class="sd">    `a`&#39;s and `b`&#39;s elements (components) over the axes specified by</span>
+<span class="sd">    ``a_axes`` and ``b_axes``. The third argument can be a single non-negative</span>
+<span class="sd">    integer_like scalar, ``N``; if it is such, then the last ``N`` dimensions</span>
+<span class="sd">    of `a` and the first ``N`` dimensions of `b` are summed over.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a, b : BlockArray</span>
+<span class="sd">        Tensors to &quot;dot&quot;.</span>
+
+<span class="sd">    axes : int or (2,) array_like</span>
+<span class="sd">        * integer_like</span>
+<span class="sd">          If an int N, sum over the last N axes of `a` and the first N axes</span>
+<span class="sd">          of `b` in order. The sizes of the corresponding axes must match.</span>
+<span class="sd">        * (2,) array_like</span>
+<span class="sd">          Or, a list of axes to be summed over, first sequence applying to `a`,</span>
+<span class="sd">          second to `b`. Both elements array_like must be of the same length.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    output : BlockArray</span>
+<span class="sd">        The tensor dot product of the input.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    dot</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Three common use cases are:</span>
+<span class="sd">        * ``axes = 0`` : tensor product :math:`a\otimes b`</span>
+<span class="sd">        * ``axes = 1`` : tensor dot product :math:`a\cdot b`</span>
+<span class="sd">        * ``axes = 2`` : (default) tensor double contraction :math:`a:b`</span>
+
+<span class="sd">    When `axes` is integer_like, the sequence for evaluation will be: first</span>
+<span class="sd">    the -Nth axis in `a` and 0th axis in `b`, and the -1th axis in `a` and</span>
+<span class="sd">    Nth axis in `b` last.</span>
+
+<span class="sd">    When there is more than one axis to sum over - and they are not the last</span>
+<span class="sd">    (first) axes of `a` (`b`) - the argument `axes` should consist of</span>
+<span class="sd">    two sequences of the same length, with the first axis to sum over given</span>
+<span class="sd">    first in both sequences, the second axis second, and so forth.</span>
+
+<span class="sd">    The shape of the result consists of the non-contracted axes of the</span>
+<span class="sd">    first tensor, followed by the non-contracted axes of the second.</span>
+
+<span class="sd">    Non-integer axes is currently not supported.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">_instance</span><span class="p">()</span><span class="o">.</span><span class="n">tensordot</span><span class="p">(</span><span class="n">arr_1</span><span class="o">=</span><span class="n">x1</span><span class="p">,</span> <span class="n">arr_2</span><span class="o">=</span><span class="n">x2</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="outer"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.outer.html#nums.numpy.api.algebra.outer">[docs]</a><span class="k">def</span> <span class="nf">outer</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute the outer product of two vectors.</span>
+
+<span class="sd">    This docstring was copied from numpy.outer.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    Given two vectors, ``a = [a0, a1, ..., aM]`` and</span>
+<span class="sd">    ``b = [b0, b1, ..., bN]``,</span>
+<span class="sd">    the outer product [1]_ is::</span>
+
+<span class="sd">      [[a0*b0  a0*b1 ... a0*bN ]</span>
+<span class="sd">       [a1*b0    .</span>
+<span class="sd">       [ ...          .</span>
+<span class="sd">       [aM*b0            aM*bN ]]</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : (M,) BlockArray</span>
+<span class="sd">        First input vector.  Input is flattened if</span>
+<span class="sd">        not already 1-dimensional.</span>
+<span class="sd">    b : (N,) BlockArray</span>
+<span class="sd">        Second input vector.  Input is flattened if</span>
+<span class="sd">        not already 1-dimensional.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    out : (M, N) BlockArray</span>
+<span class="sd">        ``out[i, j] = a[i] * b[j]``</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    inner</span>
+<span class="sd">    outer</span>
+<span class="sd">    tensordot</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Only single-axis inputs supported.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Only single-axis inputs supported.&quot;</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">))</span> <span class="o">@</span> <span class="n">b</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span></div>
+
+
+<div class="viewcode-block" id="trace"><a class="viewcode-back" href="../../../../reference/generated/nums.numpy.trace.html#nums.numpy.api.algebra.trace">[docs]</a><span class="k">def</span> <span class="nf">trace</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis1</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">axis2</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the sum along diagonals of the array.</span>
+
+<span class="sd">    This docstring was copied from numpy.trace.</span>
+
+<span class="sd">    Some inconsistencies with the NumS version may exist.</span>
+
+<span class="sd">    If `a` is 2-D, the sum along its diagonal with the given offset</span>
+<span class="sd">    is returned, i.e., the sum of elements ``a[i,i+offset]`` for all i.</span>
+
+<span class="sd">    If `a` has more than two dimensions, then the axes specified by axis1 and</span>
+<span class="sd">    axis2 are used to determine the 2-D sub-arrays whose traces are returned.</span>
+<span class="sd">    The shape of the resulting array is the same as that of `a` with `axis1`</span>
+<span class="sd">    and `axis2` removed.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    a : BlockArray</span>
+<span class="sd">        Input array, from which the diagonals are taken.</span>
+<span class="sd">    offset : int, optional</span>
+<span class="sd">        Offset of the diagonal from the main diagonal. Can be both positive</span>
+<span class="sd">        and negative. Defaults to 0.</span>
+<span class="sd">    axis1, axis2 : int, optional</span>
+<span class="sd">        Axes to be used as the first and second axis of the 2-D sub-arrays</span>
+<span class="sd">        from which the diagonals should be taken. Defaults are the first two</span>
+<span class="sd">        axes of `a`.</span>
+<span class="sd">    dtype : dtype, optional</span>
+<span class="sd">        Determines the data-type of the returned array and of the accumulator</span>
+<span class="sd">        where the elements are summed. If dtype has the value None and `a` is</span>
+<span class="sd">        of integer type of precision less than the default integer</span>
+<span class="sd">        precision, then the default integer precision is used. Otherwise,</span>
+<span class="sd">        the precision is the same as that of `a`.</span>
+<span class="sd">    out : BlockArray, optional</span>
+<span class="sd">        Array into which the output is placed. Its type is preserved and</span>
+<span class="sd">        it must be of the right shape to hold the output.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sum_along_diagonals : BlockArray</span>
+<span class="sd">        If `a` is 2-D, the sum along the diagonal is returned.  If `a` has</span>
+<span class="sd">        larger dimensions, then an array of sums along diagonals is returned.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    diag, diagonal</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    offset != 0 is currently not supported.</span>
+
+<span class="sd">    out is currently not supported.</span>
+
+<span class="sd">    axis1 != 0 or axis2 != 1 is currently not supported.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    The doctests shown below are copied from NumPy.</span>
+<span class="sd">    They won’t show the correct result until you operate ``get()``.</span>
+
+<span class="sd">    &gt;&gt;&gt; nps.trace(nps.eye(3)).get()  # doctest: +SKIP</span>
+<span class="sd">    array(3.)</span>
+<span class="sd">    &gt;&gt;&gt; a = nps.arange(8).reshape((2,2,2))  # doctest: +SKIP</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">offset</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;offset != 0 is currently not supported.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;out is currently not supported.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">axis1</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">axis2</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="s2">&quot; axis1 != 0 or axis2 != 1 is currently not supported.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">diag</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">offset</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span></div>
+</pre></div>
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+    <script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2022, The NumS Team.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.5.4.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>

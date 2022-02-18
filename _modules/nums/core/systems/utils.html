@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nums.core.systems.utils &mdash; NumS  documentation</title><link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> NumS
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">nums.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../numpy.html">nums.numpy</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">NumS</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>nums.core.systems.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nums.core.systems.utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (C) 2020 NumS Development Team.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+
+<span class="kn">import</span> <span class="nn">errno</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">types</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">import</span> <span class="nn">psutil</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="get_num_cores"><a class="viewcode-back" href="../../../../generated/nums.core.systems.utils.html#nums.core.systems.utils.get_num_cores">[docs]</a><span class="k">def</span> <span class="nf">get_num_cores</span><span class="p">(</span><span class="n">reserved_for_os</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="p">(</span>
+        <span class="n">reserved_for_os</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="p">),</span> <span class="s2">&quot;Cores reserved for the OS must be a multiple of 2.&quot;</span>
+    <span class="n">all_cores</span> <span class="o">=</span> <span class="n">psutil</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">(</span><span class="n">logical</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">cores</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">all_cores</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cores</span> <span class="o">!=</span> <span class="n">all_cores</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s2">&quot;Detected odd number of cores (</span><span class="si">%s</span><span class="s2">), using </span><span class="si">%s</span><span class="s2"> instead.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">all_cores</span><span class="p">,</span> <span class="n">cores</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">cores</span> <span class="o">&lt;=</span> <span class="n">reserved_for_os</span><span class="p">:</span>
+        <span class="c1"># If cores == reserved_for_os, then we&#39;ll have no cores left for NumS.</span>
+        <span class="k">return</span> <span class="n">cores</span>
+    <span class="c1"># At this point, we know that after removing cores reserved for the OS,</span>
+    <span class="c1"># we will have at least 2 cores left.</span>
+    <span class="n">cores</span> <span class="o">-=</span> <span class="n">reserved_for_os</span>
+    <span class="k">assert</span> <span class="n">cores</span> <span class="o">&gt;=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">cores</span></div>
+
+
+<div class="viewcode-block" id="method_meta"><a class="viewcode-back" href="../../../../generated/nums.core.systems.utils.html#nums.core.systems.utils.method_meta">[docs]</a><span class="k">def</span> <span class="nf">method_meta</span><span class="p">(</span><span class="n">num_returns</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="n">func</span><span class="o">.</span><span class="n">remote_params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;num_returns&quot;</span><span class="p">:</span> <span class="n">num_returns</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">func</span>
+
+    <span class="k">return</span> <span class="n">inner</span></div>
+
+
+<div class="viewcode-block" id="extract_functions"><a class="viewcode-back" href="../../../../generated/nums.core.systems.utils.html#nums.core.systems.utils.extract_functions">[docs]</a><span class="k">def</span> <span class="nf">extract_functions</span><span class="p">(</span><span class="n">imp_cls</span><span class="p">,</span> <span class="n">remove_self</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrap_func</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="c1"># This works for Ray, because ray.remote extracts signatures by following wrapped functions.</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">wrapper</span>
+
+    <span class="n">imp_functions</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">imp_cls</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismethod</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">remove_self</span><span class="p">:</span>
+                <span class="n">imp_functions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">wrap_func</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">imp_functions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
+    <span class="k">return</span> <span class="n">imp_functions</span></div>
+
+
+<div class="viewcode-block" id="check_implementation"><a class="viewcode-back" href="../../../../generated/nums.core.systems.utils.html#nums.core.systems.utils.check_implementation">[docs]</a><span class="k">def</span> <span class="nf">check_implementation</span><span class="p">(</span><span class="n">interface_cls</span><span class="p">,</span> <span class="n">imp</span><span class="p">):</span>
+    <span class="n">imp_functions</span> <span class="o">=</span> <span class="n">extract_functions</span><span class="p">(</span><span class="n">imp</span><span class="p">,</span> <span class="n">remove_self</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">required_methods</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">interface_cls</span><span class="p">(),</span> <span class="n">predicate</span><span class="o">=</span><span class="n">inspect</span><span class="o">.</span><span class="n">ismethod</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">required_methods</span><span class="p">:</span>
+        <span class="c1"># Make sure the function exists.</span>
+        <span class="k">assert</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">imp_functions</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> not implemented.&quot;</span> <span class="o">%</span> <span class="n">name</span>
+        <span class="c1"># Make sure all parameters are there.</span>
+        <span class="k">for</span> <span class="n">varname</span> <span class="ow">in</span> <span class="n">func</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span><span class="p">:</span>
+            <span class="c1"># Ignore matching on self and scheduling args.</span>
+            <span class="k">if</span> <span class="n">varname</span> <span class="o">==</span> <span class="s2">&quot;self&quot;</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">varname</span> <span class="o">==</span> <span class="s2">&quot;syskwargs&quot;</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">assert</span> <span class="n">varname</span> <span class="ow">in</span> <span class="n">imp_functions</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span></div>
+
+
+<div class="viewcode-block" id="get_module_functions"><a class="viewcode-back" href="../../../../generated/nums.core.systems.utils.html#nums.core.systems.utils.get_module_functions">[docs]</a><span class="k">def</span> <span class="nf">get_module_functions</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
+    <span class="c1"># From project JAX: https://github.com/google/jax/blob/master/jax/util.py</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds functions in module.</span>
+<span class="sd">    :param module: module: A Python module.</span>
+<span class="sd">    :return: A dict of names mapped to functions, builtins or ufuncs in `module`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">module_fns</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">module</span><span class="p">):</span>
+        <span class="c1"># Omitting module level __getattr__, __dir__ which was added in Python 3.7</span>
+        <span class="c1"># https://www.python.org/dev/peps/pep-0562/</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;__getattr__&quot;</span><span class="p">,</span> <span class="s2">&quot;__dir__&quot;</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="c1"># NOTE: I suspect that pylint is falsely labeling some of these types</span>
+        <span class="c1"># as instances. See https://github.com/PyCQA/pylint/issues/3507.</span>
+        <span class="n">function_types</span> <span class="o">=</span> <span class="p">(</span><span class="n">types</span><span class="o">.</span><span class="n">BuiltinFunctionType</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">FunctionType</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ufunc</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">function_types</span><span class="p">):</span>  <span class="c1"># pylint: disable=W1116</span>
+            <span class="n">module_fns</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span>
+    <span class="k">return</span> <span class="n">module_fns</span></div>
+
+
+<div class="viewcode-block" id="get_instance_functions"><a class="viewcode-back" href="../../../../generated/nums.core.systems.utils.html#nums.core.systems.utils.get_instance_functions">[docs]</a><span class="k">def</span> <span class="nf">get_instance_functions</span><span class="p">(</span><span class="n">class_inst</span><span class="p">):</span>
+    <span class="n">class_inst_funcs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">class_inst</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismethod</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="n">class_inst_funcs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">obj</span>
+    <span class="k">return</span> <span class="n">class_inst_funcs</span></div>
+
+
+<div class="viewcode-block" id="get_private_ip"><a class="viewcode-back" href="../../../../generated/nums.core.systems.utils.html#nums.core.systems.utils.get_private_ip">[docs]</a><span class="k">def</span> <span class="nf">get_private_ip</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_DGRAM</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="s2">&quot;8.8.8.8&quot;</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+        <span class="n">private_ip</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">getsockname</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">private_ip</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
+        <span class="c1"># [Errno 101] Network is unreachable</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">ENETUNREACH</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">host_name</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">getfqdn</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">())</span>
+                <span class="n">private_ip</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="n">host_name</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">_</span><span class="p">:</span>
+                <span class="k">pass</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">private_ip</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, The NumS Team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
