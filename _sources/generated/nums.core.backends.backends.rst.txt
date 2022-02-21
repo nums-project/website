@@ -1,0 +1,7 @@
+nums.core.backends.backends module
+==================================
+
+.. automodule:: nums.core.backends.backends
+   :members:
+   :undoc-members:
+   :show-inheritance:

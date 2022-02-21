@@ -124,7 +124,7 @@
             <label class="sr-only">GitHub</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+          <a class="nav-link" href="https://twitter.com/nums_project" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
             <label class="sr-only">Twitter</label></a>
         </li>
       </ul>
@@ -197,6 +197,42 @@
 <span class="kn">from</span> <span class="nn">nums.core.array.blockarray</span> <span class="kn">import</span> <span class="n">BlockArray</span>
 <span class="kn">from</span> <span class="nn">nums.core.array.random</span> <span class="kn">import</span> <span class="n">NumsRandomState</span>
 <span class="kn">from</span> <span class="nn">nums.core</span> <span class="kn">import</span> <span class="n">linalg</span>
+
+<span class="c1"># The GLMs are expressed in the following notation.</span>
+<span class="c1"># f(y) = exp((y.T @ theta - b(theta))/phi + c(y, phi))</span>
+<span class="c1"># phi is the dispersion parameter.</span>
+<span class="c1"># theta is the parameter of a model in canonical form.</span>
+<span class="c1"># b is the cumulant generating function.</span>
+<span class="c1">#</span>
+<span class="c1"># The link function is expressed as follows.</span>
+<span class="c1"># E(Y | X) = mu</span>
+<span class="c1"># Define the linear predictor eta = X.T @ beta</span>
+<span class="c1"># Define g as the link function, so that g(mu) = eta</span>
+<span class="c1"># E(Y | X) = g^{-1}(eta)</span>
+<span class="c1">#</span>
+<span class="c1"># The canonical link is given by g(mu) = (b&#39;)^{-1}(mu) = theta</span>
+<span class="c1">#</span>
+<span class="c1"># Note, for GLMs, the mean mu is some function of the model&#39;s parameter.</span>
+<span class="c1"># Normal: mu(mu) = mu</span>
+<span class="c1"># Bernoulli: mu(p) = p</span>
+<span class="c1"># Exponential: mu(lambda) = 1 / lambda</span>
+<span class="c1"># Poisson: mu(lambda) = lambda</span>
+<span class="c1"># Dirichlet: mu_i(a) = a_i / sum(a)</span>
+<span class="c1">#</span>
+<span class="c1"># Theta is generally a function of the model parameter:</span>
+<span class="c1"># Normal: theta(mu) = mu</span>
+<span class="c1"># Bernoulli: theta(p) = ln(p/(1-p))</span>
+<span class="c1"># Exponential: theta(lambda) = -lambda</span>
+<span class="c1"># Poisson: theta(lambda) = ln(lambda)</span>
+<span class="c1"># ...</span>
+<span class="c1">#</span>
+<span class="c1"># The canonical link maps mu to theta</span>
+<span class="c1"># Normal: mu(mu) = mu, theta(mu) = mu, b(theta) = theta^2/2, g(mu) = mu</span>
+<span class="c1"># Bernoulli:</span>
+<span class="c1">#   mu(p) = p, p(mu) = mu</span>
+<span class="c1">#   theta(p) = ln(p/(1-p)) = theta(mu) = ln(mu/(1-mu))</span>
+<span class="c1">#   b(theta) = log(1 + exp(theta))</span>
+<span class="c1">#   g(mu) = (b&#39;)^{-1}(mu) = ln(mu/(1-mu)) = ln(p/(1-p)) = theta(p)</span>
 
 
 <div class="viewcode-block" id="GLM"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM">[docs]</a><span class="k">class</span> <span class="nc">GLM</span><span class="p">:</span>
@@ -378,9 +414,6 @@
         <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">dev</span> <span class="o">/</span> <span class="n">dev_null</span></div>
 
 <div class="viewcode-block" id="GLM.obj_penalty"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.obj_penalty">[docs]</a>    <span class="k">def</span> <span class="nf">obj_penalty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the penalty term for the object function used in regularization.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l1&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l2&quot;</span><span class="p">:</span>
@@ -393,9 +426,6 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unexpected call to objective term, penalty=None.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GLM.grad_penalty"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.grad_penalty">[docs]</a>    <span class="k">def</span> <span class="nf">grad_penalty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the penalty for the gradient used in regularization.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l1&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_l1penalty_vec</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">map_uop</span><span class="p">(</span><span class="s2">&quot;sign&quot;</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l2&quot;</span><span class="p">:</span>
@@ -408,9 +438,6 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unexpected call to objective term, penalty=None.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GLM.hessian_penalty"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.GLM.hessian_penalty">[docs]</a>    <span class="k">def</span> <span class="nf">hessian_penalty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the norm penalty for the hessian used in regularization.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l1&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="mf">0.0</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;l2&quot;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="o">==</span> <span class="s2">&quot;elasticnet&quot;</span><span class="p">:</span>
@@ -453,9 +480,6 @@
         <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">beta</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Computes the gradient with regards to beta.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">mu</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">mu</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
@@ -465,92 +489,19 @@
         <span class="k">return</span> <span class="n">r</span></div>
 
 <div class="viewcode-block" id="LinearRegressionBase.hessian"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LinearRegressionBase.hessian">[docs]</a>    <span class="k">def</span> <span class="nf">hessian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span> <span class="n">BlockArray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Computes the hessian with regards to the hessian penalty.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">defer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">@</span> <span class="n">X</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_penalty</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">r</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hessian_penalty</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">r</span></div>
 
 <div class="viewcode-block" id="LinearRegressionBase.deviance"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LinearRegressionBase.deviance">[docs]</a>    <span class="k">def</span> <span class="nf">deviance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Computes the deviance of the model with regards to y_pred.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">two</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LinearRegressionBase.predict"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LinearRegressionBase.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">:</span> <span class="n">BlockArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BlockArray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Predict using the Linear Regression model. Calls foward internally.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="LinearRegression"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.LinearRegression">[docs]</a><span class="k">class</span> <span class="nc">LinearRegression</span><span class="p">(</span><span class="n">LinearRegressionBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Ordinary least squares Linear Regression.</span>
-
-<span class="sd">    LinearRegression fits a linear model with coefficients w = (w1, ..., wp)</span>
-<span class="sd">    to minimize the residual sum of squares between the observed targets in</span>
-<span class="sd">    the dataset, and the targets predicted by the linear approximation.</span>
-
-<span class="sd">    This docstring was copied from sklearn.linear_model.LinearRegression.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    tol : float, default=0.0001</span>
-<span class="sd">        Tolerance for stopping criteria.</span>
-
-<span class="sd">    max_iter : int, default=100</span>
-<span class="sd">        Maximum number of iterations taken for the solvers to converge.</span>
-
-<span class="sd">    solver : {&#39;newton&#39;}, default=&#39;newton&#39;</span>
-<span class="sd">        Algorithm to use in the optimization problem. Default is ‘newton’.</span>
-
-<span class="sd">    lr : float, default=0.01</span>
-<span class="sd">        Learning Rate. Used in the optimization of the model.</span>
-
-<span class="sd">    random_state : NumsRandomState, default=None</span>
-<span class="sd">        Seeds for randomness in model.</span>
-
-<span class="sd">    fit_intercept : bool, default=True</span>
-<span class="sd">        The intercept of regression is calculated for this model.</span>
-<span class="sd">        When data is centered, the intercept is calculated to 0.</span>
-<span class="sd">        Setting this option to False is unsupported.</span>
-
-<span class="sd">    normalize : bool, default=False</span>
-<span class="sd">        Normalizes the regressors before regression.</span>
-<span class="sd">        Setting this option to True is not yet supported.</span>
-
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-<span class="sd">    _penalty</span>
-<span class="sd">    _lambda</span>
-<span class="sd">    _l1penalty</span>
-<span class="sd">    _l1penalty_vec</span>
-<span class="sd">    _l2penalty</span>
-<span class="sd">    _l2penalty_vec</span>
-<span class="sd">    _l2penalty_diag</span>
-<span class="sd">    alpha</span>
-<span class="sd">    _tol : corresponds to the parameter tol</span>
-<span class="sd">    _max_iter: corresponds to the parameter max_iter</span>
-<span class="sd">    _opt: corresponds to the parameter solver</span>
-<span class="sd">    _lr: corresponds to the parameter lr</span>
-<span class="sd">    _beta: BlockArray used internally for the optimizer to solve for the beta coefficients of the model</span>
-<span class="sd">    _beta0</span>
-
-<span class="sd">    See Also</span>
-<span class="sd">    --------</span>
-<span class="sd">    Ridge : Ridge regression addresses some of the</span>
-<span class="sd">        problems of Ordinary Least Squares by imposing a penalty on the</span>
-<span class="sd">        size of the coefficients with l2 regularization.</span>
-<span class="sd">    Lasso : The Lasso is a linear model that estimates</span>
-<span class="sd">        sparse coefficients with l1 regularization.</span>
-<span class="sd">    ElasticNet : Elastic-Net is a linear regression</span>
-<span class="sd">        model trained with both l1 and l2 -norm regularization of the</span>
-<span class="sd">        coefficients.</span>
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">tol</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
@@ -573,73 +524,6 @@
 
 
 <div class="viewcode-block" id="Ridge"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.Ridge">[docs]</a><span class="k">class</span> <span class="nc">Ridge</span><span class="p">(</span><span class="n">LinearRegressionBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Linear least squares with l2 regularization.</span>
-
-<span class="sd">    Minimizes the objective function::</span>
-
-<span class="sd">    ||y - Xw||^2_2 + alpha * ||w||^2_2</span>
-
-<span class="sd">    This model solves a regression model where the loss function is</span>
-<span class="sd">    the linear least squares function and regularization is given by</span>
-<span class="sd">    the l2-norm. Also known as Ridge Regression or Tikhonov regularization.</span>
-<span class="sd">    This estimator has built-in support for multi-variate regression</span>
-<span class="sd">    (i.e., when y is a 2d BlockArray of shape (n_samples, n_targets)).</span>
-
-<span class="sd">    This docstring was copied from sklearn.linear_model.ridge_regression.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    alpha : float or array-like of shape (n_targets,)</span>
-<span class="sd">        Regularization strength; must be a positive float. Regularization</span>
-<span class="sd">        improves the conditioning of the problem and reduces the variance of</span>
-<span class="sd">        the estimates. Larger values specify stronger regularization.</span>
-<span class="sd">        Alpha corresponds to ``1 / (2C)`` in other linear models such as</span>
-<span class="sd">        :class:`~sklearn.linear_model.LogisticRegression` or</span>
-<span class="sd">        :class:`~sklearn.svm.LinearSVC`. If an array is passed, penalties are</span>
-<span class="sd">        assumed to be specific to the targets. Hence they must correspond in</span>
-<span class="sd">        number.</span>
-
-<span class="sd">    tol : float, default=0.0001</span>
-<span class="sd">        Tolerance for stopping criteria.</span>
-
-<span class="sd">    max_iter : int, default=100</span>
-<span class="sd">        Maximum number of iterations taken for the solvers to converge.</span>
-
-<span class="sd">    solver : {&#39;newton&#39;}, default=&#39;newton&#39;</span>
-<span class="sd">        Algorithm to use in the optimization problem. Default is ‘newton’.</span>
-
-<span class="sd">    lr : float, default=0.01</span>
-<span class="sd">        Learning Rate. Used in the optimization of the model.</span>
-
-<span class="sd">    random_state : NumsRandomState, default=None</span>
-<span class="sd">        Seeds for randomness in model.</span>
-
-<span class="sd">    fit_intercept : bool, default=True</span>
-<span class="sd">        The intercept of regression is calculated for this model.</span>
-<span class="sd">        When data is centered, the intercept is calculated to 0.</span>
-<span class="sd">        Setting this option to False is unsupported.</span>
-
-<span class="sd">    normalize : bool, default=False</span>
-<span class="sd">        Normalizes the regressors before regression.</span>
-<span class="sd">        Setting this option to True is not yet supported.</span>
-
-<span class="sd">    Attributes</span>
-<span class="sd">    ----------</span>
-<span class="sd">    _penalty</span>
-<span class="sd">    _lambda</span>
-<span class="sd">    _l1penalty</span>
-<span class="sd">    _l1penalty_vec</span>
-<span class="sd">    _l2penalty</span>
-<span class="sd">    _l2penalty_vec</span>
-<span class="sd">    _l2penalty_diag</span>
-<span class="sd">    alpha</span>
-<span class="sd">    _tol : corresponds to the parameter tol</span>
-<span class="sd">    _max_iter: corresponds to the parameter max_iter</span>
-<span class="sd">    _opt: corresponds to the parameter solver</span>
-<span class="sd">    _lr: corresponds to the parameter lr</span>
-<span class="sd">    _beta: BlockArray used internally for the optimizer to solve for the beta coefficients of the model</span>
-<span class="sd">    _beta0</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
@@ -665,83 +549,6 @@
 
 
 <div class="viewcode-block" id="ElasticNet"><a class="viewcode-back" href="../../../generated/nums.models.glms.html#nums.models.glms.ElasticNet">[docs]</a><span class="k">class</span> <span class="nc">ElasticNet</span><span class="p">(</span><span class="n">LinearRegressionBase</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Linear regression with combined L1 and L2 priors as regularizer.</span>
-
-<span class="sd">    Minimizes the objective function::</span>
-
-<span class="sd">            1 / (2 * n_samples) * ||y - Xw||^2_2</span>
-<span class="sd">            + alpha * l1_ratio * ||w||_1</span>
-<span class="sd">            + 0.5 * alpha * (1 - l1_ratio) * ||w||^2_2</span>
-
-<span class="sd">    If you are interested in controlling the L1 and L2 penalty</span>
-<span class="sd">    separately, keep in mind that this is equivalent to::</span>
-
-<span class="sd">            a * ||w||_1 + 0.5 * b * ||w||_2^2</span>
-
-<span class="sd">    where::</span>
-
-<span class="sd">            alpha = a + b and l1_ratio = a / (a + b)</span>
-
-<span class="sd">    The parameter l1_ratio corresponds to alpha in the glmnet R package while</span>
-<span class="sd">    alpha corresponds to the lambda parameter in glmnet. Specifically, l1_ratio</span>
-<span class="sd">    = 1 is the lasso penalty. Currently, l1_ratio &lt;= 0.01 is not reliable,</span>
-<span class="sd">    unless you supply your own sequence of alpha.</span>
-
-<span class="sd">    This docstring was copied from sklearn.linear_model.ElasticNet.</span>
-
-<span class="sd">   Parameters</span>
-<span class="sd">   ----------</span>
-<span class="sd">   alpha : float or array-like of shape (n_targets,)</span>
-<span class="sd">       Regularization strength; must be a positive float. Regularization</span>
-<span class="sd">       improves the conditioning of the problem and reduces the variance of</span>
-<span class="sd">       the estimates. Larger values specify stronger regularization.</span>
-<span class="sd">       Alpha corresponds to ``1 / (2C)`` in other linear models such as</span>
-<span class="sd">       :class:`~sklearn.linear_model.LogisticRegression` or</span>
-<span class="sd">       :class:`~sklearn.svm.LinearSVC`. If an array is passed, penalties are</span>
-<span class="sd">       assumed to be specific to the targets. Hence they must correspond in</span>
-<span class="sd">       number.</span>
-
-<span class="sd">   tol : float, default=0.0001</span>
-<span class="sd">       Tolerance for stopping criteria.</span>
-
-<span class="sd">   max_iter : int, default=100</span>
-<span class="sd">       Maximum number of iterations taken for the solvers to converge.</span>
-
-<span class="sd">   solver : {&#39;newton&#39;}, default=&#39;newton&#39;</span>
-<span class="sd">       Algorithm to use in the optimization problem. Default is ‘newton’.</span>
-
-<span class="sd">   lr : float, default=0.01</span>
-<span class="sd">       Learning Rate. Used in the optimization of the model.</span>
-
-<span class="sd">   random_state : NumsRandomState, default=None</span>
-<span class="sd">       Seeds for randomness in model.</span>
-
-<span class="sd">   fit_intercept : bool, default=True</span>
-<span class="sd">       The intercept of regression is calculated for this model.</span>
-<span class="sd">       When data is centered, the intercept is calculated to 0.</span>
-<span class="sd">       Setting this option to False is unsupported.</span>
-
-<span class="sd">   normalize : bool, default=False</span>
-<span class="sd">       Normalizes the regressors before regression.</span>
-<span class="sd">       Setting this option to True is not yet supported.</span>
-
-<span class="sd">   Attributes</span>
-<span class="sd">   ----------</span>
-<span class="sd">   _penalty</span>
-<span class="sd">   _lambda</span>
-<span class="sd">   _l1penalty</span>
-<span class="sd">   _l1penalty_vec</span>
-<span class="sd">   _l2penalty</span>
-<span class="sd">   _l2penalty_vec</span>
-<span class="sd">   _l2penalty_diag</span>
-<span class="sd">   alpha</span>
-<span class="sd">   _tol : corresponds to the parameter tol</span>
-<span class="sd">   _max_iter: corresponds to the parameter max_iter</span>
-<span class="sd">   _opt: corresponds to the parameter solver</span>
-<span class="sd">   _lr: corresponds to the parameter lr</span>
-<span class="sd">   _beta: BlockArray used internally for the optimizer to solve for the beta coefficients of the model</span>
-<span class="sd">   _beta0</span>
-<span class="sd">   &quot;&quot;&quot;</span>
     <span class="c1"># Reference: https://glm-tools.github.io/pyglmnet/tutorial.html</span>
     <span class="c1"># sklearn documentation suggests lasso and elastic net have different coefficients</span>
     <span class="c1"># than linear regression, but this does not appear to be the case in any other source.</span>

@@ -1,0 +1,18 @@
+nums.core.backends package
+==========================
+
+.. automodule:: nums.core.backends
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   nums.core.backends.backend_interface
+   nums.core.backends.backends
+   nums.core.backends.filesystem
+   nums.core.backends.utils

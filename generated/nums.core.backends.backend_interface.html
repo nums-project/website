@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nums.core.systems.utils module &#8212; NumS  documentation</title>
+    <title>nums.core.backends.backend_interface module &#8212; NumS  documentation</title>
     
     <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 <link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -124,7 +124,7 @@
             <label class="sr-only">GitHub</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+          <a class="nav-link" href="https://twitter.com/nums_project" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
             <label class="sr-only">Twitter</label></a>
         </li>
       </ul>
@@ -200,19 +200,34 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="nums.core.cmds.html">
-   nums.core.cmds package
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="nums.core.backends.html">
+   nums.core.backends package
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
   <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
-  <ul>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     nums.core.backends.backend_interface module
+    </a>
+   </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="nums.core.cmds.api_coverage.html">
-     nums.core.cmds.api_coverage module
+    <a class="reference internal" href="nums.core.backends.backends.html">
+     nums.core.backends.backends module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.backends.filesystem.html">
+     nums.core.backends.filesystem module
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="nums.core.backends.utils.html">
+     nums.core.backends.utils module
     </a>
    </li>
   </ul>
@@ -283,38 +298,6 @@
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="nums.core.systems.html">
-   nums.core.systems package
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/>
-  <label for="toctree-checkbox-6">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="nums.core.systems.filesystem.html">
-     nums.core.systems.filesystem module
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nums.core.systems.system_interface.html">
-     nums.core.systems.system_interface module
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="nums.core.systems.systems.html">
-     nums.core.systems.systems module
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     nums.core.systems.utils module
-    </a>
-   </li>
-  </ul>
- </li>
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -330,11 +313,6 @@
  <li class="toctree-l1">
   <a class="reference internal" href="nums.core.settings.html">
    nums.core.settings module
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="nums.core.utils.html">
-   nums.core.utils module
   </a>
  </li>
  <li class="toctree-l1">
@@ -381,46 +359,8 @@
               
               <div>
                 
-  <div class="section" id="module-nums.core.systems.utils">
-<span id="nums-core-systems-utils-module"></span><h1>nums.core.systems.utils module<a class="headerlink" href="#module-nums.core.systems.utils" title="Permalink to this headline"></a></h1>
-<dl class="py function">
-<dt id="nums.core.systems.utils.check_implementation">
-<code class="sig-prename descclassname"><span class="pre">nums.core.systems.utils.</span></code><code class="sig-name descname"><span class="pre">check_implementation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interface_cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">imp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/utils.html#check_implementation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.utils.check_implementation" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="nums.core.systems.utils.extract_functions">
-<code class="sig-prename descclassname"><span class="pre">nums.core.systems.utils.</span></code><code class="sig-name descname"><span class="pre">extract_functions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imp_cls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remove_self</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/utils.html#extract_functions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.utils.extract_functions" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="nums.core.systems.utils.get_instance_functions">
-<code class="sig-prename descclassname"><span class="pre">nums.core.systems.utils.</span></code><code class="sig-name descname"><span class="pre">get_instance_functions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">class_inst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/utils.html#get_instance_functions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.utils.get_instance_functions" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="nums.core.systems.utils.get_module_functions">
-<code class="sig-prename descclassname"><span class="pre">nums.core.systems.utils.</span></code><code class="sig-name descname"><span class="pre">get_module_functions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/utils.html#get_module_functions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.utils.get_module_functions" title="Permalink to this definition"></a></dt>
-<dd><p>Finds functions in module.
-:param module: module: A Python module.
-:return: A dict of names mapped to functions, builtins or ufuncs in <cite>module</cite>.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="nums.core.systems.utils.get_num_cores">
-<code class="sig-prename descclassname"><span class="pre">nums.core.systems.utils.</span></code><code class="sig-name descname"><span class="pre">get_num_cores</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reserved_for_os</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/utils.html#get_num_cores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.utils.get_num_cores" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="nums.core.systems.utils.get_private_ip">
-<code class="sig-prename descclassname"><span class="pre">nums.core.systems.utils.</span></code><code class="sig-name descname"><span class="pre">get_private_ip</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/utils.html#get_private_ip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.utils.get_private_ip" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="nums.core.systems.utils.method_meta">
-<code class="sig-prename descclassname"><span class="pre">nums.core.systems.utils.</span></code><code class="sig-name descname"><span class="pre">method_meta</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_returns</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/core/systems/utils.html#method_meta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.core.systems.utils.method_meta" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+  <div class="section" id="nums-core-backends-backend-interface-module">
+<h1>nums.core.backends.backend_interface module<a class="headerlink" href="#nums-core-backends-backend-interface-module" title="Permalink to this headline"></a></h1>
 </div>
 
 

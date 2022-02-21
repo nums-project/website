@@ -13,11 +13,10 @@ Subpackages
    :maxdepth: 4
 
    nums.core.array
-   nums.core.cmds
+   nums.core.backends
    nums.core.compute
    nums.core.grid
    nums.core.storage
-   nums.core.systems
 
 Submodules
 ----------
@@ -28,5 +27,4 @@ Submodules
    nums.core.application_manager
    nums.core.linalg
    nums.core.settings
-   nums.core.utils
    nums.core.version

@@ -124,7 +124,7 @@
             <label class="sr-only">GitHub</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://twitter.com/kanyewest" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
+          <a class="nav-link" href="https://twitter.com/nums_project" rel="noopener" target="_blank" title="Twitter"><span><i class="fab fa-twitter-square"></i></span>
             <label class="sr-only">Twitter</label></a>
         </li>
       </ul>
@@ -203,148 +203,6 @@
 <dt id="nums.models.glms.ElasticNet">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">ElasticNet</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">l1_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#ElasticNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.ElasticNet" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#nums.models.glms.LinearRegressionBase" title="nums.models.glms.LinearRegressionBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.models.glms.LinearRegressionBase</span></code></a></p>
-<p>Linear regression with combined L1 and L2 priors as regularizer.</p>
-<blockquote>
-<div><p>Minimizes the objective function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n_samples</span><span class="p">)</span> <span class="o">*</span> <span class="o">||</span><span class="n">y</span> <span class="o">-</span> <span class="n">Xw</span><span class="o">||^</span><span class="mi">2_2</span>
-<span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">l1_ratio</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||</span><span class="n">_1</span>
-<span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">l1_ratio</span><span class="p">)</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||^</span><span class="mi">2_2</span>
-</pre></div>
-</div>
-<p>If you are interested in controlling the L1 and L2 penalty
-separately, keep in mind that this is equivalent to:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||</span><span class="n">_1</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">b</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||</span><span class="n">_2</span><span class="o">^</span><span class="mi">2</span>
-</pre></div>
-</div>
-<p>where:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="ow">and</span> <span class="n">l1_ratio</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The parameter l1_ratio corresponds to alpha in the glmnet R package while
-alpha corresponds to the lambda parameter in glmnet. Specifically, l1_ratio
-= 1 is the lasso penalty. Currently, l1_ratio &lt;= 0.01 is not reliable,
-unless you supply your own sequence of alpha.</p>
-<p>This docstring was copied from sklearn.linear_model.ElasticNet.</p>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>alpha</strong> (<em>float</em><em> or </em><em>array-like of shape</em><em> (</em><em>n_targets</em><em>,</em><em>)</em>) – Regularization strength; must be a positive float. Regularization
-improves the conditioning of the problem and reduces the variance of
-the estimates. Larger values specify stronger regularization.
-Alpha corresponds to <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(2C)</span></code> in other linear models such as
-<code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code> or
-<code class="xref py py-class docutils literal notranslate"><span class="pre">LinearSVC</span></code>. If an array is passed, penalties are
-assumed to be specific to the targets. Hence they must correspond in
-number.</p></li>
-<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>default=0.0001</em>) – Tolerance for stopping criteria.</p></li>
-<li><p><strong>max_iter</strong> (<em>int</em><em>, </em><em>default=100</em>) – Maximum number of iterations taken for the solvers to converge.</p></li>
-<li><p><strong>solver</strong> (<em>{'newton'}</em><em>, </em><em>default='newton'</em>) – Algorithm to use in the optimization problem. Default is ‘newton’.</p></li>
-<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>default=0.01</em>) – Learning Rate. Used in the optimization of the model.</p></li>
-<li><p><strong>random_state</strong> (<a class="reference internal" href="nums.core.array.random.html#nums.core.array.random.NumsRandomState" title="nums.core.array.random.NumsRandomState"><em>NumsRandomState</em></a><em>, </em><em>default=None</em>) – Seeds for randomness in model.</p></li>
-<li><p><strong>fit_intercept</strong> (<em>bool</em><em>, </em><em>default=True</em>) – The intercept of regression is calculated for this model.
-When data is centered, the intercept is calculated to 0.
-Setting this option to False is unsupported.</p></li>
-<li><p><strong>normalize</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Normalizes the regressors before regression.
-Setting this option to True is not yet supported.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._penalty">
-<code class="sig-name descname"><span class="pre">_penalty</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._penalty" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._lambda">
-<code class="sig-name descname"><span class="pre">_lambda</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._lambda" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._l1penalty">
-<code class="sig-name descname"><span class="pre">_l1penalty</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._l1penalty" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._l1penalty_vec">
-<code class="sig-name descname"><span class="pre">_l1penalty_vec</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._l1penalty_vec" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._l2penalty">
-<code class="sig-name descname"><span class="pre">_l2penalty</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._l2penalty" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._l2penalty_vec">
-<code class="sig-name descname"><span class="pre">_l2penalty_vec</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._l2penalty_vec" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._l2penalty_diag">
-<code class="sig-name descname"><span class="pre">_l2penalty_diag</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._l2penalty_diag" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet.alpha">
-<code class="sig-name descname"><span class="pre">alpha</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet.alpha" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._tol">
-<code class="sig-name descname"><span class="pre">_tol</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._tol" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>corresponds to the parameter tol</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._max_iter">
-<code class="sig-name descname"><span class="pre">_max_iter</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._max_iter" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>corresponds to the parameter max_iter</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._opt">
-<code class="sig-name descname"><span class="pre">_opt</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._opt" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>corresponds to the parameter solver</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._lr">
-<code class="sig-name descname"><span class="pre">_lr</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._lr" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>corresponds to the parameter lr</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._beta">
-<code class="sig-name descname"><span class="pre">_beta</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._beta" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>BlockArray used internally for the optimizer to solve for the beta coefficients of the model</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.ElasticNet._beta0">
-<code class="sig-name descname"><span class="pre">_beta0</span></code><a class="headerlink" href="#nums.models.glms.ElasticNet._beta0" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -405,8 +263,7 @@ Setting this option to True is not yet supported.</p></li>
 <dl class="py method">
 <dt id="nums.models.glms.GLM.grad_penalty">
 <code class="sig-name descname"><span class="pre">grad_penalty</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.grad_penalty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.grad_penalty" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the penalty for the gradient used in regularization.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt id="nums.models.glms.GLM.gradient">
@@ -421,8 +278,7 @@ Setting this option to True is not yet supported.</p></li>
 <dl class="py method">
 <dt id="nums.models.glms.GLM.hessian_penalty">
 <code class="sig-name descname"><span class="pre">hessian_penalty</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.hessian_penalty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.hessian_penalty" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the norm penalty for the hessian used in regularization.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt id="nums.models.glms.GLM.link_inv">
@@ -432,8 +288,7 @@ Setting this option to True is not yet supported.</p></li>
 <dl class="py method">
 <dt id="nums.models.glms.GLM.obj_penalty">
 <code class="sig-name descname"><span class="pre">obj_penalty</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#GLM.obj_penalty"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.GLM.obj_penalty" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the penalty term for the object function used in regularization.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt id="nums.models.glms.GLM.objective">
@@ -457,134 +312,6 @@ Setting this option to True is not yet supported.</p></li>
 <dt id="nums.models.glms.LinearRegression">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">LinearRegression</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegression"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegression" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#nums.models.glms.LinearRegressionBase" title="nums.models.glms.LinearRegressionBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.models.glms.LinearRegressionBase</span></code></a></p>
-<p>Ordinary least squares Linear Regression.</p>
-<p>LinearRegression fits a linear model with coefficients w = (w1, …, wp)
-to minimize the residual sum of squares between the observed targets in
-the dataset, and the targets predicted by the linear approximation.</p>
-<p>This docstring was copied from sklearn.linear_model.LinearRegression.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>default=0.0001</em>) – Tolerance for stopping criteria.</p></li>
-<li><p><strong>max_iter</strong> (<em>int</em><em>, </em><em>default=100</em>) – Maximum number of iterations taken for the solvers to converge.</p></li>
-<li><p><strong>solver</strong> (<em>{'newton'}</em><em>, </em><em>default='newton'</em>) – Algorithm to use in the optimization problem. Default is ‘newton’.</p></li>
-<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>default=0.01</em>) – Learning Rate. Used in the optimization of the model.</p></li>
-<li><p><strong>random_state</strong> (<a class="reference internal" href="nums.core.array.random.html#nums.core.array.random.NumsRandomState" title="nums.core.array.random.NumsRandomState"><em>NumsRandomState</em></a><em>, </em><em>default=None</em>) – Seeds for randomness in model.</p></li>
-<li><p><strong>fit_intercept</strong> (<em>bool</em><em>, </em><em>default=True</em>) – The intercept of regression is calculated for this model.
-When data is centered, the intercept is calculated to 0.
-Setting this option to False is unsupported.</p></li>
-<li><p><strong>normalize</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Normalizes the regressors before regression.
-Setting this option to True is not yet supported.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._penalty">
-<code class="sig-name descname"><span class="pre">_penalty</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._penalty" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._lambda">
-<code class="sig-name descname"><span class="pre">_lambda</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._lambda" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._l1penalty">
-<code class="sig-name descname"><span class="pre">_l1penalty</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._l1penalty" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._l1penalty_vec">
-<code class="sig-name descname"><span class="pre">_l1penalty_vec</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._l1penalty_vec" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._l2penalty">
-<code class="sig-name descname"><span class="pre">_l2penalty</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._l2penalty" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._l2penalty_vec">
-<code class="sig-name descname"><span class="pre">_l2penalty_vec</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._l2penalty_vec" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._l2penalty_diag">
-<code class="sig-name descname"><span class="pre">_l2penalty_diag</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._l2penalty_diag" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression.alpha">
-<code class="sig-name descname"><span class="pre">alpha</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression.alpha" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._tol">
-<code class="sig-name descname"><span class="pre">_tol</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._tol" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>corresponds to the parameter tol</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._max_iter">
-<code class="sig-name descname"><span class="pre">_max_iter</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._max_iter" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>corresponds to the parameter max_iter</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._opt">
-<code class="sig-name descname"><span class="pre">_opt</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._opt" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>corresponds to the parameter solver</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._lr">
-<code class="sig-name descname"><span class="pre">_lr</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._lr" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>corresponds to the parameter lr</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._beta">
-<code class="sig-name descname"><span class="pre">_beta</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._beta" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>BlockArray used internally for the optimizer to solve for the beta coefficients of the model</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.LinearRegression._beta0">
-<code class="sig-name descname"><span class="pre">_beta0</span></code><a class="headerlink" href="#nums.models.glms.LinearRegression._beta0" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<dl class="simple">
-<dt><a class="reference internal" href="#nums.models.glms.Ridge" title="nums.models.glms.Ridge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Ridge</span></code></a></dt><dd><p>Ridge regression addresses some of the problems of Ordinary Least Squares by imposing a penalty on the size of the coefficients with l2 regularization.</p>
-</dd>
-<dt><a class="reference internal" href="#nums.models.glms.Lasso" title="nums.models.glms.Lasso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Lasso</span></code></a></dt><dd><p>The Lasso is a linear model that estimates sparse coefficients with l1 regularization.</p>
-</dd>
-<dt><a class="reference internal" href="#nums.models.glms.ElasticNet" title="nums.models.glms.ElasticNet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ElasticNet</span></code></a></dt><dd><p>Elastic-Net is a linear regression model trained with both l1 and l2 -norm regularization of the coefficients.</p>
-</dd>
-</dl>
-</div>
-<p class="rubric">Notes</p>
 </dd></dl>
 
 <dl class="py class">
@@ -594,20 +321,17 @@ Setting this option to True is not yet supported.</p></li>
 <dl class="py method">
 <dt id="nums.models.glms.LinearRegressionBase.deviance">
 <code class="sig-name descname"><span class="pre">deviance</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegressionBase.deviance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegressionBase.deviance" title="Permalink to this definition"></a></dt>
-<dd><p>Computes the deviance of the model with regards to y_pred.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt id="nums.models.glms.LinearRegressionBase.gradient">
 <code class="sig-name descname"><span class="pre">gradient</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegressionBase.gradient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegressionBase.gradient" title="Permalink to this definition"></a></dt>
-<dd><p>Computes the gradient with regards to beta.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt id="nums.models.glms.LinearRegressionBase.hessian">
 <code class="sig-name descname"><span class="pre">hessian</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegressionBase.hessian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegressionBase.hessian" title="Permalink to this definition"></a></dt>
-<dd><p>Computes the hessian with regards to the hessian penalty.</p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt id="nums.models.glms.LinearRegressionBase.link_inv">
@@ -622,8 +346,7 @@ Setting this option to True is not yet supported.</p></li>
 <dl class="py method">
 <dt id="nums.models.glms.LinearRegressionBase.predict">
 <code class="sig-name descname"><span class="pre">predict</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#LinearRegressionBase.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.LinearRegressionBase.predict" title="Permalink to this definition"></a></dt>
-<dd><p>Predict using the Linear Regression model. Calls foward internally.</p>
-<dl class="field-list simple">
+<dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference internal" href="nums.core.array.blockarray.html#nums.core.array.blockarray.BlockArray" title="nums.core.array.blockarray.BlockArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockArray</span></code></a></p>
 </dd>
@@ -739,136 +462,6 @@ Setting this option to True is not yet supported.</p></li>
 <dt id="nums.models.glms.Ridge">
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">nums.models.glms.</span></code><code class="sig-name descname"><span class="pre">Ridge</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'newton'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fit_intercept</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/nums/models/glms.html#Ridge"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nums.models.glms.Ridge" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#nums.models.glms.LinearRegressionBase" title="nums.models.glms.LinearRegressionBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">nums.models.glms.LinearRegressionBase</span></code></a></p>
-<p>Linear least squares with l2 regularization.</p>
-<p>Minimizes the objective function:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">||</span><span class="n">y</span> <span class="o">-</span> <span class="n">Xw</span><span class="o">||^</span><span class="mi">2_2</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="o">||</span><span class="n">w</span><span class="o">||^</span><span class="mi">2_2</span>
-</pre></div>
-</div>
-<p>This model solves a regression model where the loss function is
-the linear least squares function and regularization is given by
-the l2-norm. Also known as Ridge Regression or Tikhonov regularization.
-This estimator has built-in support for multi-variate regression
-(i.e., when y is a 2d BlockArray of shape (n_samples, n_targets)).</p>
-<p>This docstring was copied from sklearn.linear_model.ridge_regression.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>alpha</strong> (<em>float</em><em> or </em><em>array-like of shape</em><em> (</em><em>n_targets</em><em>,</em><em>)</em>) – Regularization strength; must be a positive float. Regularization
-improves the conditioning of the problem and reduces the variance of
-the estimates. Larger values specify stronger regularization.
-Alpha corresponds to <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">/</span> <span class="pre">(2C)</span></code> in other linear models such as
-<code class="xref py py-class docutils literal notranslate"><span class="pre">LogisticRegression</span></code> or
-<code class="xref py py-class docutils literal notranslate"><span class="pre">LinearSVC</span></code>. If an array is passed, penalties are
-assumed to be specific to the targets. Hence they must correspond in
-number.</p></li>
-<li><p><strong>tol</strong> (<em>float</em><em>, </em><em>default=0.0001</em>) – Tolerance for stopping criteria.</p></li>
-<li><p><strong>max_iter</strong> (<em>int</em><em>, </em><em>default=100</em>) – Maximum number of iterations taken for the solvers to converge.</p></li>
-<li><p><strong>solver</strong> (<em>{'newton'}</em><em>, </em><em>default='newton'</em>) – Algorithm to use in the optimization problem. Default is ‘newton’.</p></li>
-<li><p><strong>lr</strong> (<em>float</em><em>, </em><em>default=0.01</em>) – Learning Rate. Used in the optimization of the model.</p></li>
-<li><p><strong>random_state</strong> (<a class="reference internal" href="nums.core.array.random.html#nums.core.array.random.NumsRandomState" title="nums.core.array.random.NumsRandomState"><em>NumsRandomState</em></a><em>, </em><em>default=None</em>) – Seeds for randomness in model.</p></li>
-<li><p><strong>fit_intercept</strong> (<em>bool</em><em>, </em><em>default=True</em>) – The intercept of regression is calculated for this model.
-When data is centered, the intercept is calculated to 0.
-Setting this option to False is unsupported.</p></li>
-<li><p><strong>normalize</strong> (<em>bool</em><em>, </em><em>default=False</em>) – Normalizes the regressors before regression.
-Setting this option to True is not yet supported.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._penalty">
-<code class="sig-name descname"><span class="pre">_penalty</span></code><a class="headerlink" href="#nums.models.glms.Ridge._penalty" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._lambda">
-<code class="sig-name descname"><span class="pre">_lambda</span></code><a class="headerlink" href="#nums.models.glms.Ridge._lambda" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._l1penalty">
-<code class="sig-name descname"><span class="pre">_l1penalty</span></code><a class="headerlink" href="#nums.models.glms.Ridge._l1penalty" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._l1penalty_vec">
-<code class="sig-name descname"><span class="pre">_l1penalty_vec</span></code><a class="headerlink" href="#nums.models.glms.Ridge._l1penalty_vec" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._l2penalty">
-<code class="sig-name descname"><span class="pre">_l2penalty</span></code><a class="headerlink" href="#nums.models.glms.Ridge._l2penalty" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._l2penalty_vec">
-<code class="sig-name descname"><span class="pre">_l2penalty_vec</span></code><a class="headerlink" href="#nums.models.glms.Ridge._l2penalty_vec" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._l2penalty_diag">
-<code class="sig-name descname"><span class="pre">_l2penalty_diag</span></code><a class="headerlink" href="#nums.models.glms.Ridge._l2penalty_diag" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge.alpha">
-<code class="sig-name descname"><span class="pre">alpha</span></code><a class="headerlink" href="#nums.models.glms.Ridge.alpha" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._tol">
-<code class="sig-name descname"><span class="pre">_tol</span></code><a class="headerlink" href="#nums.models.glms.Ridge._tol" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>corresponds to the parameter tol</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._max_iter">
-<code class="sig-name descname"><span class="pre">_max_iter</span></code><a class="headerlink" href="#nums.models.glms.Ridge._max_iter" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>corresponds to the parameter max_iter</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._opt">
-<code class="sig-name descname"><span class="pre">_opt</span></code><a class="headerlink" href="#nums.models.glms.Ridge._opt" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>corresponds to the parameter solver</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._lr">
-<code class="sig-name descname"><span class="pre">_lr</span></code><a class="headerlink" href="#nums.models.glms.Ridge._lr" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>corresponds to the parameter lr</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._beta">
-<code class="sig-name descname"><span class="pre">_beta</span></code><a class="headerlink" href="#nums.models.glms.Ridge._beta" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Type</dt>
-<dd class="field-odd"><p>BlockArray used internally for the optimizer to solve for the beta coefficients of the model</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="nums.models.glms.Ridge._beta0">
-<code class="sig-name descname"><span class="pre">_beta0</span></code><a class="headerlink" href="#nums.models.glms.Ridge._beta0" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py function">
